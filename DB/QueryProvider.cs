@@ -39,6 +39,8 @@ namespace FrbaCrucero.DB
                 }
                 return builder.ToString();
             }
-        }  
+        }
+
+        public static string SELECT_FUNCIONALIDADES_NOMBRE = "SELECT * FROM [GD1C2019].[dbo].[Funcionalidad]";
     }
 }

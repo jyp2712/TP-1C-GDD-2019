@@ -30,7 +30,13 @@
         {
             this.lblNombre = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblFuncionalidades = new System.Windows.Forms.Label();
+            this.comboFuncionalidades = new System.Windows.Forms.ComboBox();
+            this.btnAgregar = new System.Windows.Forms.Button();
+            this.btnAtras = new System.Windows.Forms.Button();
+            this.btnCrear = new System.Windows.Forms.Button();
+            this.dataGridFuncionalidadesAgregadas = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFuncionalidadesAgregadas)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNombre
@@ -46,29 +52,80 @@
             // 
             this.txtNombre.Location = new System.Drawing.Point(136, 20);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(100, 20);
+            this.txtNombre.Size = new System.Drawing.Size(214, 20);
             this.txtNombre.TabIndex = 1;
             // 
-            // label1
+            // lblFuncionalidades
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 66);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Funcionalidades:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.lblFuncionalidades.AutoSize = true;
+            this.lblFuncionalidades.Location = new System.Drawing.Point(35, 64);
+            this.lblFuncionalidades.Name = "lblFuncionalidades";
+            this.lblFuncionalidades.Size = new System.Drawing.Size(87, 13);
+            this.lblFuncionalidades.TabIndex = 2;
+            this.lblFuncionalidades.Text = "Funcionalidades:";
+            this.lblFuncionalidades.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // comboFuncionalidades
+            // 
+            this.comboFuncionalidades.FormattingEnabled = true;
+            this.comboFuncionalidades.Location = new System.Drawing.Point(136, 61);
+            this.comboFuncionalidades.Name = "comboFuncionalidades";
+            this.comboFuncionalidades.Size = new System.Drawing.Size(152, 21);
+            this.comboFuncionalidades.TabIndex = 3;
+            this.comboFuncionalidades.SelectedIndexChanged += new System.EventHandler(this.comboFuncionalidades_SelectedIndexChanged);
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Location = new System.Drawing.Point(294, 61);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(56, 23);
+            this.btnAgregar.TabIndex = 6;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // btnAtras
+            // 
+            this.btnAtras.Location = new System.Drawing.Point(38, 220);
+            this.btnAtras.Name = "btnAtras";
+            this.btnAtras.Size = new System.Drawing.Size(75, 23);
+            this.btnAtras.TabIndex = 7;
+            this.btnAtras.Text = "Atrás";
+            this.btnAtras.UseVisualStyleBackColor = true;
+            // 
+            // btnCrear
+            // 
+            this.btnCrear.Location = new System.Drawing.Point(275, 220);
+            this.btnCrear.Name = "btnCrear";
+            this.btnCrear.Size = new System.Drawing.Size(75, 23);
+            this.btnCrear.TabIndex = 8;
+            this.btnCrear.Text = "Crear";
+            this.btnCrear.UseVisualStyleBackColor = true;
+            // 
+            // dataGridFuncionalidadesAgregadas
+            // 
+            this.dataGridFuncionalidadesAgregadas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridFuncionalidadesAgregadas.Location = new System.Drawing.Point(38, 88);
+            this.dataGridFuncionalidadesAgregadas.Name = "dataGridFuncionalidadesAgregadas";
+            this.dataGridFuncionalidadesAgregadas.Size = new System.Drawing.Size(312, 126);
+            this.dataGridFuncionalidadesAgregadas.TabIndex = 9;
             // 
             // RolAltaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(381, 261);
+            this.Controls.Add(this.dataGridFuncionalidadesAgregadas);
+            this.Controls.Add(this.btnCrear);
+            this.Controls.Add(this.btnAtras);
+            this.Controls.Add(this.btnAgregar);
+            this.Controls.Add(this.comboFuncionalidades);
+            this.Controls.Add(this.lblFuncionalidades);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblNombre);
             this.Name = "RolAltaForm";
             this.Text = "RolAltaForm";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFuncionalidadesAgregadas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -78,6 +135,11 @@
 
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.TextBox txtNombre;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblFuncionalidades;
+        private System.Windows.Forms.ComboBox comboFuncionalidades;
+        private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.Button btnAtras;
+        private System.Windows.Forms.Button btnCrear;
+        private System.Windows.Forms.DataGridView dataGridFuncionalidadesAgregadas;
     }
 }
