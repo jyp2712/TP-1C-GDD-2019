@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.AbmRol
 {
-    public partial class Form1 : Form
+    public partial class RolAltaForm : Form
     {
-        public Form1()
+        public RolAltaForm()
         {
             InitializeComponent();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

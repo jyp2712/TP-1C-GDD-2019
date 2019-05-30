@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaCrucero.DB;
-using System.Security.Cryptography;  
+using System.Security.Cryptography;
+using FrbaCrucero.AbmRol;
 
 namespace FrbaCrucero.Login
 {
@@ -24,7 +25,7 @@ namespace FrbaCrucero.Login
         private void btnAtras_Click(object sender, EventArgs e)
         {
             this.Close();
-            FrbaCrucero.MainForm mainForm = new FrbaCrucero.MainForm();
+            //FrbaCrucero.MainForm mainForm = new FrbaCrucero.MainForm();
             RefToMainForm.Show();
         }
 
@@ -32,7 +33,9 @@ namespace FrbaCrucero.Login
         {
             if (this.checkUserAndPassword())
             {
-                MessageBox.Show("VAAAMOO");
+                this.Hide();
+                RolForm rolForm = new RolForm();
+                rolForm.Show();
                 //TODO abrir form con cosas de administrador
 
                 //TODO setear en 0 la cantidad de reintentos de login.

@@ -9,6 +9,13 @@ namespace FrbaCrucero.DB
 {
     class QueryProvider
     {
+
+        public static string SELECT_ROLES = "SELECT * FROM [GD1C2019].[dbo].[Rol]";
+        public static string DELETE_ROLE(int id) 
+        {
+            return "UPDATE [GD1C2019].[dbo].[Rol] SET rol_estado=0 WHERE id=" + id;
+        }
+        
         public static string LOGIN_QUERY(String user, String password)
         {
             string sha256Password = "\'" + toSHA256(password) + "\'";
