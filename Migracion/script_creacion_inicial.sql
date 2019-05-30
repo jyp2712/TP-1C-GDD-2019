@@ -50,7 +50,7 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
-   	AND TABLE_NAME = 'Rol' 
+    	AND TABLE_NAME = 'Rol' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
 BEGIN
@@ -68,7 +68,7 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
-   	AND TABLE_NAME = 'Funcionalidad' 
+    	AND TABLE_NAME = 'Funcionalidad' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
 BEGIN
@@ -104,7 +104,7 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
-    	AND TABLE_NAME = 'Domicilio' 
+   	AND TABLE_NAME = 'Domicilio' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
 BEGIN
@@ -225,13 +225,12 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
-   	AND TABLE_NAME = 'Crucero' 
+    	AND TABLE_NAME = 'Crucero' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
 BEGIN
 CREATE TABLE [EYE_OF_THE_TRIGGER].[Crucero] (
-	[cruc_id] [numeric](18,0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	[cruc_codigo] [nvarchar](50),
+	[cruc_id] [nvarchar](50) NOT NULL PRIMARY KEY,
 	[cruc_fecha_alta] [datetime],
 	[cruc_nombre] [nvarchar](255),
 	[cruc_modelo] [nvarchar](50),
@@ -248,13 +247,13 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
-    	AND TABLE_NAME = 'CruceroInhabilitado' 
+   	AND TABLE_NAME = 'CruceroInhabilitado' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
 BEGIN
 CREATE TABLE [EYE_OF_THE_TRIGGER].[CruceroInhabilitado] (
 	[inhab_id] [numeric](18,0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	[inhab_crucero_id] [numeric](18,0) NOT NULL,
+	[inhab_crucero_id] [nvarchar](50) NOT NULL,
 	[inhab_fecha_inicio] [datetime],
 	[inhab_fecha_fin] [datetime],
 	[inhab_motivo] [nvarchar](255),
@@ -295,7 +294,7 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [EYE_OF_THE_TRIGGER].[ServicioCrucero] (
 	[serv_id] [numeric](18,0) NOT NULL,
-	[cruc_id] [numeric](18,0) NOT NULL,
+	[cruc_id] [nvarchar](50) NOT NULL,
 	CONSTRAINT PK_SERVICIO_CRUCERO PRIMARY KEY ([serv_id], [cruc_id]),
 	CONSTRAINT PK_SERVICIO_CRUCERO_SERVICIO FOREIGN KEY ([serv_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Servicio] ([serv_id]),
 	CONSTRAINT PK_SERVICIO_CRUCERO_CRUCERO FOREIGN KEY ([cruc_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Crucero] ([cruc_id])
@@ -309,7 +308,7 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
-    	AND TABLE_NAME = 'TipoCabina' 
+   	AND TABLE_NAME = 'TipoCabina' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
 BEGIN
@@ -336,7 +335,7 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Cabina] (
 	[cabi_numero] [numeric](18,0),
 	[cabi_piso] [numeric](18,0),
 	[cabi_tipo_cabina] [numeric](18,0),
-	[cabi_cruc_id] [numeric](18,0)
+	[cabi_cruc_id] [nvarchar](50)
 	CONSTRAINT FK_CABINAS_CRUCERO FOREIGN KEY ([cabi_cruc_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Crucero] ([cruc_id]),
 	CONSTRAINT FK_CABINAS_TIPO FOREIGN KEY ([cabi_tipo_cabina]) REFERENCES [EYE_OF_THE_TRIGGER].[TipoCabina] ([id])
 )
@@ -373,7 +372,7 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [EYE_OF_THE_TRIGGER].[Ciudad] (
 	[ciud_id] [numeric](18,0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
-  	[ciud_nombre] [nvarchar](255),
+	[ciud_nombre] [nvarchar](255),
 	[ciud_puerto_id] [numeric](18,0)
 	CONSTRAINT FK_CIUDAD_PUERTO FOREIGN KEY ([ciud_puerto_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Puerto] ([puer_id])
 )
@@ -418,7 +417,7 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Viaje] (
 	[viaj_fecha_inicio] [datetime],
 	[viaj_fecha_fin] [datetime],
 	[viaj_fecha_fin_estimada] [datetime],
-	[viaj_crucero_id] [numeric](18,0)
+	[viaj_crucero_id] [nvarchar](50)
 	CONSTRAINT FK_VIAJE_CRUCERO FOREIGN KEY ([viaj_crucero_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Crucero] ([cruc_id])
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.Viaje creada -----'
@@ -474,7 +473,7 @@ BEGIN
 CREATE TABLE [EYE_OF_THE_TRIGGER].[Reserva] (
 	[rese_id] [numeric](18,0) NOT NULL PRIMARY KEY,
 	[rese_cliente_id] [numeric](18,0),
-	[rese_crucero_id] [numeric](18,0),
+	[rese_crucero_id] [nvarchar](50),
 	[rese_fecha_creacion] [datetime],
 	[rese_viaje_id] [numeric](18,0),
 	[rese_cabina_id] [numeric](18,0),	
@@ -620,22 +619,20 @@ GO
 CREATE VIEW [EYE_OF_THE_TRIGGER].[vistaCliente] AS
 
 	SELECT CLI_NOMBRE AS clie_nombre, CLI_APELLIDO AS clie_apellido, CLI_DNI AS clie_dni, CLI_TELEFONO AS clie_tel, CLI_MAIL AS clie_mail, 
-		CLI_FECHA_NAC AS clie_fecha_nac, LEFT(CLI_DIRECCION, PATINDEX('%[a-z][0-9]%', CLI_DIRECCION)) AS clie_domicilio, 
-		CAST(SUBSTRING(CLI_DIRECCION, PATINDEX('%[a-z][0-9]%', CLI_DIRECCION) + 1, LEN(CLI_DIRECCION)) AS INT) AS clie_domicilio_numero 
+			CLI_FECHA_NAC AS clie_fecha_nac, LEFT(CLI_DIRECCION, PATINDEX('%[a-z][0-9]%', CLI_DIRECCION)) AS clie_domicilio, 
+			CAST(SUBSTRING(CLI_DIRECCION, PATINDEX('%[a-z][0-9]%', CLI_DIRECCION) + 1, LEN(CLI_DIRECCION)) AS INT) AS clie_domicilio_numero 
 	FROM gd_esquema.Maestra
 	GROUP BY CLI_NOMBRE, CLI_APELLIDO, CLI_DNI, CLI_TELEFONO, CLI_MAIL, CLI_FECHA_NAC, CLI_DIRECCION
 GO
 PRINT '----- Vista [EYE_OF_THE_TRIGGER].[vistaCliente] creada -----'
 
-				       
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[vistaPasaje]', 'V') IS NOT NULL 
 DROP VIEW [EYE_OF_THE_TRIGGER].[vistaPasaje]
 GO
 
 CREATE VIEW [EYE_OF_THE_TRIGGER].[vistaPasaje] AS
 	SELECT PASAJE_CODIGO AS pasaje_codigo, PASAJE_PRECIO AS pasaje_precio, PASAJE_FECHA_COMPRA AS pasaje_fecha_compra,
-		FECHA_SALIDA AS fecha_salida, FECHA_LLEGADA AS fecha_llegada, FECHA_LLEGADA_ESTIMADA AS fecha_llegada_estimada, 
-		CRUCERO_IDENTIFICADOR AS crucero_identificador
+					FECHA_SALIDA AS fecha_salida, FECHA_LLEGADA AS fecha_llegada, FECHA_LLEGADA_ESTIMADA AS fecha_llegada_estimada, CRUCERO_IDENTIFICADOR AS crucero_identificador
 	FROM gd_esquema.Maestra
 	WHERE PASAJE_CODIGO IS NOT NULL
 GO
@@ -647,8 +644,7 @@ DROP VIEW [EYE_OF_THE_TRIGGER].[vistaRecorrido]
 GO
 
 CREATE VIEW [EYE_OF_THE_TRIGGER].[vistaRecorrido] AS
-	SELECT DISTINCT RECORRIDO_CODIGO AS recorrido_codigo, RECORRIDO_PRECIO_BASE AS recorrido_precio_base, 
-			PUERTO_DESDE AS puerto_desde, PUERTO_HASTA AS puerto_hasta
+	SELECT DISTINCT RECORRIDO_CODIGO AS recorrido_codigo, RECORRIDO_PRECIO_BASE AS recorrido_precio_base, PUERTO_DESDE AS puerto_desde, PUERTO_HASTA AS puerto_hasta
 	FROM gd_esquema.Maestra
 GO
 PRINT '----- Vista [EYE_OF_THE_TRIGGER].[vistaRecorrido] creada -----'
@@ -659,8 +655,8 @@ DROP VIEW [EYE_OF_THE_TRIGGER].[vistaCabina]
 GO
 
 CREATE VIEW [EYE_OF_THE_TRIGGER].[vistaCabina] AS
-	SELECT DISTINCT CABINA_NRO AS cabina_nro, CABINA_PISO AS cabina_piso, CABINA_TIPO AS cabina_tipo, 
-			CABINA_TIPO_PORC_RECARGO AS cabina_tipo_porc_recargo, CRUCERO_IDENTIFICADOR AS crucero_identificador
+	SELECT DISTINCT CABINA_NRO AS cabina_nro, CABINA_PISO AS cabina_piso, CABINA_TIPO AS cabina_tipo, CABINA_TIPO_PORC_RECARGO AS cabina_tipo_porc_recargo,
+					CRUCERO_IDENTIFICADOR AS crucero_identificador
 	FROM gd_esquema.Maestra
 GO
 PRINT '----- Vista [EYE_OF_THE_TRIGGER].[vistaCabina] creada -----'
@@ -671,9 +667,7 @@ DROP VIEW [EYE_OF_THE_TRIGGER].[vistaCrucero]
 GO
 
 CREATE VIEW [EYE_OF_THE_TRIGGER].[vistaCrucero] AS
-	SELECT DISTINCT CRUCERO_IDENTIFICADOR AS crucero_identificador, CRU_FABRICANTE AS cru_fabricante,
-			CRUCERO_MODELO AS crucero_modelo 
-	FROM gd_esquema.Maestra
+	SELECT DISTINCT CRUCERO_IDENTIFICADOR AS crucero_identificador, CRU_FABRICANTE AS cru_fabricante, CRUCERO_MODELO AS crucero_modelo FROM gd_esquema.Maestra
 GO
 PRINT '----- Vista [EYE_OF_THE_TRIGGER].[vistaCrucero] creada -----'
 
@@ -685,10 +679,9 @@ GO
 CREATE VIEW [EYE_OF_THE_TRIGGER].[vistaReservaViaje] AS
 	SELECT m1.RESERVA_CODIGO AS reserva_codigo, m2.PASAJE_CODIGO AS pasaje_codigo 
 	FROM gd_esquema.Maestra m1 JOIN gd_esquema.Maestra m2
-		ON m1.CRUCERO_IDENTIFICADOR = m2.CRUCERO_IDENTIFICADOR AND m1.RECORRIDO_CODIGO = m2.RECORRIDO_CODIGO 
-		AND m1.CABINA_PISO = m2.CABINA_PISO AND m1.CABINA_NRO = m2.CABINA_NRO AND m1.FECHA_SALIDA = m2.FECHA_SALIDA 
-		AND m1.FECHA_LLEGADA = m2.FECHA_LLEGADA AND m1.FECHA_LLEGADA_ESTIMADA = m2.FECHA_LLEGADA_ESTIMADA 
-		AND m1.PUERTO_DESDE = m2.PUERTO_DESDE AND m1.PUERTO_HASTA = m2.PUERTO_HASTA
+		ON m1.CRUCERO_IDENTIFICADOR = m2.CRUCERO_IDENTIFICADOR AND m1.RECORRIDO_CODIGO = m2.RECORRIDO_CODIGO AND m1.CABINA_PISO = m2.CABINA_PISO
+		AND m1.CABINA_NRO = m2.CABINA_NRO AND m1.FECHA_SALIDA = m2.FECHA_SALIDA AND m1.FECHA_LLEGADA = m2.FECHA_LLEGADA 
+		AND m1.FECHA_LLEGADA_ESTIMADA = m2.FECHA_LLEGADA_ESTIMADA AND m1.PUERTO_DESDE = m2.PUERTO_DESDE AND m1.PUERTO_HASTA = m2.PUERTO_HASTA
 	group by m1.RESERVA_CODIGO, m2.PASAJE_CODIGO
 	having m1.RESERVA_CODIGO is not null and m2.PASAJE_CODIGO is not null
 GO
@@ -701,7 +694,7 @@ GO
 
 CREATE VIEW [EYE_OF_THE_TRIGGER].[vistaReserva] AS
 	SELECT M.RESERVA_CODIGO AS reserva_codigo, M.RESERVA_FECHA AS reserva_fecha,
-		(SELECT clie_id FROM EYE_OF_THE_TRIGGER.Cliente WHERE clie_doc = M.CLI_DNI AND clie_nombre = m.CLI_NOMBRE) AS cli_identificador,
+			(SELECT clie_id FROM EYE_OF_THE_TRIGGER.Cliente WHERE clie_doc = M.CLI_DNI AND clie_nombre = m.CLI_NOMBRE) AS cli_identificador,
 			CRUCERO_IDENTIFICADOR AS crucero_identificador
 	FROM gd_esquema.Maestra M 
 	WHERE M.RESERVA_CODIGO IS NOT NULL
@@ -715,8 +708,8 @@ GO
 
 CREATE VIEW [EYE_OF_THE_TRIGGER].[vistaCabinaReserva] AS
 	SELECT M.RESERVA_CODIGO AS reserva_codigo, 
-		(SELECT vrv.pasaje_codigo FROM EYE_OF_THE_TRIGGER.vistaReservaViaje vrv WHERE M.RESERVA_CODIGO = vrv.reserva_codigo) AS pasaje_codigo,
-		CABINA_PISO AS cabina_piso, CABINA_NRO AS cabina_nro
+	(SELECT vrv.pasaje_codigo FROM EYE_OF_THE_TRIGGER.vistaReservaViaje vrv WHERE M.RESERVA_CODIGO = vrv.reserva_codigo) AS pasaje_codigo,
+	CABINA_PISO AS cabina_piso, CABINA_NRO AS cabina_nro
 	FROM gd_esquema.Maestra M
 	WHERE M.RESERVA_CODIGO IS NOT NULL
 GO
@@ -771,7 +764,7 @@ FROM [EYE_OF_THE_TRIGGER].[vistaCrucero]
 
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Crucero -----'
-INSERT INTO EYE_OF_THE_TRIGGER.Crucero (cruc_codigo, cruc_modelo, cruc_marca)
+INSERT INTO EYE_OF_THE_TRIGGER.Crucero (cruc_id, cruc_modelo, cruc_marca)
 SELECT crucero_identificador, crucero_modelo,
 (SELECT marc_id FROM EYE_OF_THE_TRIGGER.Marca WHERE marc_nombre = cru_fabricante)
 FROM [EYE_OF_THE_TRIGGER].[vistaCrucero]
@@ -790,15 +783,14 @@ PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Cabina -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Cabina (cabi_numero, cabi_piso, cabi_tipo_cabina, cabi_cruc_id)
 SELECT cabina_nro, cabina_piso, 
 (SELECT tc.id FROM EYE_OF_THE_TRIGGER.TipoCabina tc WHERE tc.descripcion = cabina_tipo), 
-(SELECT cruc_id FROM EYE_OF_THE_TRIGGER.Crucero WHERE cruc_codigo = crucero_identificador)
+crucero_identificador
 FROM [EYE_OF_THE_TRIGGER].[vistaCabina]
 
 
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Viaje -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Viaje (viaj_codigo, viaj_fecha_inicio, viaj_fecha_fin, viaj_fecha_fin_estimada, viaj_crucero_id)
-SELECT pasaje_codigo, fecha_salida, fecha_llegada, fecha_llegada_estimada,
-(SELECT cruc_id FROM EYE_OF_THE_TRIGGER.Crucero WHERE cruc_codigo = crucero_identificador)
+SELECT pasaje_codigo, fecha_salida, fecha_llegada, fecha_llegada_estimada, crucero_identificador
 FROM [EYE_OF_THE_TRIGGER].[vistaPasaje]
 
 
@@ -849,9 +841,7 @@ FROM [EYE_OF_THE_TRIGGER].[vistaPasaje]
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Reserva -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Reserva (rese_id, rese_cliente_id, rese_crucero_id, rese_fecha_creacion, rese_viaje_id)
-SELECT DISTINCT vr.reserva_codigo, vr.cli_identificador, 
-v.viaj_crucero_id, reserva_fecha,
-v.viaj_id
+SELECT DISTINCT vr.reserva_codigo, vr.cli_identificador, v.viaj_crucero_id, reserva_fecha, v.viaj_id
 FROM [EYE_OF_THE_TRIGGER].[vistaReserva] vr
 JOIN EYE_OF_THE_TRIGGER.vistaReservaViaje vrv ON vr.reserva_codigo = vrv.reserva_codigo
 JOIN EYE_OF_THE_TRIGGER.Viaje v ON v.viaj_codigo = vrv.pasaje_codigo
