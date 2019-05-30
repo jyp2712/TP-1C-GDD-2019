@@ -373,7 +373,7 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [EYE_OF_THE_TRIGGER].[Ciudad] (
 	[ciud_id] [numeric](18,0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
-  [ciud_nombre] [nvarchar](255),
+  	[ciud_nombre] [nvarchar](255),
 	[ciud_puerto_id] [numeric](18,0)
 	CONSTRAINT FK_CIUDAD_PUERTO FOREIGN KEY ([ciud_puerto_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Puerto] ([puer_id])
 )
