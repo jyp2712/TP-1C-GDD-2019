@@ -479,7 +479,7 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Reserva] (
 	[rese_cabina_id] [numeric](18,0),	
 	[rese_tipo_servicio_id] [numeric](18,0),
 	[rese_estado_reserva] [numeric](18,0),
-	[rese_cantidad_pasajeros] [numeric](1,0) DEFAULT 1,
+	[rese_cantidad_pasajeros] [numeric](1,0),
 	CONSTRAINT FK_RESERVA_CLIENTE FOREIGN KEY ([rese_cliente_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Cliente] ([clie_id]),
 	CONSTRAINT FK_RESERVA_CRUCERO FOREIGN KEY ([rese_crucero_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Crucero] ([cruc_id]),
 	CONSTRAINT FK_RESERVA_VIAJE FOREIGN KEY ([rese_viaje_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Viaje] ([viaj_id]),
@@ -543,7 +543,7 @@ BEGIN
 CREATE TABLE [EYE_OF_THE_TRIGGER].[MedioDePago] (
 	[medio_id] [numeric](18,0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	[medio_descripcion] [nvarchar](255) CONSTRAINT UQ_DESC_MEDIO_DE_PAGO UNIQUE,
- 	[medio_cuotas] [numeric](2,0) DEFAULT 1
+ 	[medio_cuotas] [numeric](2,0)
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.MedioDePago creada -----'
 END
