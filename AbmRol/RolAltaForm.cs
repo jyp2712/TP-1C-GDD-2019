@@ -31,9 +31,9 @@ namespace FrbaCrucero.AbmRol
                 MessageBox.Show(exc.Message);
             }
 
-            listView1.View = View.Details;
-            listView1.Columns.Add("id");
-            listView1.Columns.Add("nombre");
+            listViewFuncionalidadesSeleccionadas.View = View.Details;
+            listViewFuncionalidadesSeleccionadas.Columns.Add("id");
+            listViewFuncionalidadesSeleccionadas.Columns.Add("nombre");
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -46,12 +46,42 @@ namespace FrbaCrucero.AbmRol
 
         }
 
+        private bool IsInCollection(ListViewItem lvi)
+        {
+            foreach (ListViewItem item in listViewFuncionalidadesSeleccionadas.Items)
+            {
+                bool subItemEqualFlag = true;
+                for (int i = 0; i < item.SubItems.Count; i++)
+                {
+                    string sub1 = item.SubItems[i].Text;
+                    string sub2 = lvi.SubItems[i].Text;
+                    if (sub1 != sub2)
+                    {
+                        subItemEqualFlag = false;
+                    }
+                }
+                if (subItemEqualFlag)
+                    return true;
+            }
+            return false;
+        } 
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             DataRowView oDataRowView = comboFuncionalidades.SelectedItem as DataRowView;
-            string[] row = { Convert.ToString(oDataRowView.Row["func_id"]), comboFuncionalidades.Text };
+            var selectedID = Convert.ToString(oDataRowView.Row["func_id"]);
+            string[] row = { selectedID, comboFuncionalidades.Text };
             var listViewItem = new ListViewItem(row);
-            listView1.Items.Add(listViewItem);
+
+            if (!IsInCollection(listViewItem))
+            {           
+                listViewFuncionalidadesSeleccionadas.Items.Add(listViewItem);
+            }
+            else
+            {
+                MessageBox.Show("La funcionalidad ya fue seleccionada anteriormente !");
+            }  
+
         }
     }
 }

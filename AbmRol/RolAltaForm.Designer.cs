@@ -35,7 +35,7 @@
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnAtras = new System.Windows.Forms.Button();
             this.btnCrear = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewFuncionalidadesSeleccionadas = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // lblNombre
@@ -103,18 +103,18 @@
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(38, 99);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(312, 97);
-            this.listView1.TabIndex = 9;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listViewFuncionalidadesSeleccionadas.Location = new System.Drawing.Point(38, 99);
+            this.listViewFuncionalidadesSeleccionadas.Name = "listView1";
+            this.listViewFuncionalidadesSeleccionadas.Size = new System.Drawing.Size(312, 97);
+            this.listViewFuncionalidadesSeleccionadas.TabIndex = 9;
+            this.listViewFuncionalidadesSeleccionadas.UseCompatibleStateImageBehavior = false;
             // 
             // RolAltaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(372, 261);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.listViewFuncionalidadesSeleccionadas);
             this.Controls.Add(this.btnCrear);
             this.Controls.Add(this.btnAtras);
             this.Controls.Add(this.btnAgregar);
@@ -138,6 +138,6 @@
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnAtras;
         private System.Windows.Forms.Button btnCrear;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewFuncionalidadesSeleccionadas;
     }
 }
