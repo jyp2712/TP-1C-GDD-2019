@@ -49,5 +49,13 @@ namespace FrbaCrucero.DB
         {
             return "INSERT INTO [EYE_OF_THE_TRIGGER].[Rol] ([rol_nombre] ,[rol_estado]) VALUES (" + rol_nombre + ", 1)";
         }
+
+        public static string SELECT_ROL_LIKE(string nombreRol)
+        {
+            return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol] WHERE rol_nombre LIKE '%" + nombreRol + "%'";
+        }
+
+        public static string SELECT_ALL_ROLES = "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol]";
+        
     }
 }

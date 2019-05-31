@@ -36,6 +36,13 @@ namespace FrbaCrucero.AbmRol
             listViewFuncionalidadesSeleccionadas.Columns.Add("nombre");
         }
 
+        public RolAltaForm(string rol_id)
+        {
+            InitializeComponent();
+
+           
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 

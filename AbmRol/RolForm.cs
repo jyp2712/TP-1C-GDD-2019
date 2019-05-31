@@ -31,5 +31,13 @@ namespace FrbaCrucero.AbmRol
             bajaForm.RefToRolForm = this;
             bajaForm.Show();
         }
+
+        private void btnModificacion_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            RolListadoModificacionForm listadoForm = new RolListadoModificacionForm();
+            listadoForm.RefToRolForm = this;
+            listadoForm.Show();
+        }
     }
 }
