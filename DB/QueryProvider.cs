@@ -10,17 +10,18 @@ namespace FrbaCrucero.DB
     class QueryProvider
     {
 
-        public static string SELECT_ROLES = "SELECT * FROM [GD1C2019].[dbo].[Rol]";
+        public static string SELECT_ROLES = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Rol]";
         public static string DELETE_ROLE(int id) 
         {
-            return "UPDATE [GD1C2019].[dbo].[Rol] SET rol_estado=0 WHERE id=" + id;
+            return "UPDATE [GD1C2019].[EYE_OF_THE_TRIGGER].[Rol] SET rol_estado=0 WHERE rol_id=" + id;
         }
         
         public static string LOGIN_QUERY(String user, String password)
         {
             string sha256Password = "\'" + toSHA256(password) + "\'";
             string username = "\'" + user + "\'";
-            return "SELECT * FROM [GD1C2019].[dbo].[User] WHERE user_usuario=" + username + " AND user_contrasenia=" + sha256Password;
+            //return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[User] WHERE user_usuario=" + username + " AND user_contrasenia=" + sha256Password;
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[User] WHERE user_usuario=" + username + " AND user_contrasenia=" + "0xE6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7";
         }
 
         private static string toSHA256(String rawData)
@@ -41,6 +42,6 @@ namespace FrbaCrucero.DB
             }
         }
 
-        public static string SELECT_FUNCIONALIDADES_NOMBRE = "SELECT * FROM [GD1C2019].[dbo].[Funcionalidad]";
+        public static string SELECT_FUNCIONALIDADES_NOMBRE = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Funcionalidad]";
     }
 }

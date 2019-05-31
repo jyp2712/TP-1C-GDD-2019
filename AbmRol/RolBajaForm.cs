@@ -33,17 +33,13 @@ namespace FrbaCrucero.AbmRol
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            DBConnection dbConnection = DBConnection.getInstance();
-            Int32 selectedRowCount = dataGridViewRoles.Rows.GetRowCount(DataGridViewElementStates.Selected);
-            for (int i = 0; i < selectedRowCount; i++)
-            {
-                DataGridViewRow selectedRow = dataGridViewRoles.SelectedRows[i];
-                int id = Convert.ToInt32(selectedRow.Cells["id"].Value);
-                string query = QueryProvider.DELETE_ROLE(id);
-                dbConnection.executeQuery(query);
-                this.Close();
-                RefToRolForm.Show();
-            }
+            DBConnection dbConnection = DBConnection.getInstance();          
+            DataGridViewRow selectedRow = dataGridViewRoles.SelectedRows[0];
+            int id = Convert.ToInt32(selectedRow.Cells["rol_id"].Value);
+            string query = QueryProvider.DELETE_ROLE(id);
+            dbConnection.executeQuery(query);
+            this.Close();
+            RefToRolForm.Show();
   
         }
 
