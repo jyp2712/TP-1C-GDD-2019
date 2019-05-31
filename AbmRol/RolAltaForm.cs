@@ -15,11 +15,41 @@ namespace FrbaCrucero.AbmRol
     {
         public RolAltaForm()
         {
-           
             InitializeComponent();
+            cargarComboFuncionalidades();
+            prepararListView();
+        }
+
+        public RolAltaForm(string rol_id)
+        {
+            InitializeComponent();
+            cargarComboFuncionalidades();
+            prepararListView();
             try
             {
+                DBConnection dbConnection = DBConnection.getInstance();
+                DataSet ds = dbConnection.executeQuery(QueryProvider.SELECT_ROLES_CON_FUNCIONALIDADES(rol_id));
+                txtNombre.Text = Convert.ToString(ds.Tables[0].Rows[0]["rol_nombre"]);
+                 foreach (DataRow row in ds.Tables[0].Rows)
+                 {
+                     //TODO
+                     string funcId = Convert.ToString(row["func_id"]);
+                     string funcNombre = Convert.ToString(row["func_nombre"]);
 
+                 }
+
+                //listViewFuncionalidadesSeleccionadas.Items.Add({});
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            } 
+        }
+
+        private void cargarComboFuncionalidades()
+        {
+            try
+            {
                 DBConnection dbConnection = DBConnection.getInstance();
                 DataSet ds = dbConnection.executeQuery(QueryProvider.SELECT_FUNCIONALIDADES_NOMBRE);
                 this.comboFuncionalidades.DisplayMember = "func_nombre";
@@ -30,17 +60,13 @@ namespace FrbaCrucero.AbmRol
             {
                 MessageBox.Show(exc.Message);
             }
+        }
 
+        private void prepararListView()
+        {
             listViewFuncionalidadesSeleccionadas.View = View.Details;
             listViewFuncionalidadesSeleccionadas.Columns.Add("id");
             listViewFuncionalidadesSeleccionadas.Columns.Add("nombre");
-        }
-
-        public RolAltaForm(string rol_id)
-        {
-            InitializeComponent();
-
-           
         }
 
         private void label1_Click(object sender, EventArgs e)

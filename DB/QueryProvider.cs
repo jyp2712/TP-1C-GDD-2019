@@ -56,6 +56,9 @@ namespace FrbaCrucero.DB
         }
 
         public static string SELECT_ALL_ROLES = "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol]";
-        
+
+        public static string SELECT_ROLES_CON_FUNCIONALIDADES(string rol_id) { 
+            return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol] JOIN [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad] on [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad].[rol_id] = [EYE_OF_THE_TRIGGER].[Rol].[rol_id] JOIN [EYE_OF_THE_TRIGGER].[Funcionalidad] on[EYE_OF_THE_TRIGGER].[Funcionalidad].[func_id] = [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad].[func_id]WHERE [EYE_OF_THE_TRIGGER].[Rol].[rol_id] =" + rol_id;
+        }
     }
 }
