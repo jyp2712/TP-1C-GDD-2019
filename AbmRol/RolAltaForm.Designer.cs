@@ -100,11 +100,12 @@
             this.btnCrear.TabIndex = 8;
             this.btnCrear.Text = "Crear";
             this.btnCrear.UseVisualStyleBackColor = true;
+            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
-            // listView1
+            // listViewFuncionalidadesSeleccionadas
             // 
             this.listViewFuncionalidadesSeleccionadas.Location = new System.Drawing.Point(38, 99);
-            this.listViewFuncionalidadesSeleccionadas.Name = "listView1";
+            this.listViewFuncionalidadesSeleccionadas.Name = "listViewFuncionalidadesSeleccionadas";
             this.listViewFuncionalidadesSeleccionadas.Size = new System.Drawing.Size(312, 97);
             this.listViewFuncionalidadesSeleccionadas.TabIndex = 9;
             this.listViewFuncionalidadesSeleccionadas.UseCompatibleStateImageBehavior = false;

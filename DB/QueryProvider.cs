@@ -43,5 +43,11 @@ namespace FrbaCrucero.DB
         }
 
         public static string SELECT_FUNCIONALIDADES_NOMBRE = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Funcionalidad]";
+
+        //TODO test
+        public static string INSERT_ROL(string rol_nombre)
+        {
+            return "INSERT INTO [EYE_OF_THE_TRIGGER].[Rol] ([rol_nombre] ,[rol_estado]) VALUES (" + rol_nombre + ", 1)";
+        }
     }
 }

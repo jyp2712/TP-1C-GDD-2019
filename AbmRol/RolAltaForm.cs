@@ -83,5 +83,12 @@ namespace FrbaCrucero.AbmRol
             }  
 
         }
+
+        //TODO
+        private void btnCrear_Click(object sender, EventArgs e)
+        {
+            DBConnection dbConnection = DBConnection.getInstance();
+            DataSet ds = dbConnection.executeQuery(QueryProvider.INSERT_ROL(this.txtNombre.Text));
+        }
     }
 }
