@@ -29,7 +29,11 @@ namespace FrbaCrucero.AbmRol
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
-            }  
+            }
+
+            listView1.View = View.Details;
+            listView1.Columns.Add("id");
+            listView1.Columns.Add("nombre");
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -44,12 +48,10 @@ namespace FrbaCrucero.AbmRol
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-
-            //dataGridFuncionalidadesAgregadas.Rows.Add()
-            //DataGridViewRow row = dataGridFuncionalidadesAgregadas.Rows[rowId];
-
-            //row.Cells["id"].Value = comboFuncionalidades.DataSource
-            //row.Cells["codigoArticulo"].Value = pLineasArticulo.codigoArticulo;
+            DataRowView oDataRowView = comboFuncionalidades.SelectedItem as DataRowView;
+            string[] row = { Convert.ToString(oDataRowView.Row["func_id"]), comboFuncionalidades.Text };
+            var listViewItem = new ListViewItem(row);
+            listView1.Items.Add(listViewItem);
         }
     }
 }
