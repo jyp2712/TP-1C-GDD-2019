@@ -9,7 +9,7 @@ BEGIN
 /*******  ELIMINACION DE CONSTRAINTS  *******/
 
 
-	SELECT @Sql = @Sql + 'ALTER TABLE ' + QUOTENAME('EYE_OF_THE_TRIGGER') + '.' + QUOTENAME(t.name) + ' DROP CONSTRAINT ' + QUOTENAME(f.name)  + ';' + CHAR(13)
+	SELECT @Sql = @Sql + 'ALTER TABLE ' + QUOTENAME('EYE_OF_THE_TRIGGER') + '.' + QUOTENAME(t.name) + ' DROP CONSTRAINT ' + 		QUOTENAME(f.name)  + ';' + CHAR(13)
 	FROM SYS.TABLES t 
 	INNER JOIN SYS.FOREIGN_KEYS f ON f.parent_object_id = t.object_id 
 	INNER JOIN SYS.SCHEMAS s ON t.SCHEMA_ID = s.SCHEMA_ID
@@ -104,7 +104,7 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
-   	AND TABLE_NAME = 'Domicilio' 
+    	AND TABLE_NAME = 'Domicilio' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
 BEGIN
@@ -247,7 +247,7 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
-   	AND TABLE_NAME = 'CruceroInhabilitado' 
+    	AND TABLE_NAME = 'CruceroInhabilitado' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
 BEGIN
@@ -308,7 +308,7 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
-   	AND TABLE_NAME = 'TipoCabina' 
+    	AND TABLE_NAME = 'TipoCabina' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
 BEGIN
@@ -483,9 +483,9 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Reserva] (
 	CONSTRAINT FK_RESERVA_CLIENTE FOREIGN KEY ([rese_cliente_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Cliente] ([clie_id]),
 	CONSTRAINT FK_RESERVA_CRUCERO FOREIGN KEY ([rese_crucero_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Crucero] ([cruc_id]),
 	CONSTRAINT FK_RESERVA_VIAJE FOREIGN KEY ([rese_viaje_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Viaje] ([viaj_id]),
-	CONSTRAINT FK_RESERVA_CABINA FOREIGN KEY ([rese_cabina_id])  REFERENCES [EYE_OF_THE_TRIGGER].[Cabina] ([cabi_id]),
+	CONSTRAINT FK_RESERVA_CABINA FOREIGN KEY ([rese_cabina_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Cabina] ([cabi_id]),
 	CONSTRAINT FK_RESERVA_TIPO_SERVICIO FOREIGN KEY ([rese_tipo_servicio_id])  REFERENCES [EYE_OF_THE_TRIGGER].[Servicio] ([serv_id]),
-	CONSTRAINT FK_RESERVA_ESTADO FOREIGN KEY ([rese_estado_reserva])  REFERENCES [EYE_OF_THE_TRIGGER].[EstadoReserva] ([id])
+	CONSTRAINT FK_RESERVA_ESTADO FOREIGN KEY ([rese_estado_reserva]) REFERENCES [EYE_OF_THE_TRIGGER].[EstadoReserva] ([id])
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.Reserva creada -----'
 END
@@ -730,134 +730,312 @@ PRINT '----- Vista [EYE_OF_THE_TRIGGER].[vistaRecorridoViaje] creada -----'
 /*******  MIGRACION  *******/
 
 
-PRINT''
-PRINT '----- Realizando inserts a tabla EYE_OF_THE_TRIGGER.TipoDocumento -----'
-INSERT INTO EYE_OF_THE_TRIGGER.TipoDocumento (descripcion)
-VALUES ('DNI')
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarDomicilio]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarDomicilio]
+GO
 
-
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarDomicilio] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Domicilio -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.Domicilio (domi_calle, domi_nro_calle)
-SELECT DISTINCT clie_domicilio, clie_domicilio_numero
-FROM [EYE_OF_THE_TRIGGER].[vistaCliente]
+	SELECT DISTINCT clie_domicilio, clie_domicilio_numero
+	FROM [EYE_OF_THE_TRIGGER].[vistaCliente]
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarCliente]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarCliente]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarCliente] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Cliente -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.Cliente (clie_nombre, clie_apellido, clie_tipo_doc, clie_doc, clie_domicilio_id, clie_tel, clie_mail, clie_fecha_nac)
-SELECT clie_nombre, clie_apellido, 1, clie_dni,
-(
-SELECT domi_id
-FROM EYE_OF_THE_TRIGGER.Domicilio
-WHERE domi_calle = clie_domicilio AND domi_nro_calle = clie_domicilio_numero),
-clie_tel, clie_mail, clie_fecha_nac
-FROM [EYE_OF_THE_TRIGGER].[vistaCliente]
+	SELECT clie_nombre, clie_apellido, 1, clie_dni,
+	(SELECT domi_id
+	FROM EYE_OF_THE_TRIGGER.Domicilio
+	WHERE domi_calle = clie_domicilio AND domi_nro_calle = clie_domicilio_numero),
+	clie_tel, clie_mail, clie_fecha_nac
+	FROM [EYE_OF_THE_TRIGGER].[vistaCliente]
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarMarca]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarMarca]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarMarca] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Marca -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.Marca (marc_nombre)
-SELECT DISTINCT cru_fabricante
-FROM [EYE_OF_THE_TRIGGER].[vistaCrucero]
+	SELECT DISTINCT cru_fabricante
+	FROM [EYE_OF_THE_TRIGGER].[vistaCrucero]
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarCrucero]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarCrucero]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarCrucero] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Crucero -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.Crucero (cruc_id, cruc_modelo, cruc_marca)
-SELECT crucero_identificador, crucero_modelo,
-(SELECT marc_id FROM EYE_OF_THE_TRIGGER.Marca WHERE marc_nombre = cru_fabricante)
-FROM [EYE_OF_THE_TRIGGER].[vistaCrucero]
+	SELECT crucero_identificador, crucero_modelo,
+	(SELECT marc_id FROM EYE_OF_THE_TRIGGER.Marca WHERE marc_nombre = cru_fabricante)
+	FROM [EYE_OF_THE_TRIGGER].[vistaCrucero]
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarTipoCabina]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarTipoCabina]
+GO
 
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarTipoCabina] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.TipoCabina -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.TipoCabina (descripcion, porcentaje_agregado)
-SELECT DISTINCT cabina_tipo, cabina_tipo_porc_recargo
-FROM [EYE_OF_THE_TRIGGER].[vistaCabina]
+	SELECT DISTINCT cabina_tipo, cabina_tipo_porc_recargo
+	FROM [EYE_OF_THE_TRIGGER].[vistaCabina]
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarCabina]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarCabina]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarCabina] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Cabina -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Cabina (cabi_numero, cabi_piso, cabi_tipo_cabina, cabi_cruc_id)
-SELECT cabina_nro, cabina_piso, 
-(SELECT tc.id FROM EYE_OF_THE_TRIGGER.TipoCabina tc WHERE tc.descripcion = cabina_tipo), 
-crucero_identificador
-FROM [EYE_OF_THE_TRIGGER].[vistaCabina]
+	SELECT cabina_nro, cabina_piso, 
+	(SELECT tc.id FROM EYE_OF_THE_TRIGGER.TipoCabina tc WHERE tc.descripcion = cabina_tipo), 
+	crucero_identificador
+	FROM [EYE_OF_THE_TRIGGER].[vistaCabina]
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarViaje]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarViaje]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarViaje] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Viaje -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.Viaje (viaj_codigo, viaj_fecha_inicio, viaj_fecha_fin, viaj_fecha_fin_estimada, viaj_crucero_id)
-SELECT pasaje_codigo, fecha_salida, fecha_llegada, fecha_llegada_estimada, crucero_identificador
-FROM [EYE_OF_THE_TRIGGER].[vistaPasaje]
+	SELECT pasaje_codigo, fecha_salida, fecha_llegada, fecha_llegada_estimada, crucero_identificador
+	FROM [EYE_OF_THE_TRIGGER].[vistaPasaje]
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarPuerto]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarPuerto]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarPuerto] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Puerto -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.Puerto (puer_nombre)
-SELECT puerto_desde 
-FROM [EYE_OF_THE_TRIGGER].[vistaRecorrido]
-INTERSECT
-SELECT puerto_hasta
-FROM [EYE_OF_THE_TRIGGER].[vistaRecorrido]
+	SELECT puerto_desde 
+	FROM [EYE_OF_THE_TRIGGER].[vistaRecorrido]
+	INTERSECT
+	SELECT puerto_hasta
+	FROM [EYE_OF_THE_TRIGGER].[vistaRecorrido]
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarCiudad]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarCiudad]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarCiudad] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Ciudad -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.Ciudad (ciud_puerto_id)
-SELECT puer_id
-FROM EYE_OF_THE_TRIGGER.Puerto
+	SELECT puer_id
+	FROM EYE_OF_THE_TRIGGER.Puerto
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarRecorrido]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarRecorrido]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarRecorrido] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Recorrido -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.Recorrido (reco_codigo, reco_origen_id , reco_destino_id, reco_precio)
-SELECT recorrido_codigo,
-(SELECT origenC.ciud_id FROM EYE_OF_THE_TRIGGER.Ciudad origenC JOIN EYE_OF_THE_TRIGGER.Puerto origenP ON origenC.ciud_puerto_id = origenP.puer_id 
-WHERE origenP.puer_nombre = puerto_desde), 
-(SELECT destinoC.ciud_id FROM EYE_OF_THE_TRIGGER.Ciudad destinoC JOIN EYE_OF_THE_TRIGGER.Puerto destinoP ON destinoC.ciud_puerto_id = destinoP.puer_id 
-WHERE destinoP.puer_nombre = puerto_hasta) , recorrido_precio_base
-FROM [EYE_OF_THE_TRIGGER].[vistaRecorrido]
+	SELECT recorrido_codigo,
+	(SELECT origenC.ciud_id FROM EYE_OF_THE_TRIGGER.Ciudad origenC JOIN EYE_OF_THE_TRIGGER.Puerto origenP ON origenC.ciud_puerto_id = origenP.puer_id 
+	WHERE origenP.puer_nombre = puerto_desde), 
+	(SELECT destinoC.ciud_id FROM EYE_OF_THE_TRIGGER.Ciudad destinoC JOIN EYE_OF_THE_TRIGGER.Puerto destinoP ON destinoC.ciud_puerto_id = destinoP.puer_id 
+	WHERE destinoP.puer_nombre = puerto_hasta) , recorrido_precio_base
+	FROM [EYE_OF_THE_TRIGGER].[vistaRecorrido]
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarRecorridoViaje]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarRecorridoViaje]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarRecorridoViaje] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.RecorridoViaje -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.RecorridoViaje (reco_id, viaj_id)
-SELECT DISTINCT reco_id, viaj_id
-FROM [EYE_OF_THE_TRIGGER].[vistaRecorridoViaje]
-JOIN EYE_OF_THE_TRIGGER.Recorrido ON reco_codigo = recorrido_codigo
-JOIN EYE_OF_THE_TRIGGER.Viaje ON viaj_codigo = pasaje_codigo
+	SELECT DISTINCT reco_id, viaj_id
+	FROM [EYE_OF_THE_TRIGGER].[vistaRecorridoViaje]
+	JOIN EYE_OF_THE_TRIGGER.Recorrido ON reco_codigo = recorrido_codigo
+	JOIN EYE_OF_THE_TRIGGER.Viaje ON viaj_codigo = pasaje_codigo
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarFactura]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarFactura]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarFactura] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Factura -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.Factura (fact_viaje_id, fact_monto_total, fact_fecha)
-SELECT (SELECT viaj_id FROM EYE_OF_THE_TRIGGER.Viaje WHERE viaj_codigo = pasaje_codigo), pasaje_precio, pasaje_fecha_compra
-FROM [EYE_OF_THE_TRIGGER].[vistaPasaje]
+	SELECT (SELECT viaj_id FROM EYE_OF_THE_TRIGGER.Viaje WHERE viaj_codigo = pasaje_codigo), pasaje_precio, pasaje_fecha_compra
+	FROM [EYE_OF_THE_TRIGGER].[vistaPasaje]
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarReserva]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarReserva]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarReserva] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Reserva -----'
+
 INSERT INTO EYE_OF_THE_TRIGGER.Reserva (rese_id, rese_cliente_id, rese_crucero_id, rese_fecha_creacion, rese_viaje_id)
-SELECT DISTINCT vr.reserva_codigo, vr.cli_identificador, v.viaj_crucero_id, reserva_fecha, v.viaj_id
-FROM [EYE_OF_THE_TRIGGER].[vistaReserva] vr
-JOIN EYE_OF_THE_TRIGGER.vistaReservaViaje vrv ON vr.reserva_codigo = vrv.reserva_codigo
-JOIN EYE_OF_THE_TRIGGER.Viaje v ON v.viaj_codigo = vrv.pasaje_codigo
+	SELECT DISTINCT vr.reserva_codigo, vr.cli_identificador, v.viaj_crucero_id, reserva_fecha, v.viaj_id
+	FROM [EYE_OF_THE_TRIGGER].[vistaReserva] vr
+	JOIN EYE_OF_THE_TRIGGER.vistaReservaViaje vrv ON vr.reserva_codigo = vrv.reserva_codigo
+	JOIN EYE_OF_THE_TRIGGER.Viaje v ON v.viaj_codigo = vrv.pasaje_codigo
+GO
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarCompra]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarCompra]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarCompra] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Compra -----'
-INSERT INTO EYE_OF_THE_TRIGGER.Compra (comp_reserva_id, comp_fact_id)
-SELECT reserva_codigo, fact_id 
-FROM [EYE_OF_THE_TRIGGER].[vistaReservaViaje]
-JOIN EYE_OF_THE_TRIGGER.Viaje ON pasaje_codigo = viaj_codigo
-JOIN EYE_OF_THE_TRIGGER.Factura ON viaj_id = fact_viaje_id
 
+INSERT INTO EYE_OF_THE_TRIGGER.Compra (comp_reserva_id, comp_fact_id)
+	SELECT reserva_codigo, fact_id 
+	FROM [EYE_OF_THE_TRIGGER].[vistaReservaViaje]
+	JOIN EYE_OF_THE_TRIGGER.Viaje ON pasaje_codigo = viaj_codigo
+	JOIN EYE_OF_THE_TRIGGER.Factura ON viaj_id = fact_viaje_id
+GO
 
 
 /*******  INSERTS EN TABLAS  *******/
+
+
+PRINT''
+PRINT '----- Insertando Tipos de Documento -----'
+INSERT INTO EYE_OF_THE_TRIGGER.TipoDocumento (descripcion)
+VALUES ('DNI'), ('Pasaporte'), ('LC'), ('LE')
+
+EXEC EYE_OF_THE_TRIGGER.importarDomicilio
+GO
+PRINT''
+PRINT '----- Domicilios importados -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarCliente
+GO
+CREATE nonclustered index IDX_Cliente on EYE_OF_THE_TRIGGER.Cliente(clie_doc, clie_nombre)
+PRINT''
+PRINT '----- Clientes importados -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarMarca
+GO
+PRINT''
+PRINT '----- Marcas importadas -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarCrucero
+GO
+PRINT''
+PRINT '----- Cruceros importados -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarTipoCabina
+GO
+PRINT''
+PRINT '----- Tipos de Cabina importadas -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarCabina
+GO
+PRINT''
+PRINT '----- Cabinas importadas -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarViaje
+GO
+PRINT''
+PRINT '----- Viajes importados -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarPuerto
+GO
+PRINT''
+PRINT '----- Puertos importados -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarCiudad
+GO
+PRINT''
+PRINT '----- Ciudades importadas -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarRecorrido
+GO
+PRINT''
+PRINT '----- Recorridos importados -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarRecorridoViaje
+GO
+PRINT''
+PRINT '----- Recorridos por Viaje importados -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarFactura
+GO
+PRINT''
+PRINT '----- Facturas importadas -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarReserva
+GO
+PRINT''
+PRINT '----- Reservas importadas -----'
+
+
+EXEC EYE_OF_THE_TRIGGER.importarCompra
+GO
+PRINT''
+PRINT '----- Compras importadas -----'
 
 
 PRINT''
@@ -865,6 +1043,7 @@ PRINT '----- Realizando inserts a tabla EYE_OF_THE_TRIGGER.EstadoReserva -----'
 INSERT INTO EYE_OF_THE_TRIGGER.EstadoReserva (descripcion) 
 VALUES ('Reserva correcta'),('Reserva modificada'),
 ('Reserva cancelada por Cliente'), ('Reserva vencida')
+
 
 PRINT''
 PRINT '----- Insertando Roles -----'
@@ -875,34 +1054,31 @@ VALUES ('Administrador General'), ('Administrador'), ('Cliente')
 PRINT''
 PRINT '----- Insertando Funcionalidades -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Funcionalidad (func_nombre) 
-VALUES ('Administrar Roles'), ('Administrar Cruceros'), ('Administrar Reservas'), ('Listado Estadístico')
+VALUES ('Administrar Roles'), ('Administrar Usuarios'), ('Administrar Puertos'), ('Administrar Recorridos'), ('Administrar Cruceros'),
+('Administrar Viajes'), ('Listado Estad\EDstico'), ('Realizar Compras y/o Reservas')
 
 
 PRINT''
 PRINT '----- Insertando Funcionalidades a los distintos roles -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Rol_Funcionalidad (rol_id, func_id)
-VALUES (1,1),(1,2),(1,3),(1,4),(2,2),(2,3),(3,3)
+VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),
+(2,3),(2,4),(2,5),(2,6),(2,7),(2,8),(3,8)
 
 
 PRINT''
 PRINT '----- Insertando Usuario "admin" -----'
-INSERT INTO EYE_OF_THE_TRIGGER.[User] (user_usuario, user_contrasenia) VALUES ('admin', HASHBYTES('SHA2_256', 'w23e'))
+INSERT INTO EYE_OF_THE_TRIGGER.[User] (user_usuario, user_contrasenia) 
+VALUES ('admin', HASHBYTES('SHA2_256', 'w23e')), ('admin_funcional', HASHBYTES('SHA2_256', 'w23e'))
 
 
 PRINT''
 PRINT '----- Insertando Roles para "admin" -----'
 INSERT INTO EYE_OF_THE_TRIGGER.User_Rol (user_id, rol_id) 
-VALUES (1,1)
+VALUES (1,1), (2,2)
 
 
 PRINT''
 PRINT '----- Insertando Formas de pago -----'
 INSERT INTO EYE_OF_THE_TRIGGER.MedioDePago (medio_descripcion) VALUES ('Efectivo'), ('Tarjeta de Credito'), ('Tarjeta de Debito')
-
-
-PRINT''
-PRINT '----- Insertando Tipos de Documento -----'
-INSERT INTO EYE_OF_THE_TRIGGER.TipoDocumento (descripcion)
-VALUES ('Pasaporte'), ('LC'), ('LE')
 
 
