@@ -976,7 +976,113 @@ BEGIN
 	END;
 END;
 GO
-PRINT '----- STORE PROCEDURE para Login [EYE_OF_THE_TRIGGER].[login] CREADO -----'
+PRINT '----- STORED PROCEDURE para Login [EYE_OF_THE_TRIGGER].[login] CREADO -----'
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[SplitString]', N'TF') IS NOT NULL 
+DROP FUNCTION [EYE_OF_THE_TRIGGER].[SplitString]
+GO
+
+CREATE FUNCTION [EYE_OF_THE_TRIGGER].[SplitString]
+(    
+      @Input NVARCHAR(MAX),
+      @Character CHAR(1)
+)
+RETURNS @Output TABLE (
+      Item NVARCHAR(1000)
+)
+AS
+BEGIN
+      DECLARE @StartIndex INT, @EndIndex INT
+ 
+      SET @StartIndex = 1
+      IF SUBSTRING(@Input, LEN(@Input) - 1, LEN(@Input)) <> @Character
+      BEGIN
+            SET @Input = @Input + @Character
+      END
+ 
+      WHILE CHARINDEX(@Character, @Input) > 0
+      BEGIN
+            SET @EndIndex = CHARINDEX(@Character, @Input)
+           
+            INSERT INTO @Output(Item)
+            SELECT SUBSTRING(@Input, @StartIndex, @EndIndex - 1)
+           
+            SET @Input = SUBSTRING(@Input, @EndIndex + 1, LEN(@Input))
+      END
+ 
+      RETURN
+END
+GO
+PRINT '----- funcion para splitear strings [EYE_OF_THE_TRIGGER].[SplitString] CREADA -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[crearRol]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[crearRol]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[crearRol] (
+    @rol_nombre varchar(255),
+	@func_id_list varchar(255)
+) AS
+BEGIN
+	BEGIN TRANSACTION
+	/* Verifico que no exista otro con el mismo nombre */
+	declare @rol_id_existente int;
+
+	SELECT @rol_id_existente = [rol_id] FROM [EYE_OF_THE_TRIGGER].[Rol] WHERE rol_nombre = @rol_nombre;
+	IF (@rol_id_existente iS NOT NULL)
+	BEGIN
+		ROLLBACK TRANSACTION
+		RAISERROR('El nombre seleccionado ya existe', 12, 1) WITH SETERROR;
+	END
+	
+	/* Inserto el rol nuevo */
+	INSERT INTO [EYE_OF_THE_TRIGGER].[Rol] ([rol_nombre], [rol_estado]) VALUES (@rol_nombre, 1)
+	SELECT @rol_id_existente = rol_id FROM [EYE_OF_THE_TRIGGER].[Rol] WHERE rol_nombre = @rol_nombre;
+
+	/* Inserto las funcionalidades del rol nuevo */
+	declare @IdsTable TABLE(value int)
+	-- SELECT value From STRING_SPLIT(@func_id_list, ',');
+	INSERT INTO @IdsTable SELECT * From [EYE_OF_THE_TRIGGER].[SplitString](@func_id_list, ',');
+	 -- SELECT @IdsTable = From STRING_SPLIT(@func_id_list, ',');
+
+	DECLARE @MyCursor CURSOR;
+	DECLARE @MyField int;
+	BEGIN
+		SET @MyCursor = CURSOR FOR
+		select value from @IdsTable      
+
+		OPEN @MyCursor 
+		FETCH NEXT FROM @MyCursor 
+		INTO @MyField
+
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+		  /*
+			 YOUR ALGORITHM GOES HERE   
+		  */
+
+		INSERT INTO [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad]
+				   ([rol_id]
+				   ,[func_id])
+			 VALUES
+				   (@rol_id_existente, @MyField)
+
+
+		  /* */
+		  FETCH NEXT FROM @MyCursor 
+		  INTO @MyField 
+		END; 
+
+		CLOSE @MyCursor ;
+		DEALLOCATE @MyCursor;
+	END;
+	COMMIT TRANSACTION
+
+END;
+GO
+PRINT''
+PRINT '----- STORED PROCEDURE para crear rol [EYE_OF_THE_TRIGGER].[crearRol] CREADO -----'
 
 
 /*******  INSERTS EN TABLAS  *******/

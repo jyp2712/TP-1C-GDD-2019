@@ -72,6 +72,7 @@
             this.btnAtras.TabIndex = 3;
             this.btnAtras.Text = "Atrás";
             this.btnAtras.UseVisualStyleBackColor = true;
+            this.btnAtras.Click += new System.EventHandler(this.btnAtras_Click);
             // 
             // RolForm
             // 

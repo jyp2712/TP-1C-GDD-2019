@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaCrucero.DB;
+using System.Data.SqlClient;
 
 namespace FrbaCrucero.AbmRol
 {
@@ -123,29 +124,76 @@ namespace FrbaCrucero.AbmRol
 
         }
 
-        private void btnCrear_Click(object sender, EventArgs e)
+        private void updateRol() 
         {
             DBConnection dbConnection = DBConnection.getInstance();
-            if (isUpdate)
-            {
-                string updateRol = QueryProvider.UPDATE_ROL(this.txtNombre.Text, this.updateRolId);
-                string borrarFuncionalidadesPorRol = "DELETE FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Rol_Funcionalidad] WHERE [rol_id] = " + updateRolId;
-                List<string> queries = new List<string>(new string[] { updateRol, borrarFuncionalidadesPorRol });
+            string updateRol = QueryProvider.UPDATE_ROL(this.txtNombre.Text, this.updateRolId);
+            string borrarFuncionalidadesPorRol = "DELETE FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Rol_Funcionalidad] WHERE [rol_id] = " + updateRolId;
+            List<string> queries = new List<string>(new string[] { updateRol, borrarFuncionalidadesPorRol });
 
+            foreach (ListViewItem item in listViewFuncionalidadesSeleccionadas.Items)
+            {
+                string func_id = item.SubItems[0].Text;
+                string agregarFuncQuery = "INSERT INTO [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad] ([rol_id] ,[func_id]) VALUES ('" + updateRolId + "','" + func_id + "')";
+                queries.Add(agregarFuncQuery);
+            }
+            dbConnection.executeTransaction(queries);
+        }
+
+        private void crearRol()
+        {
+            DBConnection dbConnection = DBConnection.getInstance();
+            using (SqlCommand cmd = dbConnection.connection.CreateCommand())
+            {
+                cmd.CommandText = "[GD1C2019].[EYE_OF_THE_TRIGGER].[crearRol]";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@rol_nombre", this.txtNombre.Text);
+
+                List<string> funcIds = new List<string>();
                 foreach (ListViewItem item in listViewFuncionalidadesSeleccionadas.Items)
                 {
                     string func_id = item.SubItems[0].Text;
-                    string agregarFuncQuery = "INSERT INTO [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad] ([rol_id] ,[func_id]) VALUES ('" + updateRolId + "','" + func_id + "')";
-                    queries.Add(agregarFuncQuery);
+                    funcIds.Add(func_id);
                 }
 
-                dbConnection.executeTransaction(queries);
-                this.Close();
+                string funcIdsSplitteados = string.Join(",", funcIds);
+
+                cmd.Parameters.AddWithValue("@func_id_list", funcIdsSplitteados);
+
+                try
+                {
+                    dbConnection.connection.Open();
+                    cmd.ExecuteNonQuery();
+                    dbConnection.connection.Close();
+                }
+                catch (SqlException exc)
+                {
+                    MessageBox.Show(exc.Message);
+                }
+                finally
+                {
+                    if (dbConnection.connection.State == ConnectionState.Open) dbConnection.connection.Close();
+                }
+            }
+        }
+
+        private void cerrarYMostrarFormRoles() 
+        {
+            this.Close();
+            this.RefToRolForm.Show();
+        }
+
+        private void btnCrear_Click(object sender, EventArgs e)
+        {
+            if (isUpdate)
+            {
+                updateRol();
+                cerrarYMostrarFormRoles();
             }
             else
             {
-                //TODO
-                DataSet ds = dbConnection.executeQuery(QueryProvider.INSERT_ROL(this.txtNombre.Text));
+                crearRol();
+                cerrarYMostrarFormRoles();
             }
         }
 
@@ -160,5 +208,7 @@ namespace FrbaCrucero.AbmRol
         {
 
         }
+
+        public RolForm RefToRolForm { get; set; }
     }
 }

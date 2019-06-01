@@ -21,6 +21,7 @@ namespace FrbaCrucero.AbmRol
         {
             this.Hide();
             RolAltaForm altaForm = new RolAltaForm();
+            altaForm.RefToRolForm = this;
             altaForm.Show();
         }
 
@@ -38,6 +39,11 @@ namespace FrbaCrucero.AbmRol
             RolListadoModificacionForm listadoForm = new RolListadoModificacionForm();
             listadoForm.RefToRolForm = this;
             listadoForm.Show();
+        }
+
+        private void btnAtras_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
