@@ -944,6 +944,40 @@ INSERT INTO EYE_OF_THE_TRIGGER.Compra (comp_reserva_id, comp_fact_id)
 	JOIN EYE_OF_THE_TRIGGER.Factura ON viaj_id = fact_viaje_id
 GO
 
+PRINT''
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[login]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].[login]
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[login] (
+    @user_name varchar(255),
+    @user_contrasenia varchar(255),
+	@logeado bit output
+) AS
+BEGIN
+	declare @intentosFallidos INT;
+	declare @cantidadUsuarios INT;
+
+	SELECT @intentosFallidos = [user_intentos_fallidos] FROM GD1C2019.EYE_OF_THE_TRIGGER.[User] WHERE user_usuario = @user_name;
+	IF(@intentosFallidos > 2)
+	RAISERROR('Usuario bloqueado por cantidad de reintentos', 11, 1) WITH SETERROR;
+
+	SELECT @cantidadUsuarios = COUNT(*) FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[User] WHERE user_usuario=@user_name AND user_contrasenia=HASHBYTES('SHA2_256', @user_contrasenia);
+
+	IF (@cantidadUsuarios > 0)
+	BEGIN 
+		UPDATE [EYE_OF_THE_TRIGGER].[User] SET [user_intentos_fallidos] = 0 WHERE [User].[user_usuario] = @user_name;
+		set @logeado = 1;
+	END
+	ELSE
+	BEGIN
+		UPDATE [EYE_OF_THE_TRIGGER].[User] SET [user_intentos_fallidos] = (@intentosFallidos + 1) WHERE [User].[user_usuario] = @user_name;
+		set @logeado = 0;
+	END;
+END;
+GO
+PRINT '----- STORE PROCEDURE para Login [EYE_OF_THE_TRIGGER].[login] CREADO -----'
+
 
 /*******  INSERTS EN TABLAS  *******/
 

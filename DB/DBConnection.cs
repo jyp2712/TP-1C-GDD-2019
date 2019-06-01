@@ -32,7 +32,7 @@ namespace FrbaCrucero.DB
         string username = ConfigurationManager.AppSettings["username"];
         string password = ConfigurationManager.AppSettings["password"];
 
-        private SqlConnection connection;
+        public SqlConnection connection { get; set; }
 
         private void connect()
         {

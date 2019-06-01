@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FrbaCrucero.DB;
 using System.Security.Cryptography;
 using FrbaCrucero.AbmRol;
+using System.Data.SqlClient;
 
 namespace FrbaCrucero.Login
 {
@@ -43,15 +44,7 @@ namespace FrbaCrucero.Login
             else
             {
                 this.clearTxtFields();
-                this.incrementLoginAttempts();
             }
-        }
-
-        private void incrementLoginAttempts()
-        {
-            //TODO ir a la DB a incrementar el numero de reintentos.
-            //throw new NotImplementedException();
-
         }
 
         private void clearTxtFields()
@@ -62,9 +55,34 @@ namespace FrbaCrucero.Login
 
         private Boolean checkUserAndPassword() {
             DBConnection dbConnection = DBConnection.getInstance();           
-            DataSet ds = dbConnection.executeQuery(QueryProvider.LOGIN_QUERY(this.txtUser.Text, this.txtPassword.Text));
-            int r = ds.Tables[0].Rows.Count;
-            return ds.Tables[0].Rows.Count != 0;
+
+            using (SqlCommand cmd = dbConnection.connection.CreateCommand())
+            {
+                cmd.CommandText = "[GD1C2019].[EYE_OF_THE_TRIGGER].[login]";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@user_name", this.txtUser.Text);
+                cmd.Parameters.AddWithValue("@user_contrasenia", this.txtPassword.Text);
+
+                cmd.Parameters.Add("@logeado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+
+                try
+                {
+                    dbConnection.connection.Open();
+                    cmd.ExecuteNonQuery();
+                    var result = cmd.Parameters["@logeado"].Value;
+                    dbConnection.connection.Close();
+                    return Convert.ToBoolean(result);
+                }
+                catch (SqlException e)
+                {
+                    MessageBox.Show(e.Message);
+                    return false;
+                }
+                finally
+                {
+                    if (dbConnection.connection.State == ConnectionState.Open) dbConnection.connection.Close();
+                }
+            }
         }  
        
     }
