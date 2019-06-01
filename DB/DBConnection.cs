@@ -69,12 +69,68 @@ namespace FrbaCrucero.DB
             catch (SqlException e)
             {
                 DialogResult result;
-                result = MessageBox.Show("Error al conectar con la base de datos. La aplicación se cerrará." + e.Message, "ERROR !", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                result = MessageBox.Show("Error al consultar la base de datos." + e.Message, "ERROR !", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
             finally {
                 if (connection.State == ConnectionState.Open) connection.Close();
             }
+        }
+
+        public void executeTransaction(List<string> queries)
+        {
+            
+                connection.Open();
+
+                SqlCommand command = connection.CreateCommand();
+                SqlTransaction transaction;
+
+                // Start a local transaction.
+                transaction = connection.BeginTransaction("SampleTransaction");
+
+                // Must assign both transaction object and connection 
+                // to Command object for a pending local transaction
+                command.Connection = connection;
+                command.Transaction = transaction;
+
+                try
+                {
+
+                    foreach (string query in queries)
+                    {
+                        command.CommandText = query;
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Attempt to commit the transaction.
+                    transaction.Commit();
+                    Console.WriteLine("All records are written to database.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    MessageBox.Show("Hubo un error al realizar la operacion deseada. Intente nuevamente!");
+
+                    // Attempt to roll back the transaction. 
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2)
+                    {
+                        // This catch block will handle any errors that may have occurred 
+                        // on the server that would cause the rollback to fail, such as 
+                        // a closed connection.
+                        Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+                        Console.WriteLine("  Message: {0}", ex2.Message);
+                    }
+                }
+                finally
+                {
+                    if (connection.State == ConnectionState.Open) connection.Close();
+                }
+           
         }
     }
 

@@ -36,6 +36,7 @@
             this.btnAtras = new System.Windows.Forms.Button();
             this.btnCrear = new System.Windows.Forms.Button();
             this.listViewFuncionalidadesSeleccionadas = new System.Windows.Forms.ListView();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblNombre
@@ -85,36 +86,48 @@
             // 
             // btnAtras
             // 
-            this.btnAtras.Location = new System.Drawing.Point(38, 220);
+            this.btnAtras.Location = new System.Drawing.Point(38, 241);
             this.btnAtras.Name = "btnAtras";
-            this.btnAtras.Size = new System.Drawing.Size(75, 23);
+            this.btnAtras.Size = new System.Drawing.Size(95, 23);
             this.btnAtras.TabIndex = 7;
             this.btnAtras.Text = "Atrás";
             this.btnAtras.UseVisualStyleBackColor = true;
             // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(275, 220);
+            this.btnCrear.Location = new System.Drawing.Point(260, 241);
             this.btnCrear.Name = "btnCrear";
-            this.btnCrear.Size = new System.Drawing.Size(75, 23);
+            this.btnCrear.Size = new System.Drawing.Size(90, 23);
             this.btnCrear.TabIndex = 8;
-            this.btnCrear.Text = "Crear";
+            this.btnCrear.Text = "Guardar";
             this.btnCrear.UseVisualStyleBackColor = true;
             this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
             // listViewFuncionalidadesSeleccionadas
             // 
-            this.listViewFuncionalidadesSeleccionadas.Location = new System.Drawing.Point(38, 99);
+            this.listViewFuncionalidadesSeleccionadas.FullRowSelect = true;
+            this.listViewFuncionalidadesSeleccionadas.Location = new System.Drawing.Point(38, 90);
             this.listViewFuncionalidadesSeleccionadas.Name = "listViewFuncionalidadesSeleccionadas";
             this.listViewFuncionalidadesSeleccionadas.Size = new System.Drawing.Size(312, 97);
             this.listViewFuncionalidadesSeleccionadas.TabIndex = 9;
             this.listViewFuncionalidadesSeleccionadas.UseCompatibleStateImageBehavior = false;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(38, 203);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Quitar seleccion";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // RolAltaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(372, 261);
+            this.ClientSize = new System.Drawing.Size(379, 275);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.listViewFuncionalidadesSeleccionadas);
             this.Controls.Add(this.btnCrear);
             this.Controls.Add(this.btnAtras);
@@ -140,5 +153,6 @@
         private System.Windows.Forms.Button btnAtras;
         private System.Windows.Forms.Button btnCrear;
         private System.Windows.Forms.ListView listViewFuncionalidadesSeleccionadas;
+        private System.Windows.Forms.Button button1;
     }
 }

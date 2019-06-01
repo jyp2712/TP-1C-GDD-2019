@@ -50,6 +50,11 @@ namespace FrbaCrucero.DB
             return "INSERT INTO [EYE_OF_THE_TRIGGER].[Rol] ([rol_nombre] ,[rol_estado]) VALUES (" + rol_nombre + ", 1)";
         }
 
+        public static string UPDATE_ROL(string rol_nombre, string rol_id)
+        {
+            return "UPDATE [EYE_OF_THE_TRIGGER].[Rol] SET [rol_nombre] = '" + rol_nombre + "',[rol_estado] = 1 WHERE [rol_id] = " + rol_id;
+        }
+
         public static string SELECT_ROL_LIKE(string nombreRol)
         {
             return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol] WHERE rol_nombre LIKE '%" + nombreRol + "%'";
