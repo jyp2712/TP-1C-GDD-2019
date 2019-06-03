@@ -1084,7 +1084,6 @@ INSERT INTO EYE_OF_THE_TRIGGER.MedioDePago (medio_descripcion) VALUES ('Efectivo
 
 /*******  SP para la APP  *******/
 
-
 PRINT''
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[login]', 'P') IS NOT NULL 
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].[login]
@@ -1092,8 +1091,7 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[login] (
     @user_name varchar(255),
-    @user_contrasenia varchar(255),
-	@logeado INT output
+    @user_contrasenia varchar(255)
 ) AS
 BEGIN
 	declare @intentosFallidos INT;
@@ -1108,12 +1106,12 @@ BEGIN
 	IF (@cantidadUsuarios > 0)
 	BEGIN 
 		UPDATE [EYE_OF_THE_TRIGGER].[User] SET [user_intentos_fallidos] = 0 WHERE [User].[user_usuario] = @user_name;
-		set @logeado = 1;
+		RETURN 1;
 	END
 	ELSE
 	BEGIN
 		UPDATE [EYE_OF_THE_TRIGGER].[User] SET [user_intentos_fallidos] = (@intentosFallidos + 1) WHERE [User].[user_usuario] = @user_name;
-		set @logeado = 0;
+		RETURN 0;
 	END;
 END;
 GO
@@ -1227,4 +1225,5 @@ BEGIN
       RETURN
 END
 GO
+PRINT''
 PRINT '----- funcion para splitear strings [EYE_OF_THE_TRIGGER].[SplitString] CREADA -----'

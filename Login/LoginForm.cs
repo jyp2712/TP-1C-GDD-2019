@@ -58,7 +58,6 @@ namespace FrbaCrucero.Login
             String user_name = this.txtUser.Text;
             String password = this.txtPassword.Text;
             int logueado = DBAdapter.ejecutarProcedureWithReturnValue("login", user_name, password);
-            DBAdapter.CheckExcepcionPara(logueado);
 
             return Convert.ToBoolean(logueado);
         }
