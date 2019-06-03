@@ -87,12 +87,14 @@
     <Compile Include="AbmRol\RolListadoModificacionForm.Designer.cs">
       <DependentUpon>RolListadoModificacionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExcepcionFrbaCrucero.cs" />
     <Compile Include="CompraReservaPasaje\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CompraReservaPasaje\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="DB\DBAdapter.cs" />
     <Compile Include="DB\DBConnection.cs" />
     <Compile Include="DB\QueryProvider.cs" />
     <Compile Include="MainForm.cs">
