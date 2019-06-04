@@ -85,6 +85,11 @@ namespace FrbaCrucero.AbmRol
             }
         }
 
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            Validaciones.ValidacionesHelper.validarCampoSoloTexto(this.txtNombre);
+        }
+
      
     }
 }

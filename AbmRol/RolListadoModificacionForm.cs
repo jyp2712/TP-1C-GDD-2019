@@ -58,5 +58,10 @@ namespace FrbaCrucero.AbmRol
                 altaForm.RefToRolForm = this.RefToRolForm;
             }
         }
+
+        private void txtNombreRol_TextChanged(object sender, EventArgs e)
+        {
+            Validaciones.ValidacionesHelper.validarCampoSoloTexto(this.txtNombreRol);
+        }
     }
 }

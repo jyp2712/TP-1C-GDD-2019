@@ -58,7 +58,7 @@ namespace FrbaCrucero.DB
                 SqlCommand comando = new SqlCommand();
                 SqlDataReader dataReader;
                 DataTable dataTable = new DataTable();
-
+                //TODO revisar que es lo que rompe aca y ver si conviene atajar la excepcion aca o en donde se use.
                 try
                 {
                     conexionSql(conexion, comando);
@@ -104,6 +104,10 @@ namespace FrbaCrucero.DB
                     comando.Parameters.Add("@RETURN_VALUE", SqlDbType.Int).Direction = ParameterDirection.ReturnValue;
                     comando.ExecuteNonQuery();
                     return (int)comando.Parameters["@RETURN_VALUE"].Value;
+                }
+                catch (SqlException e)
+                {
+                    throw e;
                 }
                 finally
                 {

@@ -187,8 +187,14 @@ namespace FrbaCrucero.AbmRol
             cerrarYMostrarFormRoles();
         }
 
+        private void validarCampos()
+        {
+
+        }
+
         private void btnCrear_Click(object sender, EventArgs e)
         {
+            validarCampos();
             if (isUpdate)
             {
                 updateRol();
@@ -214,5 +220,10 @@ namespace FrbaCrucero.AbmRol
         }
 
         public RolForm RefToRolForm { get; set; }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            Validaciones.ValidacionesHelper.validarCampoSoloTexto(this.txtNombre);
+        }
     }
 }

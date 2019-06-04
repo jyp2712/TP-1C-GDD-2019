@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtNombreRol = new System.Windows.Forms.TextBox();
-            this.dgvRoles = new System.Windows.Forms.DataGridView();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
+            this.txtNombreRol = new System.Windows.Forms.TextBox();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dgvRoles = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
             this.SuspendLayout();
@@ -51,6 +51,34 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(327, 49);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.TabIndex = 3;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // txtNombreRol
+            // 
+            this.txtNombreRol.Location = new System.Drawing.Point(111, 17);
+            this.txtNombreRol.Name = "txtNombreRol";
+            this.txtNombreRol.Size = new System.Drawing.Size(166, 20);
+            this.txtNombreRol.TabIndex = 1;
+            this.txtNombreRol.TextChanged += new System.EventHandler(this.txtNombreRol_TextChanged);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(6, 49);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.btnLimpiar.TabIndex = 2;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -60,13 +88,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre de rol:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // txtNombreRol
-            // 
-            this.txtNombreRol.Location = new System.Drawing.Point(111, 17);
-            this.txtNombreRol.Name = "txtNombreRol";
-            this.txtNombreRol.Size = new System.Drawing.Size(166, 20);
-            this.txtNombreRol.TabIndex = 1;
             // 
             // dgvRoles
             // 
@@ -80,26 +101,6 @@
             this.dgvRoles.Size = new System.Drawing.Size(408, 256);
             this.dgvRoles.TabIndex = 1;
             this.dgvRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoles_CellContentClick_1);
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(6, 49);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 2;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Location = new System.Drawing.Point(327, 49);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 3;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // RolListadoModificacionForm
             // 

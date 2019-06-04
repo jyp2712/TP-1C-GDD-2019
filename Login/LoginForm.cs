@@ -38,8 +38,6 @@ namespace FrbaCrucero.Login
                 RolForm rolForm = new RolForm();
                 rolForm.Show();
                 //TODO abrir form con cosas de administrador
-
-                //TODO setear en 0 la cantidad de reintentos de login.
             }
             else
             {
@@ -57,9 +55,16 @@ namespace FrbaCrucero.Login
 
             String user_name = this.txtUser.Text;
             String password = this.txtPassword.Text;
-            int logueado = DBAdapter.ejecutarProcedureWithReturnValue("login", user_name, password);
-
-            return Convert.ToBoolean(logueado);
+            try
+            {
+                int logueado = DBAdapter.ejecutarProcedureWithReturnValue("login", user_name, password);
+                return Convert.ToBoolean(logueado);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return false;
+            }
         }
     }
 }

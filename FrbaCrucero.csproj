@@ -145,6 +145,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validaciones\ValidacionesHelper.cs" />
     <EmbeddedResource Include="AbmRol\RolAltaForm.resx">
       <DependentUpon>RolAltaForm.cs</DependentUpon>
     </EmbeddedResource>

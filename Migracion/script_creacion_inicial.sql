@@ -1134,7 +1134,10 @@ BEGIN
 
 	SELECT @intentosFallidos = [user_intentos_fallidos] FROM GD1C2019.EYE_OF_THE_TRIGGER.[User] WHERE user_usuario = @user_name;
 	IF(@intentosFallidos > 2)
-	RAISERROR('Usuario bloqueado por cantidad de reintentos', 11, 1) WITH SETERROR;
+	BEGIN
+		RAISERROR('Usuario bloqueado por cantidad de reintentos', 11, 1) WITH SETERROR;
+		RETURN 0;
+	END
 
 	SELECT @cantidadUsuarios = COUNT(*) FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[User] WHERE user_usuario=@user_name AND user_contrasenia=HASHBYTES('SHA2_256', @user_contrasenia);
 
@@ -1146,6 +1149,11 @@ BEGIN
 	ELSE
 	BEGIN
 		UPDATE [EYE_OF_THE_TRIGGER].[User] SET [user_intentos_fallidos] = (@intentosFallidos + 1) WHERE [User].[user_usuario] = @user_name;
+		IF(@intentosFallidos + 1 > 2)
+		BEGIN
+			UPDATE [EYE_OF_THE_TRIGGER].[User] SET [user_estado] = 0 WHERE [User].[user_usuario] = @user_name;
+			RAISERROR('Usuario bloqueado por cantidad de reintentos', 11, 1) WITH SETERROR;
+		END
 		RETURN 0;
 	END;
 END;
