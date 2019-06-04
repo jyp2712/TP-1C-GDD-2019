@@ -31,7 +31,6 @@
             this.btnAlta = new System.Windows.Forms.Button();
             this.btnBaja = new System.Windows.Forms.Button();
             this.btnModificacion = new System.Windows.Forms.Button();
-            this.btnAtras = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAlta
@@ -64,27 +63,17 @@
             this.btnModificacion.UseVisualStyleBackColor = true;
             this.btnModificacion.Click += new System.EventHandler(this.btnModificacion_Click);
             // 
-            // btnAtras
-            // 
-            this.btnAtras.Location = new System.Drawing.Point(104, 266);
-            this.btnAtras.Name = "btnAtras";
-            this.btnAtras.Size = new System.Drawing.Size(75, 23);
-            this.btnAtras.TabIndex = 3;
-            this.btnAtras.Text = "Atrás";
-            this.btnAtras.UseVisualStyleBackColor = true;
-            this.btnAtras.Click += new System.EventHandler(this.btnAtras_Click);
-            // 
             // RolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 318);
-            this.Controls.Add(this.btnAtras);
+            this.ClientSize = new System.Drawing.Size(284, 249);
             this.Controls.Add(this.btnModificacion);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.btnAlta);
             this.Name = "RolForm";
             this.Text = "RolForm";
+            this.Load += new System.EventHandler(this.RolForm_Load);
             this.ResumeLayout(false);
 
         }
@@ -94,6 +83,5 @@
         private System.Windows.Forms.Button btnAlta;
         private System.Windows.Forms.Button btnBaja;
         private System.Windows.Forms.Button btnModificacion;
-        private System.Windows.Forms.Button btnAtras;
     }
 }

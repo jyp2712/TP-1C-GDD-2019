@@ -33,7 +33,6 @@
             this.lblFuncionalidades = new System.Windows.Forms.Label();
             this.comboFuncionalidades = new System.Windows.Forms.ComboBox();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.btnAtras = new System.Windows.Forms.Button();
             this.btnCrear = new System.Windows.Forms.Button();
             this.listViewFuncionalidadesSeleccionadas = new System.Windows.Forms.ListView();
             this.button1 = new System.Windows.Forms.Button();
@@ -84,18 +83,9 @@
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // btnAtras
-            // 
-            this.btnAtras.Location = new System.Drawing.Point(38, 241);
-            this.btnAtras.Name = "btnAtras";
-            this.btnAtras.Size = new System.Drawing.Size(95, 23);
-            this.btnAtras.TabIndex = 7;
-            this.btnAtras.Text = "Atrás";
-            this.btnAtras.UseVisualStyleBackColor = true;
-            // 
             // btnCrear
             // 
-            this.btnCrear.Location = new System.Drawing.Point(260, 241);
+            this.btnCrear.Location = new System.Drawing.Point(260, 203);
             this.btnCrear.Name = "btnCrear";
             this.btnCrear.Size = new System.Drawing.Size(90, 23);
             this.btnCrear.TabIndex = 8;
@@ -126,11 +116,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 275);
+            this.ClientSize = new System.Drawing.Size(379, 240);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listViewFuncionalidadesSeleccionadas);
             this.Controls.Add(this.btnCrear);
-            this.Controls.Add(this.btnAtras);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.comboFuncionalidades);
             this.Controls.Add(this.lblFuncionalidades);
@@ -150,7 +139,6 @@
         private System.Windows.Forms.Label lblFuncionalidades;
         private System.Windows.Forms.ComboBox comboFuncionalidades;
         private System.Windows.Forms.Button btnAgregar;
-        private System.Windows.Forms.Button btnAtras;
         private System.Windows.Forms.Button btnCrear;
         private System.Windows.Forms.ListView listViewFuncionalidadesSeleccionadas;
         private System.Windows.Forms.Button button1;

@@ -183,6 +183,10 @@ namespace FrbaCrucero.AbmRol
             this.RefToRolForm.Show();
         }
 
+        private void RolAltaForm_FormClosing(object sender, FormClosingEventArgs e) {
+            cerrarYMostrarFormRoles();
+        }
+
         private void btnCrear_Click(object sender, EventArgs e)
         {
             if (isUpdate)

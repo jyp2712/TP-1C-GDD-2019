@@ -17,9 +17,13 @@ namespace FrbaCrucero.AbmRol
             InitializeComponent();
         }
 
+        private void RolForm_FormClosing(object sender, FormClosingEventArgs e) {
+            //   
+        }
+
         private void btnAlta_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            //this.Hide();
             RolAltaForm altaForm = new RolAltaForm();
             altaForm.RefToRolForm = this;
             altaForm.Show();
@@ -27,7 +31,7 @@ namespace FrbaCrucero.AbmRol
 
         private void btnBaja_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            //this.Hide();
             RolBajaForm bajaForm = new RolBajaForm();
             bajaForm.RefToRolForm = this;
             bajaForm.Show();
@@ -35,13 +39,18 @@ namespace FrbaCrucero.AbmRol
 
         private void btnModificacion_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            //this.Hide();
             RolListadoModificacionForm listadoForm = new RolListadoModificacionForm();
             listadoForm.RefToRolForm = this;
             listadoForm.Show();
         }
 
         private void btnAtras_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RolForm_Load(object sender, EventArgs e)
         {
 
         }

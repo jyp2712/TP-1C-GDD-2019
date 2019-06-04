@@ -13,7 +13,7 @@ namespace FrbaCrucero.AbmRol
 {
     public partial class RolListadoModificacionForm : Form
     {
-        public Form RefToRolForm { get; set; }
+        public RolForm RefToRolForm { get; set; }
 
         public RolListadoModificacionForm()
         {
@@ -62,7 +62,7 @@ namespace FrbaCrucero.AbmRol
 
                 RolAltaForm altaForm = new RolAltaForm(selected_rol_id);
                 altaForm.Show();
-                //TODO - Button Clicked - Execute Code Here
+                altaForm.RefToRolForm = this.RefToRolForm;
             }
         }
     }

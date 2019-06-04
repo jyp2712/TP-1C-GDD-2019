@@ -1104,6 +1104,20 @@ INSERT INTO EYE_OF_THE_TRIGGER.MedioDePago (medio_descripcion) VALUES ('Efectivo
 
 
 /*******  SP para la APP  *******/
+PRINT''
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[buscarRolNombre]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].buscarRolNombre
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[buscarRolNombre] (
+    @rol_nombre varchar(255)
+) AS
+BEGIN
+	SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol] WHERE rol_nombre LIKE '%' + @rol_nombre + '%';
+END;
+GO
+PRINT '----- STORED PROCEDURE para buscar rol por nombre [EYE_OF_THE_TRIGGER].[buscarRolNombre] CREADO -----'
+
 
 PRINT''
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[login]', 'P') IS NOT NULL 
