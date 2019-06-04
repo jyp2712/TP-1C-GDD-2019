@@ -97,6 +97,27 @@
     <Compile Include="DB\DBAdapter.cs" />
     <Compile Include="DB\DBConnection.cs" />
     <Compile Include="DB\QueryProvider.cs" />
+    <Compile Include="Forms\FormNavegable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormNavegableModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Alta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\ListadoEstadistico.Design.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\HomeEstadistico.Design.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\ListadoEstadistico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\HomeEstadistico.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,12 +128,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GeneracionViaje\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ListadoEstadistico\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ListadoEstadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\LoginForm.cs">
@@ -140,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\RolListadoModificacionForm.resx">
       <DependentUpon>RolListadoModificacionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\HomeEstadistico.Design.resx">
+      <DependentUpon>HomeEstadistico.Design.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
