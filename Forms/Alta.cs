@@ -199,6 +199,7 @@ namespace FrbaCrucero.Forms
 
             grid.AutoResizeColumns(); //ajusta el tamaño de las columnas y filas a su contenido
             grid.AutoResizeRows();
+            grid.ReadOnly = true;
         }
 
         public void operacionConSeleccionado(DataGridView grilla, DataGridViewCellEventArgs e, Func<DataGridViewCellEventArgs, DataGridViewCellCollection, Boolean> condicion)

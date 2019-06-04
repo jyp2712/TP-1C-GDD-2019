@@ -378,6 +378,5 @@ namespace FrbaCrucero.DB
                 return lista.ToArray();
             }
 
-
         }
 }

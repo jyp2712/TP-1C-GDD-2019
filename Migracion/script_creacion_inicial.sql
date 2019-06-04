@@ -1229,7 +1229,7 @@ GO
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_recorridos_mas_pasajes_comprados(@semestre as bigint, @anio as bigint) AS
 
 SELECT TOP 5
-		r.reco_codigo AS codigo_recorrido, count(DISTINCT v.viaj_id),
+		r.reco_codigo AS codigo_recorrido, count(DISTINCT v.viaj_id) cant_viajes,
 		(SELECT p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
 		WHERE c.ciud_id = r.reco_origen_id) AS puerto_origen,
