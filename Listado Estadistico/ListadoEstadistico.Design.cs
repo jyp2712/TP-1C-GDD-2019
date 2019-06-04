@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        new private void InitializeComponent()
         {
             this.Label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();

@@ -46,7 +46,7 @@ namespace FrbaCrucero.DB
             {
                 this.connection = new SqlConnection(stringConnectionBuilder.ConnectionString);
             }
-            catch (Exception e) //TODO ver si hay que logear...
+            catch (Exception) 
             {
                 DialogResult result;
                 result = MessageBox.Show("Error al conectar con la base de datos. La aplicación se cerrará.", "ERROR !", MessageBoxButtons.OK, MessageBoxIcon.Error);
