@@ -57,7 +57,7 @@ namespace FrbaCrucero.Listado_Estadistico
             ValidarNumericos(anio);
             try
             {
-                if (Convert.ToInt32(anio) < 2000 || Convert.ToInt32(anio) > 2050)
+                if (Convert.ToInt32(anio) < 2010 || Convert.ToInt32(anio) > 2020)
                     errorMessage += "El campo año debe tener un valor comrpendido entre 2000 y 2100\n";
             }
             catch (Exception) { }
