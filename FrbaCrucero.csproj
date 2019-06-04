@@ -81,6 +81,7 @@
     <Compile Include="AbmRol\RolForm.Designer.cs">
       <DependentUpon>RolForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRol\RolHelper.cs" />
     <Compile Include="AbmRol\RolListadoModificacionForm.cs">
       <SubType>Form</SubType>
     </Compile>

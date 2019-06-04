@@ -21,23 +21,8 @@ namespace FrbaCrucero.AbmRol
         public RolBajaForm()
         {
             InitializeComponent();
-            DBConnection dbConnection = DBConnection.getInstance();
-            ds = dbConnection.executeQuery(QueryProvider.SELECT_ROLES);
-            dataGridViewRoles.ReadOnly = true;
-            dataGridViewRoles.DataSource = ds.Tables[0];
-           
-            dataGridViewRoles.Columns["rol_id"].HeaderText = "Id";
-            dataGridViewRoles.Columns["rol_nombre"].HeaderText = "Nombre";
-            dataGridViewRoles.Columns["rol_estado"].HeaderText = "Habilitado";
-
-            DataGridViewButtonColumn button = new DataGridViewButtonColumn();
-            {
-                button.Name = "button";
-                button.HeaderText = "Eliminar";
-                button.Text = "   *  ";
-                button.UseColumnTextForButtonValue = true;
-                this.dataGridViewRoles.Columns.Add(button);
-            }
+            RolHelper.initializeDataGridView(dataGridViewRoles, ref ds);
+            RolHelper.addButtonToDataGridView(dataGridViewRoles, "Eliminar", "   *  ");
         }
 
         private void inicializarDataGridView()
@@ -71,14 +56,13 @@ namespace FrbaCrucero.AbmRol
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtNombre.Clear();
-            dataGridViewRoles.Refresh();
             ds.Clear();
+            dataGridViewRoles.Refresh();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            string rol_nombre = this.txtNombre.Text;
-            DataTable dt = DBAdapter.traerDataTable("buscarRolNombre", rol_nombre);
+            DataTable dt = RolHelper.buscarRolPorNombre(this.txtNombre.Text);
             dataGridViewRoles.DataSource = dt; 
         }
 

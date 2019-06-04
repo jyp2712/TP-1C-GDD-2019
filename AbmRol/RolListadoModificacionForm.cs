@@ -15,21 +15,13 @@ namespace FrbaCrucero.AbmRol
     {
         public RolForm RefToRolForm { get; set; }
 
+        DataSet ds;
+
         public RolListadoModificacionForm()
         {
             InitializeComponent();
-            DBConnection dbConnection = DBConnection.getInstance();
-            string query = QueryProvider.SELECT_ALL_ROLES;
-            DataSet ds = dbConnection.executeQuery(query);
-            dgvRoles.DataSource = ds.Tables[0];
-            DataGridViewButtonColumn button = new DataGridViewButtonColumn();
-            {
-                button.Name = "button";
-                button.HeaderText = "Seleccionar";
-                button.Text = "   *  ";
-                button.UseColumnTextForButtonValue = true; //dont forget this line
-                this.dgvRoles.Columns.Add(button);
-            }
+            RolHelper.initializeDataGridView(dgvRoles, ref ds);
+            RolHelper.addButtonToDataGridView(dgvRoles, "Seleccionar", "   *  ");
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -37,17 +29,18 @@ namespace FrbaCrucero.AbmRol
 
         }
 
+        //TODO no anda...
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtNombreRol.Clear();
+            ds.Clear();
+            dgvRoles.Refresh();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            DBConnection dbConnection = DBConnection.getInstance();
-            string query = QueryProvider.SELECT_ROL_LIKE(txtNombreRol.Text);
-            DataSet ds = dbConnection.executeQuery(query);
-            dgvRoles.DataSource = ds.Tables[0];
+            DataTable dt = RolHelper.buscarRolPorNombre(this.txtNombreRol.Text);
+            dgvRoles.DataSource = dt;
         }
 
         private void dgvRoles_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
