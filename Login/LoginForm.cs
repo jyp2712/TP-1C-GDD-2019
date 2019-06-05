@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FrbaCrucero.DB;
 using System.Security.Cryptography;
 using FrbaCrucero.AbmRol;
+using FrbaCrucero.AbmRecorrido;
 using System.Data.SqlClient;
 
 namespace FrbaCrucero.Login
@@ -35,7 +36,7 @@ namespace FrbaCrucero.Login
             if (this.checkUserAndPassword())
             {
                 this.Hide();
-                RolForm rolForm = new RolForm();
+                RecorridoHome rolForm = new RecorridoHome();
                 rolForm.Show();
                 //TODO abrir form con cosas de administrador
             }

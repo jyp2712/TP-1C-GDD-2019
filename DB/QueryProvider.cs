@@ -17,6 +17,7 @@ namespace FrbaCrucero.DB
         }
 
         public static string SELECT_FUNCIONALIDADES_NOMBRE = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Funcionalidad]";
+        public static string SELECT_CIUDADES_PUERTOS_NOMBRE = "SELECT (ISNULL(ciud_nombre, 'SIN NOMBRE') + '-' + puer_nombre) nombre FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Ciudad] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] ON puer_id = ciud_puerto_id WHERE puer_estado = 1";
 
         //TODO test
         public static string INSERT_ROL(string rol_nombre)
