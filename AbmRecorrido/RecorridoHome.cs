@@ -35,7 +35,8 @@ namespace FrbaCrucero.AbmRecorrido
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            BajaRecorrido bajaForm = new BajaRecorrido();
+            bajaForm.Show();
         }
     }
 }

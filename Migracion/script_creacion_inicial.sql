@@ -394,7 +394,8 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Recorrido] (
 	[reco_codigo] [numeric](18,0),
 	[reco_origen_id] [numeric](18,0),
  	[reco_destino_id] [numeric](18,0),
-	[reco_precio] [numeric](18,2) NOT NULL
+	[reco_precio] [numeric](18,2) NOT NULL,
+	[reco_estado] [bit] DEFAULT 1
 	CONSTRAINT FK_RECORRIDO_CIUDAD_ORIGEN FOREIGN KEY ([reco_origen_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Ciudad] ([ciud_id]),
 	CONSTRAINT FK_RECORRIDO_CIUDAD_DESTINO FOREIGN KEY ([reco_destino_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Ciudad] ([ciud_id])
 )

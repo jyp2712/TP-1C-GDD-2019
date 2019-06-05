@@ -36,7 +36,7 @@ namespace FrbaCrucero.Login
             if (this.checkUserAndPassword())
             {
                 this.Hide();
-                RecorridoHome rolForm = new RecorridoHome();
+                RolForm rolForm = new RolForm();
                 rolForm.Show();
                 //TODO abrir form con cosas de administrador
             }

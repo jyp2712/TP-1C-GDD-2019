@@ -34,8 +34,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.Codigo = new System.Windows.Forms.TextBox();
             this.Precio = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.Agregar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxCiudadPuertoOrigen = new System.Windows.Forms.ComboBox();
             this.comboBoxCiudadPuertoDestino = new System.Windows.Forms.ComboBox();
@@ -81,7 +80,7 @@
             // 
             this.Codigo.Location = new System.Drawing.Point(159, 49);
             this.Codigo.Name = "Codigo";
-            this.Codigo.Size = new System.Drawing.Size(100, 20);
+            this.Codigo.Size = new System.Drawing.Size(146, 20);
             this.Codigo.TabIndex = 0;
             this.Codigo.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -89,28 +88,19 @@
             // 
             this.Precio.Location = new System.Drawing.Point(159, 189);
             this.Precio.Name = "Precio";
-            this.Precio.Size = new System.Drawing.Size(100, 20);
+            this.Precio.Size = new System.Drawing.Size(146, 20);
             this.Precio.TabIndex = 3;
             this.Precio.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
-            // button1
+            // Agregar
             // 
-            this.button1.Location = new System.Drawing.Point(212, 239);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Agregar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(31, 239);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Limpiar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Agregar.Location = new System.Drawing.Point(247, 239);
+            this.Agregar.Name = "Agregar";
+            this.Agregar.Size = new System.Drawing.Size(75, 23);
+            this.Agregar.TabIndex = 4;
+            this.Agregar.Text = "Agregar";
+            this.Agregar.UseVisualStyleBackColor = true;
+            this.Agregar.Click += new System.EventHandler(this.button1_Click);
             // 
             // label5
             // 
@@ -130,7 +120,7 @@
             this.comboBoxCiudadPuertoOrigen.FormattingEnabled = true;
             this.comboBoxCiudadPuertoOrigen.Location = new System.Drawing.Point(159, 93);
             this.comboBoxCiudadPuertoOrigen.Name = "comboBoxCiudadPuertoOrigen";
-            this.comboBoxCiudadPuertoOrigen.Size = new System.Drawing.Size(100, 21);
+            this.comboBoxCiudadPuertoOrigen.Size = new System.Drawing.Size(146, 21);
             this.comboBoxCiudadPuertoOrigen.TabIndex = 1;
             this.comboBoxCiudadPuertoOrigen.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -139,7 +129,7 @@
             this.comboBoxCiudadPuertoDestino.FormattingEnabled = true;
             this.comboBoxCiudadPuertoDestino.Location = new System.Drawing.Point(159, 141);
             this.comboBoxCiudadPuertoDestino.Name = "comboBoxCiudadPuertoDestino";
-            this.comboBoxCiudadPuertoDestino.Size = new System.Drawing.Size(100, 21);
+            this.comboBoxCiudadPuertoDestino.Size = new System.Drawing.Size(146, 21);
             this.comboBoxCiudadPuertoDestino.TabIndex = 2;
             this.comboBoxCiudadPuertoDestino.SelectedIndexChanged += new System.EventHandler(this.comboBoxCiudadPuertoDestino_SelectedIndexChanged);
             // 
@@ -147,12 +137,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(323, 285);
+            this.ClientSize = new System.Drawing.Size(361, 293);
             this.Controls.Add(this.comboBoxCiudadPuertoDestino);
             this.Controls.Add(this.comboBoxCiudadPuertoOrigen);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Agregar);
             this.Controls.Add(this.Precio);
             this.Controls.Add(this.Codigo);
             this.Controls.Add(this.label4);
@@ -175,8 +164,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox Codigo;
         private System.Windows.Forms.TextBox Precio;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button Agregar;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxCiudadPuertoOrigen;
         private System.Windows.Forms.ComboBox comboBoxCiudadPuertoDestino;

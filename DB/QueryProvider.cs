@@ -11,6 +11,8 @@ namespace FrbaCrucero.DB
     {
 
         public static string SELECT_ROLES = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Rol]";
+        public static string SELECT_RECORRIDOS = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_estado=1";
+        
         public static string DELETE_ROLE(int id) 
         {
             return "UPDATE [GD1C2019].[EYE_OF_THE_TRIGGER].[Rol] SET rol_estado=0 WHERE rol_id=" + id;
