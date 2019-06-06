@@ -18,6 +18,8 @@ namespace FrbaCrucero.PagoReserva
         public PagoReservaForm()
         {
             InitializeComponent();
+            this.dtpSalida.Value = DateTime.Now.AddDays(1);
+            this.dtpRegreso.Value = DateTime.Now.AddDays(1);
         }
 
         public PagoReservaForm(Reserva reserva)
@@ -25,8 +27,8 @@ namespace FrbaCrucero.PagoReserva
             InitializeComponent();
             this.txtOrigen.Text = "TODO";
             this.txtDestino.Text = "TODO";
-            this.txtFechaSalida.Text = Convert.ToString(reserva.Viaje.FechaInicio);
-            this.txtFechaRegreso.Text = Convert.ToString(reserva.Viaje.FechaFin); //TODO que hacemos con la estimada?
+            this.dtpSalida.Value = reserva.Viaje.FechaInicio;
+            this.dtpRegreso.Value = reserva.Viaje.FechaFin; //TODO que hacemos con la estimada?
             this.txtNombreCrucero.Text = reserva.Crucero.Nombre;
             this.txtMarcaCrucero.Text = reserva.Crucero.Marca.Nombre;
             this.txtModeloCrucero.Text = reserva.Crucero.Modelo;
@@ -53,6 +55,16 @@ namespace FrbaCrucero.PagoReserva
         }
 
         private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnOrigen_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnFechaSalida_Click(object sender, EventArgs e)
         {
 
         }

@@ -37,8 +37,6 @@
             this.txtOrigen = new System.Windows.Forms.TextBox();
             this.btnOrigen = new System.Windows.Forms.Button();
             this.txtDestino = new System.Windows.Forms.TextBox();
-            this.txtFechaSalida = new System.Windows.Forms.TextBox();
-            this.txtFechaRegreso = new System.Windows.Forms.TextBox();
             this.txtNombreCrucero = new System.Windows.Forms.TextBox();
             this.txtCabina = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -57,6 +55,8 @@
             this.txtTipoCabina = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtModeloCrucero = new System.Windows.Forms.TextBox();
+            this.dtpSalida = new System.Windows.Forms.DateTimePicker();
+            this.dtpRegreso = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -113,58 +113,45 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 17);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 13);
+            this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 7;
-            this.label7.Text = "Numero Cabina:";
+            this.label7.Text = "Numero:";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // txtOrigen
             // 
-            this.txtOrigen.Location = new System.Drawing.Point(133, 13);
+            this.txtOrigen.Location = new System.Drawing.Point(116, 13);
             this.txtOrigen.Name = "txtOrigen";
-            this.txtOrigen.Size = new System.Drawing.Size(100, 20);
+            this.txtOrigen.Size = new System.Drawing.Size(198, 20);
             this.txtOrigen.TabIndex = 8;
             // 
             // btnOrigen
             // 
-            this.btnOrigen.Location = new System.Drawing.Point(248, 11);
+            this.btnOrigen.Location = new System.Drawing.Point(322, 10);
             this.btnOrigen.Name = "btnOrigen";
             this.btnOrigen.Size = new System.Drawing.Size(75, 23);
             this.btnOrigen.TabIndex = 9;
             this.btnOrigen.Text = "Seleccionar";
             this.btnOrigen.UseVisualStyleBackColor = true;
+            this.btnOrigen.Click += new System.EventHandler(this.btnOrigen_Click);
             // 
             // txtDestino
             // 
-            this.txtDestino.Location = new System.Drawing.Point(133, 39);
+            this.txtDestino.Location = new System.Drawing.Point(116, 39);
             this.txtDestino.Name = "txtDestino";
-            this.txtDestino.Size = new System.Drawing.Size(100, 20);
+            this.txtDestino.Size = new System.Drawing.Size(198, 20);
             this.txtDestino.TabIndex = 10;
-            // 
-            // txtFechaSalida
-            // 
-            this.txtFechaSalida.Location = new System.Drawing.Point(133, 65);
-            this.txtFechaSalida.Name = "txtFechaSalida";
-            this.txtFechaSalida.Size = new System.Drawing.Size(100, 20);
-            this.txtFechaSalida.TabIndex = 11;
-            // 
-            // txtFechaRegreso
-            // 
-            this.txtFechaRegreso.Location = new System.Drawing.Point(133, 91);
-            this.txtFechaRegreso.Name = "txtFechaRegreso";
-            this.txtFechaRegreso.Size = new System.Drawing.Size(100, 20);
-            this.txtFechaRegreso.TabIndex = 12;
             // 
             // txtNombreCrucero
             // 
-            this.txtNombreCrucero.Location = new System.Drawing.Point(131, 13);
+            this.txtNombreCrucero.Location = new System.Drawing.Point(116, 13);
             this.txtNombreCrucero.Name = "txtNombreCrucero";
             this.txtNombreCrucero.Size = new System.Drawing.Size(100, 20);
             this.txtNombreCrucero.TabIndex = 13;
             // 
             // txtCabina
             // 
-            this.txtCabina.Location = new System.Drawing.Point(131, 14);
+            this.txtCabina.Location = new System.Drawing.Point(66, 13);
             this.txtCabina.Name = "txtCabina";
             this.txtCabina.Size = new System.Drawing.Size(100, 20);
             this.txtCabina.TabIndex = 14;
@@ -180,14 +167,14 @@
             // 
             // txtCantidadPasajes
             // 
-            this.txtCantidadPasajes.Location = new System.Drawing.Point(133, 117);
+            this.txtCantidadPasajes.Location = new System.Drawing.Point(116, 117);
             this.txtCantidadPasajes.Name = "txtCantidadPasajes";
             this.txtCantidadPasajes.Size = new System.Drawing.Size(100, 20);
             this.txtCantidadPasajes.TabIndex = 16;
             // 
             // btnDestino
             // 
-            this.btnDestino.Location = new System.Drawing.Point(248, 37);
+            this.btnDestino.Location = new System.Drawing.Point(322, 37);
             this.btnDestino.Name = "btnDestino";
             this.btnDestino.Size = new System.Drawing.Size(75, 23);
             this.btnDestino.TabIndex = 17;
@@ -196,16 +183,17 @@
             // 
             // btnFechaSalida
             // 
-            this.btnFechaSalida.Location = new System.Drawing.Point(248, 63);
+            this.btnFechaSalida.Location = new System.Drawing.Point(322, 67);
             this.btnFechaSalida.Name = "btnFechaSalida";
             this.btnFechaSalida.Size = new System.Drawing.Size(75, 23);
             this.btnFechaSalida.TabIndex = 18;
             this.btnFechaSalida.Text = "Seleccionar";
             this.btnFechaSalida.UseVisualStyleBackColor = true;
+            this.btnFechaSalida.Click += new System.EventHandler(this.btnFechaSalida_Click);
             // 
             // btnFechaLlegada
             // 
-            this.btnFechaLlegada.Location = new System.Drawing.Point(248, 89);
+            this.btnFechaLlegada.Location = new System.Drawing.Point(322, 90);
             this.btnFechaLlegada.Name = "btnFechaLlegada";
             this.btnFechaLlegada.Size = new System.Drawing.Size(75, 23);
             this.btnFechaLlegada.TabIndex = 19;
@@ -214,7 +202,7 @@
             // 
             // btnCrucero
             // 
-            this.btnCrucero.Location = new System.Drawing.Point(502, 111);
+            this.btnCrucero.Location = new System.Drawing.Point(140, 277);
             this.btnCrucero.Name = "btnCrucero";
             this.btnCrucero.Size = new System.Drawing.Size(100, 23);
             this.btnCrucero.TabIndex = 20;
@@ -223,7 +211,7 @@
             // 
             // btnCabina
             // 
-            this.btnCabina.Location = new System.Drawing.Point(503, 234);
+            this.btnCabina.Location = new System.Drawing.Point(321, 277);
             this.btnCabina.Name = "btnCabina";
             this.btnCabina.Size = new System.Drawing.Size(100, 23);
             this.btnCabina.TabIndex = 21;
@@ -238,9 +226,9 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtNombreCrucero);
-            this.groupBox1.Location = new System.Drawing.Point(371, 12);
+            this.groupBox1.Location = new System.Drawing.Point(24, 178);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(239, 93);
+            this.groupBox1.Size = new System.Drawing.Size(225, 93);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Crucero";
@@ -256,6 +244,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.dtpRegreso);
+            this.groupBox2.Controls.Add(this.dtpSalida);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.btnFechaLlegada);
@@ -268,18 +258,16 @@
             this.groupBox2.Controls.Add(this.txtOrigen);
             this.groupBox2.Controls.Add(this.btnOrigen);
             this.groupBox2.Controls.Add(this.txtDestino);
-            this.groupBox2.Controls.Add(this.txtFechaRegreso);
-            this.groupBox2.Controls.Add(this.txtFechaSalida);
             this.groupBox2.Location = new System.Drawing.Point(24, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(332, 174);
+            this.groupBox2.Size = new System.Drawing.Size(407, 152);
             this.groupBox2.TabIndex = 23;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Viaje";
             // 
             // txtMarcaCrucero
             // 
-            this.txtMarcaCrucero.Location = new System.Drawing.Point(131, 39);
+            this.txtMarcaCrucero.Location = new System.Drawing.Point(116, 39);
             this.txtMarcaCrucero.Name = "txtMarcaCrucero";
             this.txtMarcaCrucero.Size = new System.Drawing.Size(100, 20);
             this.txtMarcaCrucero.TabIndex = 23;
@@ -299,16 +287,16 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.txtCabina);
-            this.groupBox3.Location = new System.Drawing.Point(372, 160);
+            this.groupBox3.Location = new System.Drawing.Point(255, 178);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(239, 68);
+            this.groupBox3.Size = new System.Drawing.Size(176, 93);
             this.groupBox3.TabIndex = 24;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cabina";
             // 
             // txtTipoCabina
             // 
-            this.txtTipoCabina.Location = new System.Drawing.Point(131, 39);
+            this.txtTipoCabina.Location = new System.Drawing.Point(66, 39);
             this.txtTipoCabina.Name = "txtTipoCabina";
             this.txtTipoCabina.Size = new System.Drawing.Size(100, 20);
             this.txtTipoCabina.TabIndex = 25;
@@ -324,16 +312,30 @@
             // 
             // txtModeloCrucero
             // 
-            this.txtModeloCrucero.Location = new System.Drawing.Point(131, 65);
+            this.txtModeloCrucero.Location = new System.Drawing.Point(116, 65);
             this.txtModeloCrucero.Name = "txtModeloCrucero";
             this.txtModeloCrucero.Size = new System.Drawing.Size(100, 20);
             this.txtModeloCrucero.TabIndex = 25;
+            // 
+            // dtpSalida
+            // 
+            this.dtpSalida.Location = new System.Drawing.Point(116, 67);
+            this.dtpSalida.Name = "dtpSalida";
+            this.dtpSalida.Size = new System.Drawing.Size(200, 20);
+            this.dtpSalida.TabIndex = 20;
+            // 
+            // dtpRegreso
+            // 
+            this.dtpRegreso.Location = new System.Drawing.Point(116, 93);
+            this.dtpRegreso.Name = "dtpRegreso";
+            this.dtpRegreso.Size = new System.Drawing.Size(200, 20);
+            this.dtpRegreso.TabIndex = 21;
             // 
             // PagoReservaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(623, 319);
+            this.ClientSize = new System.Drawing.Size(446, 438);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -363,8 +365,6 @@
         private System.Windows.Forms.TextBox txtOrigen;
         private System.Windows.Forms.Button btnOrigen;
         private System.Windows.Forms.TextBox txtDestino;
-        private System.Windows.Forms.TextBox txtFechaSalida;
-        private System.Windows.Forms.TextBox txtFechaRegreso;
         private System.Windows.Forms.TextBox txtNombreCrucero;
         private System.Windows.Forms.TextBox txtCabina;
         private System.Windows.Forms.Label label8;
@@ -383,5 +383,7 @@
         private System.Windows.Forms.TextBox txtTipoCabina;
         private System.Windows.Forms.TextBox txtModeloCrucero;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DateTimePicker dtpRegreso;
+        private System.Windows.Forms.DateTimePicker dtpSalida;
     }
 }
