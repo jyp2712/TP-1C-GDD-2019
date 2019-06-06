@@ -1,6 +1,6 @@
-﻿namespace FrbaCrucero.AbmRecorrido
+﻿namespace FrbaCrucero.GeneracionViaje
 {
-    partial class BajaRecorrido
+    partial class ListadoCruceros
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridViewRecorridos = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCruceros = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textNombre2 = new System.Windows.Forms.TextBox();
             this.Filtro2 = new System.Windows.Forms.Label();
@@ -36,24 +36,24 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.Filtro1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecorridos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCruceros)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridViewRecorridos
+            // dataGridViewCruceros
             // 
-            this.dataGridViewRecorridos.AllowUserToAddRows = false;
-            this.dataGridViewRecorridos.AllowUserToDeleteRows = false;
-            this.dataGridViewRecorridos.AllowUserToResizeColumns = false;
-            this.dataGridViewRecorridos.AllowUserToResizeRows = false;
-            this.dataGridViewRecorridos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRecorridos.Location = new System.Drawing.Point(12, 170);
-            this.dataGridViewRecorridos.MultiSelect = false;
-            this.dataGridViewRecorridos.Name = "dataGridViewRecorridos";
-            this.dataGridViewRecorridos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewRecorridos.Size = new System.Drawing.Size(590, 275);
-            this.dataGridViewRecorridos.TabIndex = 3;
-            this.dataGridViewRecorridos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRecorridos_CellContentClick);
+            this.dataGridViewCruceros.AllowUserToAddRows = false;
+            this.dataGridViewCruceros.AllowUserToDeleteRows = false;
+            this.dataGridViewCruceros.AllowUserToResizeColumns = false;
+            this.dataGridViewCruceros.AllowUserToResizeRows = false;
+            this.dataGridViewCruceros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCruceros.Location = new System.Drawing.Point(13, 169);
+            this.dataGridViewCruceros.MultiSelect = false;
+            this.dataGridViewCruceros.Name = "dataGridViewCruceros";
+            this.dataGridViewCruceros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewCruceros.Size = new System.Drawing.Size(590, 296);
+            this.dataGridViewCruceros.TabIndex = 7;
+            this.dataGridViewCruceros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCruceros_CellContentClick);
             // 
             // groupBox1
             // 
@@ -63,13 +63,12 @@
             this.groupBox1.Controls.Add(this.btnLimpiar);
             this.groupBox1.Controls.Add(this.txtNombre);
             this.groupBox1.Controls.Add(this.Filtro1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 16);
+            this.groupBox1.Location = new System.Drawing.Point(13, 25);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(590, 118);
-            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // textNombre2
             // 
@@ -77,7 +76,6 @@
             this.textNombre2.Name = "textNombre2";
             this.textNombre2.Size = new System.Drawing.Size(150, 20);
             this.textNombre2.TabIndex = 5;
-            this.textNombre2.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Filtro2
             // 
@@ -87,7 +85,6 @@
             this.Filtro2.Size = new System.Drawing.Size(35, 13);
             this.Filtro2.TabIndex = 4;
             this.Filtro2.Text = "Filtro2";
-            this.Filtro2.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnBuscar
             // 
@@ -107,7 +104,7 @@
             this.btnLimpiar.TabIndex = 2;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click_2);
             // 
             // txtNombre
             // 
@@ -115,7 +112,7 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(150, 20);
             this.txtNombre.TabIndex = 1;
-            this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
+            this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged_1);
             // 
             // Filtro1
             // 
@@ -126,16 +123,16 @@
             this.Filtro1.TabIndex = 0;
             this.Filtro1.Text = "Filtro1";
             // 
-            // BajaRecorrido
+            // ListadoCruceros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(613, 470);
-            this.Controls.Add(this.dataGridViewRecorridos);
+            this.ClientSize = new System.Drawing.Size(615, 477);
+            this.Controls.Add(this.dataGridViewCruceros);
             this.Controls.Add(this.groupBox1);
-            this.Name = "BajaRecorrido";
-            this.Text = "BajaRecorrido";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecorridos)).EndInit();
+            this.Name = "ListadoCruceros";
+            this.Text = "ListadoCruceros";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCruceros)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -144,14 +141,13 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridViewRecorridos;
+        private System.Windows.Forms.DataGridView dataGridViewCruceros;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textNombre2;
+        private System.Windows.Forms.Label Filtro2;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label Filtro1;
-        private System.Windows.Forms.TextBox textNombre2;
-        private System.Windows.Forms.Label Filtro2;
-
     }
 }

@@ -76,7 +76,7 @@
             this.Modificar.Name = "Modificar";
             this.Modificar.Size = new System.Drawing.Size(75, 23);
             this.Modificar.TabIndex = 19;
-            this.Modificar.Text = "Agregar";
+            this.Modificar.Text = "Modificar";
             this.Modificar.UseVisualStyleBackColor = true;
             this.Modificar.Click += new System.EventHandler(this.Modificar_Click);
             // 

@@ -100,22 +100,23 @@ namespace FrbaCrucero.AbmRecorrido
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-
-            
-            
-                DBConnection dbConnection = DBConnection.getInstance();
+            DBConnection dbConnection = DBConnection.getInstance();
+            if (this.txtNombre.TextLength < 1 && this.textNombre2.TextLength < 1)
+                initializeDataGridView(dataGridViewRecorridos, ref ds);
+            else
+            {
                 if (this.txtNombre.TextLength > 0)
                 {
                     ds = dbConnection.executeQuery(QueryProvider.SELECT_RECORRIDOS_TEXTUAL(this.txtNombre.Text));
                 }
-                else 
+                else
                 {
                     if (this.textNombre2.TextLength > 0)
                     {
                         ds = dbConnection.executeQuery(QueryProvider.SELECT_RECORRIDOS_LIKE(this.textNombre2.Text));
                     }
                 }
-                
+
                 dataGridViewRecorridos.ReadOnly = true;
                 dataGridViewRecorridos.DataSource = ds.Tables[0];
 
@@ -126,7 +127,7 @@ namespace FrbaCrucero.AbmRecorrido
                 dataGridViewRecorridos.Columns["reco_destino_id"].HeaderText = "Hasta";
                 dataGridViewRecorridos.Columns["reco_precio"].HeaderText = "Precio";
                 dataGridViewRecorridos.Columns["reco_estado"].HeaderText = "Estado";
-            
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)

@@ -9,17 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaCrucero.DB;
 
-namespace FrbaCrucero.AbmRecorrido
+namespace FrbaCrucero.GeneracionViaje
 {
-    public partial class ModificacionRecorrido : Form
+    public partial class ListadoRecorridos : Form
     {
-    DataSet ds;
 
-        public ModificacionRecorrido()
+       DataSet ds;
+       public int id { get; set; }
+
+       public ListadoRecorridos()
         {
             InitializeComponent();
             initializeDataGridView(dataGridViewRecorridos, ref ds);
-            addButtonToDataGridView(dataGridViewRecorridos, "Seleccionar", "   Modificar  ");
+            addButtonToDataGridView(dataGridViewRecorridos, "Seleccionar", "   Seleccionar  ");
 
         }
 
@@ -47,21 +49,16 @@ namespace FrbaCrucero.AbmRecorrido
             {
                 DataGridViewRow selectedRow = dataGridViewRecorridos.Rows[e.RowIndex];
                 string selected_recorrido_id = Convert.ToString(selectedRow.Cells["reco_id"].Value);
-                int id = Convert.ToInt32(selectedRow.Cells["reco_id"].Value);
+                id = Convert.ToInt32(selectedRow.Cells["reco_id"].Value);
 
-                ModificacionRecorridoForm modifForm = new ModificacionRecorridoForm(id);
-                modifForm.Show();
-
-                initializeDataGridView(dataGridViewRecorridos, ref ds);
+                this.Close();
             }
-
         }
-
 
         public static void initializeDataGridView(DataGridView dgv, ref DataSet ds)
         {
             DBConnection dbConnection = DBConnection.getInstance();
-            ds = dbConnection.executeQuery(QueryProvider.SELECT_RECORRIDOS);
+            ds = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_estado=1");
             dgv.ReadOnly = true;
             dgv.DataSource = ds.Tables[0];
 
@@ -71,8 +68,7 @@ namespace FrbaCrucero.AbmRecorrido
             dgv.Columns["reco_origen_id"].HeaderText = "Desde";
             dgv.Columns["reco_destino_id"].HeaderText = "Hasta";
             dgv.Columns["reco_precio"].HeaderText = "Precio";
-            dgv.Columns["reco_estado"].HeaderText = "Estado";
-        }
+         }
 
         public static void addButtonToDataGridView(DataGridView dgv, string headerText, string buttonText)
         {
@@ -95,46 +91,42 @@ namespace FrbaCrucero.AbmRecorrido
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             this.txtNombre.Clear();
-        }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
+            this.textNombre2.Clear();
 
         }
+
 
         private void btnBuscar_Click_1(object sender, EventArgs e)
         {
-                DBConnection dbConnection = DBConnection.getInstance();
-                if (this.txtNombre.TextLength < 1 && this.textNombre2.TextLength < 1)
-                    initializeDataGridView(dataGridViewRecorridos, ref ds);
+            DBConnection dbConnection = DBConnection.getInstance();
+            if (this.txtNombre.TextLength < 1 && this.textNombre2.TextLength < 1)
+                initializeDataGridView(dataGridViewRecorridos, ref ds);
+            else
+            {
+                if (this.txtNombre.TextLength > 0)
+                {
+                    ds = dbConnection.executeQuery(QueryProvider.SELECT_RECORRIDOS_TEXTUAL(this.txtNombre.Text));
+                }
                 else
                 {
-                    if (this.txtNombre.TextLength > 0)
+                    if (this.textNombre2.TextLength > 0)
                     {
-                        ds = dbConnection.executeQuery(QueryProvider.SELECT_RECORRIDOS_TEXTUAL(this.txtNombre.Text));
+                        ds = dbConnection.executeQuery(QueryProvider.SELECT_RECORRIDOS_LIKE(this.textNombre2.Text));
                     }
-                    else
-                    {
-                        if (this.textNombre2.TextLength > 0)
-                        {
-                            ds = dbConnection.executeQuery(QueryProvider.SELECT_RECORRIDOS_LIKE(this.textNombre2.Text));
-                        }
-                    }
-
-                    dataGridViewRecorridos.ReadOnly = true;
-                    dataGridViewRecorridos.DataSource = ds.Tables[0];
-
-
-                    dataGridViewRecorridos.Columns["reco_id"].HeaderText = "Id";
-                    dataGridViewRecorridos.Columns["reco_codigo"].HeaderText = "Codigo";
-                    dataGridViewRecorridos.Columns["reco_origen_id"].HeaderText = "Desde";
-                    dataGridViewRecorridos.Columns["reco_destino_id"].HeaderText = "Hasta";
-                    dataGridViewRecorridos.Columns["reco_precio"].HeaderText = "Precio";
-                    dataGridViewRecorridos.Columns["reco_estado"].HeaderText = "Estado";
                 }
-        }
 
-        
+                dataGridViewRecorridos.ReadOnly = true;
+                dataGridViewRecorridos.DataSource = ds.Tables[0];
+
+
+                dataGridViewRecorridos.Columns["reco_id"].HeaderText = "Id";
+                dataGridViewRecorridos.Columns["reco_codigo"].HeaderText = "Codigo";
+                dataGridViewRecorridos.Columns["reco_origen_id"].HeaderText = "Desde";
+                dataGridViewRecorridos.Columns["reco_destino_id"].HeaderText = "Hasta";
+                dataGridViewRecorridos.Columns["reco_precio"].HeaderText = "Precio";
+                dataGridViewRecorridos.Columns["reco_estado"].HeaderText = "Estado";
+            }
+        }
 
         private void btnLimpiar_Click_1(object sender, EventArgs e)
         {

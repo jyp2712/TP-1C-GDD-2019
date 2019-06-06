@@ -21,7 +21,7 @@ namespace FrbaCrucero
         private void btnIngresarCliente_Click(object sender, EventArgs e)
         {
             this.Hide();
-            FrbaCrucero.AbmRecorrido.RecorridoHome rh = new AbmRecorrido.RecorridoHome();
+            FrbaCrucero.GeneracionViaje.ViajeAlta rh = new GeneracionViaje.ViajeAlta();
             rh.Show();
         }
 

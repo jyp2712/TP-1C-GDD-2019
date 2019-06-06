@@ -1271,7 +1271,7 @@ SELECT TOP 5
 		((SELECT Count(DISTINCT cabi_id)
 		FROM EYE_OF_THE_TRIGGER.Cabina JOIN EYE_OF_THE_TRIGGER.Viaje v1 ON cabi_cruc_id = v1.viaj_crucero_id
 		WHERE cabi_cruc_id = res.rese_crucero_id) - 
-		ISNULL(res.rese_cantidad_pasajeros, 1)) cant_cabinas_libres,
+		SUM(ISNULL(res.rese_cantidad_pasajeros, 1))) cant_cabinas_libres,
 		(SELECT TOP 1 p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
 		JOIN EYE_OF_THE_TRIGGER.Recorrido r1 ON c.ciud_id = r1.reco_origen_id
@@ -1325,6 +1325,18 @@ GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[recorrido_finalizado] creada -----'
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_recorrido]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_recorrido
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_recorrido(@id as bigint, @Codigo as bigint, @PuertoDesde as bigint, @PuertoHasta as bigint,
+@Precio as float) AS
+
+UPDATE [EYE_OF_THE_TRIGGER].Recorrido SET reco_codigo = @Codigo, reco_origen_id = @PuertoDesde, reco_destino_id = @PuertoHasta, reco_precio = @Precio, reco_estado = 1
+WHERE reco_id = @id  
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[actualizar_recorrido] creada -----'
+
 
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[recorrido_existente]', 'P') IS NOT NULL 
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].recorrido_existente
@@ -1345,6 +1357,35 @@ WHERE r.reco_codigo = @Codigo
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[recorrido_existente] creada -----'
 
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[crucero_no_disponible]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].crucero_no_disponible
+GO
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].crucero_no_disponible(@Crucero as varchar(255), @FechaInicio as DATETIME, @FechaFin as DATETIME) AS
+
+SELECT *
+FROM EYE_OF_THE_TRIGGER.Crucero c JOIN EYE_OF_THE_TRIGGER.Viaje ON viaj_crucero_id = cruc_id
+WHERE cruc_id = @Crucero AND ((viaj_fecha_inicio BETWEEN @FechaInicio AND @FechaFin) OR 
+(viaj_fecha_fin_estimada BETWEEN @FechaInicio AND @FechaFin))
+
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[crucero_no_disponible] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[insertar_viaje]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].insertar_viaje
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].insertar_viaje(@Codigo as int, @Recorrido as int, @FechaInicio as DATETIME, @FechaFin as DATETIME, @Crucero as varchar(50)) AS
+BEGIN
+	INSERT INTO EYE_OF_THE_TRIGGER.Viaje (viaj_codigo, viaj_fecha_inicio , viaj_fecha_fin_estimada, viaj_crucero_id)
+	VALUES (@Codigo, @FechaInicio,  @FechaFin, @Crucero)
+	INSERT INTO EYE_OF_THE_TRIGGER.RecorridoViaje (viaj_id, reco_id)
+	VALUES ((select MAX(viaj_id) from EYE_OF_THE_TRIGGER.Viaje) , @Recorrido)
+	RETURN 0
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_viaje] creada -----'
 
 
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[ciudad_id]', 'P') IS NOT NULL 

@@ -1,6 +1,6 @@
-﻿namespace FrbaCrucero.AbmRecorrido
+﻿namespace FrbaCrucero.GeneracionViaje
 {
-    partial class ModificacionRecorrido
+    partial class ListadoRecorridos
     {
         /// <summary>
         /// Required designer variable.
@@ -30,12 +30,12 @@
         {
             this.dataGridViewRecorridos = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textNombre2 = new System.Windows.Forms.TextBox();
+            this.Filtro2 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.txtNombre = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textNombre2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.Filtro1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecorridos)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -47,32 +47,48 @@
             this.dataGridViewRecorridos.AllowUserToResizeColumns = false;
             this.dataGridViewRecorridos.AllowUserToResizeRows = false;
             this.dataGridViewRecorridos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRecorridos.Location = new System.Drawing.Point(22, 148);
+            this.dataGridViewRecorridos.Location = new System.Drawing.Point(12, 166);
             this.dataGridViewRecorridos.MultiSelect = false;
             this.dataGridViewRecorridos.Name = "dataGridViewRecorridos";
             this.dataGridViewRecorridos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewRecorridos.Size = new System.Drawing.Size(590, 191);
+            this.dataGridViewRecorridos.Size = new System.Drawing.Size(590, 275);
             this.dataGridViewRecorridos.TabIndex = 5;
             this.dataGridViewRecorridos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRecorridos_CellContentClick);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textNombre2);
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.Filtro2);
             this.groupBox1.Controls.Add(this.btnBuscar);
             this.groupBox1.Controls.Add(this.btnLimpiar);
             this.groupBox1.Controls.Add(this.txtNombre);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(22, 12);
+            this.groupBox1.Controls.Add(this.Filtro1);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(590, 114);
-            this.groupBox1.TabIndex = 6;
+            this.groupBox1.Size = new System.Drawing.Size(590, 118);
+            this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
             // 
+            // textNombre2
+            // 
+            this.textNombre2.Location = new System.Drawing.Point(60, 53);
+            this.textNombre2.Name = "textNombre2";
+            this.textNombre2.Size = new System.Drawing.Size(150, 20);
+            this.textNombre2.TabIndex = 5;
+            // 
+            // Filtro2
+            // 
+            this.Filtro2.AutoSize = true;
+            this.Filtro2.Location = new System.Drawing.Point(7, 56);
+            this.Filtro2.Name = "Filtro2";
+            this.Filtro2.Size = new System.Drawing.Size(35, 13);
+            this.Filtro2.TabIndex = 4;
+            this.Filtro2.Text = "Filtro2";
+            // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(509, 77);
+            this.btnBuscar.Location = new System.Drawing.Point(491, 89);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 3;
@@ -82,7 +98,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(10, 77);
+            this.btnLimpiar.Location = new System.Drawing.Point(27, 89);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 2;
@@ -97,40 +113,24 @@
             this.txtNombre.Size = new System.Drawing.Size(150, 20);
             this.txtNombre.TabIndex = 1;
             // 
-            // label1
+            // Filtro1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Filtro1";
+            this.Filtro1.AutoSize = true;
+            this.Filtro1.Location = new System.Drawing.Point(7, 20);
+            this.Filtro1.Name = "Filtro1";
+            this.Filtro1.Size = new System.Drawing.Size(35, 13);
+            this.Filtro1.TabIndex = 0;
+            this.Filtro1.Text = "Filtro1";
             // 
-            // textNombre2
-            // 
-            this.textNombre2.Location = new System.Drawing.Point(60, 46);
-            this.textNombre2.Name = "textNombre2";
-            this.textNombre2.Size = new System.Drawing.Size(150, 20);
-            this.textNombre2.TabIndex = 5;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 49);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Filtro2";
-            // 
-            // ModificacionRecorrido
+            // ListadoRecorridos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(636, 351);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(616, 473);
             this.Controls.Add(this.dataGridViewRecorridos);
-            this.Name = "ModificacionRecorrido";
-            this.Text = "ModificacionRecorrido";
+            this.Controls.Add(this.groupBox1);
+            this.Name = "ListadoRecorridos";
+            this.Text = "ListadoRecorridos";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecorridos)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -142,11 +142,12 @@
 
         private System.Windows.Forms.DataGridView dataGridViewRecorridos;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textNombre2;
+        private System.Windows.Forms.Label Filtro2;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.TextBox txtNombre;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textNombre2;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Filtro1;
+
     }
 }
