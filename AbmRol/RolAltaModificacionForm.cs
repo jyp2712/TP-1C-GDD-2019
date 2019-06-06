@@ -12,12 +12,12 @@ using System.Data.SqlClient;
 
 namespace FrbaCrucero.AbmRol
 {
-    public partial class RolAltaForm : Form
+    public partial class RolAltaModificacionForm : Form
     {
         private Boolean isUpdate = false;
         private string updateRolId = null;
 
-        public RolAltaForm()
+        public RolAltaModificacionForm()
         {
             InitializeComponent();
             cargarComboFuncionalidades();
@@ -25,7 +25,7 @@ namespace FrbaCrucero.AbmRol
             isUpdate = false;
         }
 
-        public RolAltaForm(string rol_id)
+        public RolAltaModificacionForm(string rol_id)
         {
             InitializeComponent();
             cargarComboFuncionalidades();

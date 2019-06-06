@@ -20,5 +20,11 @@ namespace FrbaCrucero
             Descripcion = descripcion;
         }
 
+        public TipoDocumento(DataSet ds)
+        {
+            this.Id = Convert.ToInt32(ds.Tables[0].Rows[0]["id"]);
+            this.Descripcion = Convert.ToString(ds.Tables[0].Rows[0]["descripcion"]);
+        }
+
     }
 }

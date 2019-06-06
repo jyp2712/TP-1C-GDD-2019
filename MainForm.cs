@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using FrbaCrucero.PagoReserva;
 
 namespace FrbaCrucero
 {
@@ -20,7 +21,9 @@ namespace FrbaCrucero
 
         private void btnIngresarCliente_Click(object sender, EventArgs e)
         {
-            
+            SeleccionReservaForm form = new SeleccionReservaForm();
+            form.Show();
+            this.Hide();
         }
 
         private void btnIngresarAdministrador_Click(object sender, EventArgs e)

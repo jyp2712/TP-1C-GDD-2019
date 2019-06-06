@@ -24,7 +24,7 @@ namespace FrbaCrucero.AbmRol
         private void btnAlta_Click(object sender, EventArgs e)
         {
             //this.Hide();
-            RolAltaForm altaForm = new RolAltaForm();
+            RolAltaModificacionForm altaForm = new RolAltaModificacionForm();
             altaForm.RefToRolForm = this;
             altaForm.Show();
         }

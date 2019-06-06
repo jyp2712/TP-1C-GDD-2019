@@ -53,7 +53,7 @@ namespace FrbaCrucero.AbmRol
                 DataGridViewRow selectedRow = dgvRoles.Rows[e.RowIndex];
                 string selected_rol_id = Convert.ToString(selectedRow.Cells["rol_id"].Value);           
 
-                RolAltaForm altaForm = new RolAltaForm(selected_rol_id);
+                RolAltaModificacionForm altaForm = new RolAltaModificacionForm(selected_rol_id);
                 altaForm.Show();
                 altaForm.RefToRolForm = this.RefToRolForm;
             }

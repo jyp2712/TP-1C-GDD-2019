@@ -63,11 +63,11 @@
     <Compile Include="AbmRecorrido\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\RolAltaForm.cs">
+    <Compile Include="AbmRol\RolAltaModificacionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\RolAltaForm.Designer.cs">
-      <DependentUpon>RolAltaForm.cs</DependentUpon>
+    <Compile Include="AbmRol\RolAltaModificacionForm.Designer.cs">
+      <DependentUpon>RolAltaModificacionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmRol\RolBajaForm.cs">
       <SubType>Form</SubType>
@@ -88,6 +88,19 @@
     <Compile Include="AbmRol\RolListadoModificacionForm.Designer.cs">
       <DependentUpon>RolListadoModificacionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\Cabina.cs" />
+    <Compile Include="Dominio\Cliente.cs" />
+    <Compile Include="Dominio\Crucero.cs" />
+    <Compile Include="Dominio\Domicilio.cs" />
+    <Compile Include="Dominio\Entidad.cs" />
+    <Compile Include="Dominio\EstadoReserva.cs" />
+    <Compile Include="Dominio\Marca.cs" />
+    <Compile Include="Dominio\MedioDePago.cs" />
+    <Compile Include="Dominio\Reserva.cs" />
+    <Compile Include="Dominio\Servicio.cs" />
+    <Compile Include="Dominio\TipoCabina.cs" />
+    <Compile Include="Dominio\TipoDocumento.cs" />
+    <Compile Include="Dominio\Viaje.cs" />
     <Compile Include="ExcepcionFrbaCrucero.cs" />
     <Compile Include="CompraReservaPasaje\Form1.cs">
       <SubType>Form</SubType>
@@ -137,17 +150,23 @@
     <Compile Include="Login\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PagoReserva\Form1.cs">
+    <Compile Include="PagoReserva\PagoReservaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PagoReserva\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="PagoReserva\PagoReservaForm.Designer.cs">
+      <DependentUpon>PagoReservaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PagoReserva\SeleccionReservaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PagoReserva\SeleccionReservaForm.Designer.cs">
+      <DependentUpon>SeleccionReservaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validaciones\ValidacionesHelper.cs" />
-    <EmbeddedResource Include="AbmRol\RolAltaForm.resx">
-      <DependentUpon>RolAltaForm.cs</DependentUpon>
+    <EmbeddedResource Include="AbmRol\RolAltaModificacionForm.resx">
+      <DependentUpon>RolAltaModificacionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\RolBajaForm.resx">
       <DependentUpon>RolBajaForm.cs</DependentUpon>
@@ -166,6 +185,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PagoReserva\PagoReservaForm.resx">
+      <DependentUpon>PagoReservaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PagoReserva\SeleccionReservaForm.resx">
+      <DependentUpon>SeleccionReservaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -188,6 +213,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Migracion\script_creacion_inicial.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -22,6 +22,19 @@ namespace FrbaCrucero.Dominio
             this.Pasajeros = pasajeros;
         }
 
+        public Reserva(DataSet ds)
+        {
+            this.Id = Convert.ToInt32(ds.Tables[0].Rows[0]["rese_id"]);
+            this.Cliente = new Cliente(ds);
+            /*this.Crucero = new Crucero(ds);
+            this.FechaCreacion = ds.Tables[0].Rows[0]["rese_fecha_creacion"];
+            this.Viaje = new Viaje(ds);
+            this.Cabina = new Cabina(ds);
+            this.TipoServicio = new TipoServicio(ds);
+            this.EstadoReserva = new EstadoReserva(ds);
+            this.Pasajeros = ds.Tables[0].Rows[0]["rese_cantidad_pasajeros"];*/
+        }
+
         public Cliente Cliente { get; set; }
         public Crucero Crucero { get; set; }
         public string FechaCreacion { get; set; }
