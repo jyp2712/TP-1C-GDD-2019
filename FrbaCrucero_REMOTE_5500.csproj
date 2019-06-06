@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{11BD0A38-F064-4794-9845-D4C99E7D45E9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FrbaCrucero</RootNamespace>
+    <AssemblyName>FrbaCrucero</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbmCrucero\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRecorrido\AltaRecorrido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRecorrido\AltaRecorrido.Designer.cs">
+      <DependentUpon>AltaRecorrido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRecorrido\BajaRecorrido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRecorrido\BajaRecorrido.Designer.cs">
+      <DependentUpon>BajaRecorrido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRecorrido\BajaRecorridoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRecorrido\BajaRecorridoForm.Designer.cs">
+      <DependentUpon>BajaRecorridoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRecorrido\ModificacionRecorrido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRecorrido\ModificacionRecorrido.Designer.cs">
+      <DependentUpon>ModificacionRecorrido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRecorrido\ModificacionRecorridoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRecorrido\ModificacionRecorridoForm.Designer.cs">
+      <DependentUpon>ModificacionRecorridoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRecorrido\RecorridoHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRecorrido\RecorridoHome.Designer.cs">
+      <DependentUpon>RecorridoHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\RolAltaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\RolAltaForm.Designer.cs">
+      <DependentUpon>RolAltaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\RolBajaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\RolBajaForm.Designer.cs">
+      <DependentUpon>RolBajaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\RolForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\RolForm.Designer.cs">
+      <DependentUpon>RolForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\RolHelper.cs" />
+    <Compile Include="AbmRol\RolListadoModificacionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\RolListadoModificacionForm.Designer.cs">
+      <DependentUpon>RolListadoModificacionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExcepcionFrbaCrucero.cs" />
+    <Compile Include="CompraReservaPasaje\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompraReservaPasaje\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DB\DBAdapter.cs" />
+    <Compile Include="DB\DBConnection.cs" />
+    <Compile Include="DB\QueryProvider.cs" />
+    <Compile Include="Forms\FormNavegable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormNavegableModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Alta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\ListadoEstadistico.Design.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\HomeEstadistico.Design.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\ListadoEstadistico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\HomeEstadistico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GeneracionViaje\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GeneracionViaje\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PagoReserva\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PagoReserva\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validaciones\ValidacionesHelper.cs" />
+    <EmbeddedResource Include="AbmRecorrido\AltaRecorrido.resx">
+      <DependentUpon>AltaRecorrido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRecorrido\BajaRecorrido.resx">
+      <DependentUpon>BajaRecorrido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRecorrido\BajaRecorridoForm.resx">
+      <DependentUpon>BajaRecorridoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRecorrido\ModificacionRecorrido.resx">
+      <DependentUpon>ModificacionRecorrido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRecorrido\ModificacionRecorridoForm.resx">
+      <DependentUpon>ModificacionRecorridoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRecorrido\RecorridoHome.resx">
+      <DependentUpon>RecorridoHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\RolAltaForm.resx">
+      <DependentUpon>RolAltaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\RolBajaForm.resx">
+      <DependentUpon>RolBajaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\RolForm.resx">
+      <DependentUpon>RolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\RolListadoModificacionForm.resx">
+      <DependentUpon>RolListadoModificacionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\HomeEstadistico.Design.resx">
+      <DependentUpon>HomeEstadistico.Design.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\ListadoEstadistico.Design.resx">
+      <DependentUpon>ListadoEstadistico.Design.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
