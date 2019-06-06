@@ -30,9 +30,10 @@ namespace FrbaCrucero.AbmRecorrido
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            ModificacionRecorrido modifForm = new ModificacionRecorrido();
+            modifForm.Show();  
         }
-
+            
         private void button2_Click(object sender, EventArgs e)
         {
             BajaRecorrido bajaForm = new BajaRecorrido();

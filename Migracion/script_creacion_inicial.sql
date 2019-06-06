@@ -1378,6 +1378,37 @@ GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_recorrido] creada -----'
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[buscar_recorridos]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].buscar_recorridos
+GO
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[buscar_recorridos]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].buscar_recorridos
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].buscar_recorridos AS
+BEGIN
+SELECT reco_id, reco_codigo ,
+		(SELECT TOP 1 p.puer_nombre 
+		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
+		JOIN EYE_OF_THE_TRIGGER.Recorrido r1 ON c.ciud_id = r1.reco_origen_id
+		WHERE r1.reco_id = (select TOP 1 r2.reco_id from EYE_OF_THE_TRIGGER.Recorrido r2 WHERE r2.reco_codigo = r.reco_codigo ORDER BY r2.reco_id)) AS puerto_origen,
+		(SELECT TOP 1 p.puer_nombre 
+		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
+		JOIN EYE_OF_THE_TRIGGER.Recorrido r1 ON c.ciud_id = r1.reco_destino_id
+		WHERE r1.reco_id = (select TOP 1 r2.reco_id from EYE_OF_THE_TRIGGER.Recorrido r2 WHERE r2.reco_codigo = r.reco_codigo ORDER BY r2.reco_id DESC)) AS puerto_destino,
+		reco_precio
+FROM EYE_OF_THE_TRIGGER.Recorrido r 
+JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id = rv.reco_id
+JOIN EYE_OF_THE_TRIGGER.Viaje v ON rv.viaj_id = v.viaj_id
+JOIN EYE_OF_THE_TRIGGER.Reserva res ON res.rese_viaje_id = v.viaj_id
+WHERE r.reco_estado = 1
+GROUP BY r.reco_codigo, reco_precio
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[buscar_recorridos] creada -----'
+
+
 /*******  Funciones para la APP  *******/
 
 
