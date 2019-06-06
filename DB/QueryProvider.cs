@@ -11,12 +11,19 @@ namespace FrbaCrucero.DB
     {
 
         public static string SELECT_ROLES = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Rol]";
+        public static string SELECT_RECORRIDOS = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Recorrido]";
+
+        public static string SELECT_RECORRIDOS_POR_ID(int id){
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_id="+id;
+        }
+
         public static string DELETE_ROLE(int id) 
         {
             return "UPDATE [GD1C2019].[EYE_OF_THE_TRIGGER].[Rol] SET rol_estado=0 WHERE rol_id=" + id;
         }
 
         public static string SELECT_FUNCIONALIDADES_NOMBRE = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Funcionalidad]";
+        public static string SELECT_CIUDADES_PUERTOS_NOMBRE = "SELECT (ISNULL(ciud_nombre, '') + '-' + puer_nombre) nombre FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Ciudad] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] ON puer_id = ciud_puerto_id WHERE puer_estado = 1";
 
         //TODO test
         public static string INSERT_ROL(string rol_nombre)
@@ -33,6 +40,17 @@ namespace FrbaCrucero.DB
         {
             return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol] WHERE rol_nombre LIKE '%" + nombreRol + "%'";
         }
+
+        public static string SELECT_RECORRIDOS_TEXTUAL(string nombreRecorrido)
+        {
+            return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_codigo =" + nombreRecorrido;
+        }
+
+        public static string SELECT_RECORRIDOS_LIKE(string nombreRecorrido)
+        {
+            return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_codigo LIKE '%" + nombreRecorrido + "%'";
+        }
+
 
         public static string SELECT_ALL_ROLES = "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol]";
 

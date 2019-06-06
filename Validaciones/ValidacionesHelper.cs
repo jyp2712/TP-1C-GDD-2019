@@ -21,12 +21,12 @@ namespace FrbaCrucero.Validaciones
 
         public static void validarCampoSoloTexto(TextBox textBox)
         {
-            validarCampo(textBox, "^[a-zA-Z ]+$", "Este campo admite solo texto.");
+            validarCampo(textBox, "^[a-zA-Z ]+$", "El campo " + textBox.Name + " admite solo texto.");
         }
 
         public static void validarCampoSoloNumerico(TextBox textBox)
         {
-            validarCampo(textBox, "^[0-9]+$", "Este campo admite solo numeros");
+            validarCampo(textBox, "^[0-9]+$", "El campo " + textBox.Name + " admite solo numeros");
         }
     }
 }

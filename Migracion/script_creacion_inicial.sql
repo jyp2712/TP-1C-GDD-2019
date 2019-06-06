@@ -394,7 +394,8 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Recorrido] (
 	[reco_codigo] [numeric](18,0),
 	[reco_origen_id] [numeric](18,0),
  	[reco_destino_id] [numeric](18,0),
-	[reco_precio] [numeric](18,2) NOT NULL
+	[reco_precio] [numeric](18,2) NOT NULL,
+	[reco_estado] [bit] DEFAULT 1
 	CONSTRAINT FK_RECORRIDO_CIUDAD_ORIGEN FOREIGN KEY ([reco_origen_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Ciudad] ([ciud_id]),
 	CONSTRAINT FK_RECORRIDO_CIUDAD_DESTINO FOREIGN KEY ([reco_destino_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Ciudad] ([ciud_id])
 )
@@ -1238,19 +1239,21 @@ CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_recorridos_mas_pasajes_comprados(@sem
 
 SELECT TOP 5
 		r.reco_codigo AS codigo_recorrido, count(DISTINCT v.viaj_id) cant_viajes,
-		(SELECT p.puer_nombre 
+		(SELECT TOP 1 p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
-		WHERE c.ciud_id = r.reco_origen_id) AS puerto_origen,
-		(SELECT p.puer_nombre 
+		JOIN EYE_OF_THE_TRIGGER.Recorrido r1 ON c.ciud_id = r1.reco_origen_id
+		WHERE r1.reco_id = (select TOP 1 r2.reco_id from EYE_OF_THE_TRIGGER.Recorrido r2 WHERE r2.reco_codigo = r.reco_codigo ORDER BY r2.reco_id)) AS puerto_origen,
+		(SELECT TOP 1 p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
-		WHERE c.ciud_id = r.reco_destino_id) AS puerto_destino
+		JOIN EYE_OF_THE_TRIGGER.Recorrido r1 ON c.ciud_id = r1.reco_destino_id
+		WHERE r1.reco_id = (select TOP 1 r2.reco_id from EYE_OF_THE_TRIGGER.Recorrido r2 WHERE r2.reco_codigo = r.reco_codigo ORDER BY r2.reco_id DESC)) AS puerto_destino
 FROM EYE_OF_THE_TRIGGER.Recorrido r 
 JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id = rv.reco_id
 JOIN EYE_OF_THE_TRIGGER.Viaje v ON rv.viaj_id = v.viaj_id
 JOIN EYE_OF_THE_TRIGGER.Reserva res ON res.rese_viaje_id = v.viaj_id
 WHERE res.rese_estado_reserva = 1 AND (FLOOR(MONTH(res.rese_fecha_creacion)/2) + 1) = @semestre
 	AND YEAR(res.rese_fecha_creacion) = @anio
-GROUP BY r.reco_codigo, r.reco_origen_id, r.reco_destino_id
+GROUP BY r.reco_codigo
 ORDER BY cant_viajes DESC
 
 GO
@@ -1264,26 +1267,26 @@ GO
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_recorridos_mas_cabinas_libres_viaje_realizado(@semestre as bigint, @anio as bigint) AS
 
 SELECT TOP 5
-		r.reco_codigo AS codigo_recorrido, v.viaj_crucero_id, res.rese_id,
-		((SELECT count(*)
-		FROM EYE_OF_THE_TRIGGER.Cabina
-		WHERE cabi_cruc_id = v.viaj_crucero_id) - 
-		(SELECT count(*)
-		FROM EYE_OF_THE_TRIGGER.CabinasReservadas
-		WHERE rese_id = res.rese_id)) cant_cabinas_libres,
-		(SELECT p.puer_nombre 
+		r.reco_codigo AS codigo_recorrido, 
+		((SELECT Count(DISTINCT cabi_id)
+		FROM EYE_OF_THE_TRIGGER.Cabina JOIN EYE_OF_THE_TRIGGER.Viaje v1 ON cabi_cruc_id = v1.viaj_crucero_id
+		WHERE cabi_cruc_id = res.rese_crucero_id) - 
+		SUM(ISNULL(res.rese_cantidad_pasajeros, 1))) cant_cabinas_libres,
+		(SELECT TOP 1 p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
-		WHERE c.ciud_id = r.reco_origen_id) AS puerto_origen,
-		(SELECT p.puer_nombre 
+		JOIN EYE_OF_THE_TRIGGER.Recorrido r1 ON c.ciud_id = r1.reco_origen_id
+		WHERE r1.reco_id = (select TOP 1 r2.reco_id from EYE_OF_THE_TRIGGER.Recorrido r2 WHERE r2.reco_codigo = r.reco_codigo ORDER BY r2.reco_id)) AS puerto_origen,
+		(SELECT TOP 1 p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
-		WHERE c.ciud_id = r.reco_destino_id) AS puerto_destino
+		JOIN EYE_OF_THE_TRIGGER.Recorrido r1 ON c.ciud_id = r1.reco_destino_id
+		WHERE r1.reco_id = (select TOP 1 r2.reco_id from EYE_OF_THE_TRIGGER.Recorrido r2 WHERE r2.reco_codigo = r.reco_codigo ORDER BY r2.reco_id DESC)) AS puerto_destino
 FROM EYE_OF_THE_TRIGGER.Recorrido r 
 JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id = rv.reco_id
 JOIN EYE_OF_THE_TRIGGER.Viaje v ON rv.viaj_id = v.viaj_id
 JOIN EYE_OF_THE_TRIGGER.Reserva res ON res.rese_viaje_id = v.viaj_id
-WHERE res.rese_estado_reserva = 1 AND (FLOOR(MONTH(res.rese_fecha_creacion)/2) + 1) = @semestre
-	AND YEAR(res.rese_fecha_creacion) = @anio
-GROUP BY r.reco_codigo, r.reco_origen_id, r.reco_destino_id, v.viaj_crucero_id, res.rese_id
+WHERE res.rese_estado_reserva = 1 AND (FLOOR(MONTH(res.rese_fecha_creacion)/2) + 1) = 1
+	AND YEAR(res.rese_fecha_creacion) = 2018
+GROUP BY r.reco_codigo, res.rese_cantidad_pasajeros, res.rese_crucero_id
 ORDER BY cant_cabinas_libres DESC
 
 GO
@@ -1306,6 +1309,145 @@ ORDER BY cant_dias_inhabilitado DESC
 
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[top5_cruceros_con_mayor_periodo_inahabilitado] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[recorrido_finalizado]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].recorrido_finalizado
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].recorrido_finalizado(@Codigo as bigint) AS
+
+SELECT *
+FROM Recorrido r JOIN RecorridoViaje rv ON r.reco_id = rv.reco_id JOIN Viaje v ON v.viaj_id = rv.viaj_id
+WHERE v.viaj_fecha_fin < GETDATE() AND r.reco_codigo = @Codigo
+
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[recorrido_finalizado] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_recorrido]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_recorrido
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_recorrido(@id as bigint, @Codigo as bigint, @PuertoDesde as bigint, @PuertoHasta as bigint,
+@Precio as float) AS
+
+UPDATE [EYE_OF_THE_TRIGGER].Recorrido SET reco_codigo = @Codigo, reco_origen_id = @PuertoDesde, reco_destino_id = @PuertoHasta, reco_precio = @Precio, reco_estado = 1
+WHERE reco_id = @id  
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[actualizar_recorrido] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[recorrido_existente]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].recorrido_existente
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].recorrido_existente(@Codigo as bigint, @PuertoOrigen as varchar(MAX), @PuertoDestino as varchar(MAX)) AS
+
+DECLARE  @puertoInicio varchar(MAX), @puertoFin varchar(MAX)
+
+SET @puertoInicio = (SELECT MIN(Item) FROM [EYE_OF_THE_TRIGGER].[SplitString] (@PuertoOrigen, '-'))
+SET @PuertoDestino = (SELECT MIN(Item) FROM [EYE_OF_THE_TRIGGER].[SplitString] (@PuertoDestino, '-'))
+
+SELECT *
+FROM Recorrido r JOIN Ciudad c1 ON r.reco_origen_id = c1.ciud_id JOIN Ciudad c2 ON r.reco_destino_id = c2.ciud_id
+JOIN Puerto p1 ON p1.puer_nombre = @puertoInicio JOIN Puerto p ON p.puer_nombre = @PuertoDestino
+WHERE r.reco_codigo = @Codigo
+
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[recorrido_existente] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[crucero_no_disponible]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].crucero_no_disponible
+GO
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].crucero_no_disponible(@Crucero as varchar(255), @FechaInicio as DATETIME, @FechaFin as DATETIME) AS
+
+SELECT *
+FROM EYE_OF_THE_TRIGGER.Crucero c JOIN EYE_OF_THE_TRIGGER.Viaje ON viaj_crucero_id = cruc_id
+WHERE cruc_id = @Crucero AND ((viaj_fecha_inicio BETWEEN @FechaInicio AND @FechaFin) OR 
+(viaj_fecha_fin_estimada BETWEEN @FechaInicio AND @FechaFin))
+
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[crucero_no_disponible] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[insertar_viaje]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].insertar_viaje
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].insertar_viaje(@Codigo as int, @Recorrido as int, @FechaInicio as DATETIME, @FechaFin as DATETIME, @Crucero as varchar(50)) AS
+BEGIN
+	INSERT INTO EYE_OF_THE_TRIGGER.Viaje (viaj_codigo, viaj_fecha_inicio , viaj_fecha_fin_estimada, viaj_crucero_id)
+	VALUES (@Codigo, @FechaInicio,  @FechaFin, @Crucero)
+	INSERT INTO EYE_OF_THE_TRIGGER.RecorridoViaje (viaj_id, reco_id)
+	VALUES ((select MAX(viaj_id) from EYE_OF_THE_TRIGGER.Viaje) , @Recorrido)
+	RETURN 0
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_viaje] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[ciudad_id]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].ciudad_id
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].ciudad_id(@Puerto as varchar(MAX)) AS
+
+DECLARE @PuertoNom varchar(MAX)
+SET @PuertoNom = (SELECT MIN(Item) FROM [EYE_OF_THE_TRIGGER].[SplitString] (@Puerto, '-'))
+
+SELECT c.ciud_id
+FROM EYE_OF_THE_TRIGGER.Ciudad c JOIN EYE_OF_THE_TRIGGER.Puerto p ON c.ciud_puerto_id = p.puer_id
+WHERE p.puer_nombre = @PuertoNom
+RETURN 1
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[ciudad_id] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[insertar_recorrido]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].insertar_recorrido
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].insertar_recorrido(@Codigo as int, @CiudadOrigen as int, @CiudadDestino as int, @Precio as float) AS
+BEGIN
+	INSERT INTO EYE_OF_THE_TRIGGER.Recorrido (reco_codigo, reco_origen_id , reco_destino_id, reco_precio)
+	VALUES (@Codigo, @CiudadOrigen, @CiudadDestino, @Precio)
+	RETURN 0
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_recorrido] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[buscar_recorridos]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].buscar_recorridos
+GO
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[buscar_recorridos]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].buscar_recorridos
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].buscar_recorridos AS
+BEGIN
+SELECT reco_id, reco_codigo ,
+		(SELECT TOP 1 p.puer_nombre 
+		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
+		JOIN EYE_OF_THE_TRIGGER.Recorrido r1 ON c.ciud_id = r1.reco_origen_id
+		WHERE r1.reco_id = (select TOP 1 r2.reco_id from EYE_OF_THE_TRIGGER.Recorrido r2 WHERE r2.reco_codigo = r.reco_codigo ORDER BY r2.reco_id)) AS puerto_origen,
+		(SELECT TOP 1 p.puer_nombre 
+		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
+		JOIN EYE_OF_THE_TRIGGER.Recorrido r1 ON c.ciud_id = r1.reco_destino_id
+		WHERE r1.reco_id = (select TOP 1 r2.reco_id from EYE_OF_THE_TRIGGER.Recorrido r2 WHERE r2.reco_codigo = r.reco_codigo ORDER BY r2.reco_id DESC)) AS puerto_destino,
+		reco_precio
+FROM EYE_OF_THE_TRIGGER.Recorrido r 
+JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id = rv.reco_id
+JOIN EYE_OF_THE_TRIGGER.Viaje v ON rv.viaj_id = v.viaj_id
+JOIN EYE_OF_THE_TRIGGER.Reserva res ON res.rese_viaje_id = v.viaj_id
+WHERE r.reco_estado = 1
+GROUP BY r.reco_codigo, reco_precio
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[buscar_recorridos] creada -----'
 
 
 /*******  Funciones para la APP  *******/

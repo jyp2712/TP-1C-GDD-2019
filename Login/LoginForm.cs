@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FrbaCrucero.DB;
 using System.Security.Cryptography;
 using FrbaCrucero.AbmRol;
+using FrbaCrucero.AbmRecorrido;
 using System.Data.SqlClient;
 
 namespace FrbaCrucero.Login
