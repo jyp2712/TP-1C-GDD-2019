@@ -48,6 +48,7 @@
             this.txtIdReserva.Name = "txtIdReserva";
             this.txtIdReserva.Size = new System.Drawing.Size(100, 20);
             this.txtIdReserva.TabIndex = 1;
+            this.txtIdReserva.Text = "53930108";
             this.txtIdReserva.TextChanged += new System.EventHandler(this.txtIdReserva_TextChanged);
             // 
             // btnIngresarAlPago
@@ -60,7 +61,7 @@
             this.btnIngresarAlPago.UseVisualStyleBackColor = true;
             this.btnIngresarAlPago.Click += new System.EventHandler(this.btnIngresarAlPago_Click);
             // 
-            // PagoReservaForm
+            // SeleccionReservaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -68,7 +69,7 @@
             this.Controls.Add(this.btnIngresarAlPago);
             this.Controls.Add(this.txtIdReserva);
             this.Controls.Add(this.label1);
-            this.Name = "PagoReservaForm";
+            this.Name = "SeleccionReservaForm";
             this.Text = "Pago de Reserva";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -23,8 +23,14 @@ namespace FrbaCrucero.Dominio
             this.Codigo = codigo;
         }
 
-        public Viaje()
+        public Viaje(DataSet ds, Crucero crucero)
         {
+            this.Id = Convert.ToInt32(ds.Tables[0].Rows[0]["viaj_id"]);
+            this.Codigo = Convert.ToInt32(ds.Tables[0].Rows[0]["viaj_codigo"]);
+            this.FechaInicio = Convert.ToDateTime(ds.Tables[0].Rows[0]["viaj_fecha_inicio"]);
+            this.FechaFin = Convert.ToDateTime(ds.Tables[0].Rows[0]["viaj_fecha_fin"]);
+            this.FechaFinEstimada = Convert.ToDateTime(ds.Tables[0].Rows[0]["viaj_fecha_fin_estimada"]);
+            this.Crucero = crucero;
         }
 
         public Crucero Crucero { get; set; }
