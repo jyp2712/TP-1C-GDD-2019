@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using FrbaCrucero.Dominio;
 using FrbaCrucero.DB;
+using System.Data.SqlClient;
 
 namespace FrbaCrucero.Mappers
 {
@@ -76,8 +77,14 @@ namespace FrbaCrucero.Mappers
             return new Viaje(id, codigo, fechaInicio, fechaFin, fechaFinEstimada, crucero);
         }
 
-        public static Cabina deDataSetACabina(DataSet ds)
+        public static Cabina deDataSetACabina(int cabinaId)
+        
         {
+            DataSet ds = DBConnection.getInstance().executeQuery(QueryProvider.SELECT_CABINA());
+            if (ds.Tables[0].Rows.Count == 0) 
+            {
+                return null;
+            }
             int id = Convert.ToInt32(ds.Tables[0].Rows[0]["cabi_id"]);
             int numero = Convert.ToInt32(ds.Tables[0].Rows[0]["cabi_numero"]);
             int piso = Convert.ToInt32(ds.Tables[0].Rows[0]["cabi_piso"]);
@@ -103,12 +110,15 @@ namespace FrbaCrucero.Mappers
 
         public static Reserva deDataSetAReserva(DataSet ds)
         { 
+           // DataSet dsCliente = DBConnection.getInstance().executeQuery(QueryProvider.SELECT_CLIENTE(Convert.ToInt32(ds.Tables[0].Rows[0]["rese_clintee_id"])));
+            
             int id = Convert.ToInt32(ds.Tables[0].Rows[0]["rese_id"]);
             Cliente cliente = deDataSetACliente(ds);
             Crucero crucero = deDataSetACrucero(ds);
             DateTime fechaCreacion = Convert.ToDateTime(ds.Tables[0].Rows[0]["rese_fecha_creacion"]);
             Viaje viaje = deDataSetAViaje(ds);
-            Cabina cabina = deDataSetACabina(ds);
+            int cabinaId = Convert.ToInt32(ds.Tables[0].Rows[0]["rese_cabina_id"]);
+            Cabina cabina = deDataSetACabina(cabinaId);
             TipoServicio servicio = deDataSetATipoServicio(ds);
             EstadoReserva estadoReserva = deDataSetAEstadoReserva(ds);
             int pasajeros = Convert.ToInt32(ds.Tables[0].Rows[0]["rese_cantidad_pasajeros"]);

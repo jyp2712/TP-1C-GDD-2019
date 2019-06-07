@@ -22,8 +22,8 @@ namespace FrbaCrucero
         {
             this.Hide();
             //FrbaCrucero.GeneracionViaje.ViajeAlta rh = new GeneracionViaje.ViajeAlta();
-            FrbaCrucero.PagoReserva.SeleccionReservaForm frm = new PagoReserva.SeleccionReservaForm();
-            //FrbaCrucero.PagoReserva.PagoReservaForm frm = new FrbaCrucero.PagoReserva.PagoReservaForm();
+            //FrbaCrucero.PagoReserva.SeleccionReservaForm frm = new PagoReserva.SeleccionReservaForm();
+            FrbaCrucero.PagoReserva.PagoReservaForm frm = new FrbaCrucero.PagoReserva.PagoReservaForm();
             frm.Show();
         }
 

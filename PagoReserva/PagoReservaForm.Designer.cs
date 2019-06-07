@@ -47,16 +47,16 @@
             this.btnCrucero = new System.Windows.Forms.Button();
             this.btnCabina = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtModeloCrucero = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtMarcaCrucero = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtMarcaCrucero = new System.Windows.Forms.TextBox();
+            this.dtpRegreso = new System.Windows.Forms.DateTimePicker();
+            this.dtpSalida = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtTipoCabina = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtModeloCrucero = new System.Windows.Forms.TextBox();
-            this.dtpSalida = new System.Windows.Forms.DateTimePicker();
-            this.dtpRegreso = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -180,6 +180,7 @@
             this.btnDestino.TabIndex = 17;
             this.btnDestino.Text = "Seleccionar";
             this.btnDestino.UseVisualStyleBackColor = true;
+            this.btnDestino.Click += new System.EventHandler(this.btnDestino_Click);
             // 
             // btnFechaSalida
             // 
@@ -233,6 +234,29 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Crucero";
             // 
+            // txtModeloCrucero
+            // 
+            this.txtModeloCrucero.Location = new System.Drawing.Point(116, 65);
+            this.txtModeloCrucero.Name = "txtModeloCrucero";
+            this.txtModeloCrucero.Size = new System.Drawing.Size(100, 20);
+            this.txtModeloCrucero.TabIndex = 25;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 68);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 13);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "Modelo:";
+            // 
+            // txtMarcaCrucero
+            // 
+            this.txtMarcaCrucero.Location = new System.Drawing.Point(116, 39);
+            this.txtMarcaCrucero.Name = "txtMarcaCrucero";
+            this.txtMarcaCrucero.Size = new System.Drawing.Size(100, 20);
+            this.txtMarcaCrucero.TabIndex = 23;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -265,12 +289,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Viaje";
             // 
-            // txtMarcaCrucero
+            // dtpRegreso
             // 
-            this.txtMarcaCrucero.Location = new System.Drawing.Point(116, 39);
-            this.txtMarcaCrucero.Name = "txtMarcaCrucero";
-            this.txtMarcaCrucero.Size = new System.Drawing.Size(100, 20);
-            this.txtMarcaCrucero.TabIndex = 23;
+            this.dtpRegreso.Location = new System.Drawing.Point(116, 93);
+            this.dtpRegreso.Name = "dtpRegreso";
+            this.dtpRegreso.Size = new System.Drawing.Size(200, 20);
+            this.dtpRegreso.TabIndex = 21;
+            // 
+            // dtpSalida
+            // 
+            this.dtpSalida.Location = new System.Drawing.Point(116, 67);
+            this.dtpSalida.Name = "dtpSalida";
+            this.dtpSalida.Size = new System.Drawing.Size(200, 20);
+            this.dtpSalida.TabIndex = 20;
             // 
             // label9
             // 
@@ -300,36 +331,6 @@
             this.txtTipoCabina.Name = "txtTipoCabina";
             this.txtTipoCabina.Size = new System.Drawing.Size(100, 20);
             this.txtTipoCabina.TabIndex = 25;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 68);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 13);
-            this.label10.TabIndex = 24;
-            this.label10.Text = "Modelo:";
-            // 
-            // txtModeloCrucero
-            // 
-            this.txtModeloCrucero.Location = new System.Drawing.Point(116, 65);
-            this.txtModeloCrucero.Name = "txtModeloCrucero";
-            this.txtModeloCrucero.Size = new System.Drawing.Size(100, 20);
-            this.txtModeloCrucero.TabIndex = 25;
-            // 
-            // dtpSalida
-            // 
-            this.dtpSalida.Location = new System.Drawing.Point(116, 67);
-            this.dtpSalida.Name = "dtpSalida";
-            this.dtpSalida.Size = new System.Drawing.Size(200, 20);
-            this.dtpSalida.TabIndex = 20;
-            // 
-            // dtpRegreso
-            // 
-            this.dtpRegreso.Location = new System.Drawing.Point(116, 93);
-            this.dtpRegreso.Name = "dtpRegreso";
-            this.dtpRegreso.Size = new System.Drawing.Size(200, 20);
-            this.dtpRegreso.TabIndex = 21;
             // 
             // PagoReservaForm
             // 
