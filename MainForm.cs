@@ -22,8 +22,8 @@ namespace FrbaCrucero
         {
             this.Hide();
             //FrbaCrucero.GeneracionViaje.ViajeAlta rh = new GeneracionViaje.ViajeAlta();
-            FrbaCrucero.PagoReserva.SeleccionReservaForm asd = new PagoReserva.SeleccionReservaForm();
-            asd.Show();
+            FrbaCrucero.menuBarra menu = new menuBarra();
+            menu.Show();
         }
 
         private void btnIngresarAdministrador_Click(object sender, EventArgs e)

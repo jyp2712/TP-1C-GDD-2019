@@ -135,6 +135,12 @@
     <Compile Include="DB\DBAdapter.cs" />
     <Compile Include="DB\DBConnection.cs" />
     <Compile Include="DB\QueryProvider.cs" />
+    <Compile Include="menuBarra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="menuBarra.Designer.cs">
+      <DependentUpon>menuBarra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormNavegable.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\RolListadoModificacionForm.resx">
       <DependentUpon>RolListadoModificacionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="menuBarra.resx">
+      <DependentUpon>menuBarra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GeneracionViaje\ListadoCruceros.resx">
       <DependentUpon>ListadoCruceros.cs</DependentUpon>
