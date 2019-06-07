@@ -113,6 +113,7 @@
       <DependentUpon>RolListadoModificacionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dominio\Cabina.cs" />
+    <Compile Include="Dominio\Ciudad.cs" />
     <Compile Include="Dominio\Cliente.cs" />
     <Compile Include="Dominio\Crucero.cs" />
     <Compile Include="Dominio\Domicilio.cs" />

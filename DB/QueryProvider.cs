@@ -81,6 +81,6 @@ namespace FrbaCrucero.DB
             return "";
         }
 
-        public static string SELECT_CIUDADES_ORIGEN = "SELECT puer_nombre FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = ciud_id";
+        public static string SELECT_CIUDADES_ORIGEN = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = ciud_id";
     }
 }

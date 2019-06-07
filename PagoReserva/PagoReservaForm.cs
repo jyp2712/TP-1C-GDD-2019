@@ -14,7 +14,13 @@ namespace FrbaCrucero.PagoReserva
 {
     public partial class PagoReservaForm : Form
     {
-        Reserva reserva;
+        public Reserva reserva {get; set;}
+        public Ciudad ciudadOrigen { get; set; }
+        public Ciudad ciudadDestino {get; set;}
+        public Puerto puertoOrigen {get; set;}
+        public Puerto puertoDestino { get; set; }
+
+
 
         public PagoReservaForm()
         {
@@ -79,7 +85,7 @@ namespace FrbaCrucero.PagoReserva
         private void btnOrigen_Click(object sender, EventArgs e)
         {
 
-            ListadoOrigenDestinoForm listadoOrigen = new ListadoOrigenDestinoForm(ref this.txtOrigen);
+            ListadoOrigenDestinoForm listadoOrigen = new ListadoOrigenDestinoForm(ref this.txtOrigen, true);
             listadoOrigen.Show();
             listadoOrigen.RefToPrevForm = this;
             this.Hide();
@@ -92,7 +98,7 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnDestino_Click(object sender, EventArgs e)
         {
-            ListadoOrigenDestinoForm listadoDestino = new ListadoOrigenDestinoForm(ref this.txtDestino);
+            ListadoOrigenDestinoForm listadoDestino = new ListadoOrigenDestinoForm(ref this.txtDestino,false);
             listadoDestino.Show();
             listadoDestino.RefToPrevForm = this;
             this.Hide();
