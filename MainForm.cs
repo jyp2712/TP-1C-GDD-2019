@@ -22,10 +22,9 @@ namespace FrbaCrucero
         {
             this.Hide();
             //FrbaCrucero.GeneracionViaje.ViajeAlta rh = new GeneracionViaje.ViajeAlta();
-            //FrbaCrucero.PagoReserva.SeleccionReservaForm asd = new PagoReserva.SeleccionReservaForm();
-            FrbaCrucero.PagoReserva.PagoReservaForm frm = new FrbaCrucero.PagoReserva.PagoReservaForm();
+            FrbaCrucero.PagoReserva.SeleccionReservaForm frm = new PagoReserva.SeleccionReservaForm();
+            //FrbaCrucero.PagoReserva.PagoReservaForm frm = new FrbaCrucero.PagoReserva.PagoReservaForm();
             frm.Show();
-            //asd.Show();
         }
 
         private void btnIngresarAdministrador_Click(object sender, EventArgs e)

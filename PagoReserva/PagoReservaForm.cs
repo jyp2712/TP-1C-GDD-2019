@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaCrucero.Dominio;
+using FrbaCrucero.DB;
 
 namespace FrbaCrucero.PagoReserva
 {
@@ -20,6 +21,20 @@ namespace FrbaCrucero.PagoReserva
             InitializeComponent();
             this.dtpSalida.Value = DateTime.Now.AddDays(1);
             this.dtpRegreso.Value = DateTime.Now.AddDays(1);
+        }
+
+        private void desactivarTodosLosControlesMenosPagar()
+        {
+            this.txtOrigen.Enabled = false;
+            this.txtDestino.Enabled = false;
+            this.dtpSalida.Enabled = false;
+            this.dtpRegreso.Enabled = false;
+            this.txtNombreCrucero.Enabled = false;
+            this.txtMarcaCrucero.Enabled = false;
+            this.txtModeloCrucero.Enabled = false;
+            this.txtCantidadPasajes.Enabled = false;
+            this.txtCabina.Enabled = false;
+            this.txtTipoCabina.Enabled = false;
         }
 
         public PagoReservaForm(Reserva reserva)
@@ -36,6 +51,8 @@ namespace FrbaCrucero.PagoReserva
             //this.txtCabina.Text = Convert.ToString(reserva.Cabina.NumeroCabina);
 
             this.txtCantidadPasajes.Text = Convert.ToString(reserva.Pasajeros);
+
+            desactivarTodosLosControlesMenosPagar();
 
         }
 
@@ -61,12 +78,12 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnOrigen_Click(object sender, EventArgs e)
         {
-
+            //string query = QueryProvider.SELECT_DESTINOS_ORIGEN;
         }
 
         private void btnFechaSalida_Click(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

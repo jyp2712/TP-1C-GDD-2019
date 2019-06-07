@@ -22,13 +22,6 @@ namespace FrbaCrucero.Dominio
         {
         }
 
-        public Cabina(System.Data.DataSet ds)
-        {
-            // TODO: Complete member initialization
-            //this.
-            this.ds = ds;
-        }
-
         public Crucero Crucero { get; set; }
         public int NumeroCabina { get; set; }
         public int Piso { get; set; }

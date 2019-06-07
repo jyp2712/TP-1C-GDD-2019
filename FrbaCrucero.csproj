@@ -120,6 +120,7 @@
     <Compile Include="Dominio\EstadoReserva.cs" />
     <Compile Include="Dominio\Marca.cs" />
     <Compile Include="Dominio\MedioDePago.cs" />
+    <Compile Include="Dominio\Puerto.cs" />
     <Compile Include="Dominio\Reserva.cs" />
     <Compile Include="Dominio\Servicio.cs" />
     <Compile Include="Dominio\TipoCabina.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Login\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mappers\GeneralMapper.cs" />
     <Compile Include="PagoReserva\PagoReservaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,10 +269,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Dominio\Cliente.cs.orig" />
-    <None Include="Dominio\Domicilio.cs.orig" />
-    <None Include="Dominio\Reserva.cs.orig" />
-    <None Include="Dominio\TipoDocumento.cs.orig" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
