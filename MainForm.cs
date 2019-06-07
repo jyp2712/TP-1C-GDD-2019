@@ -21,13 +21,14 @@ namespace FrbaCrucero
         private void btnIngresarCliente_Click(object sender, EventArgs e)
         {
             this.Hide();
+
+            //FrbaCrucero.AbmCliente.ClienteHome rh = new AbmCliente.ClienteHome();
+            //rh.Show();
+
             //FrbaCrucero.GeneracionViaje.ViajeAlta rh = new GeneracionViaje.ViajeAlta();
-
-
 
             FrbaCrucero.menuBarra.menu menu = new menuBarra.menu();
             menu.Show();
-
 
         }
 

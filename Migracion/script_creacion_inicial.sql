@@ -234,6 +234,7 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Crucero] (
 	[cruc_fecha_alta] [datetime],
 	[cruc_nombre] [nvarchar](255),
 	[cruc_modelo] [nvarchar](50),
+	[cruc_cant_cabinas] [numeric](4,0),
 	[cruc_marca] [numeric](18,0),
 	[cruc_estado] [bit] DEFAULT 1,
 	CONSTRAINT FK_CRUCEROS_MARCA FOREIGN KEY ([cruc_marca]) REFERENCES [EYE_OF_THE_TRIGGER].[Marca] ([marc_id])
@@ -783,9 +784,12 @@ CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarCrucero] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Crucero -----'
 
-INSERT INTO EYE_OF_THE_TRIGGER.Crucero (cruc_id, cruc_modelo, cruc_marca)
+INSERT INTO EYE_OF_THE_TRIGGER.Crucero (cruc_id, cruc_modelo, cruc_marca, cruc_cant_cabinas)
 	SELECT crucero_identificador, crucero_modelo,
-	(SELECT marc_id FROM EYE_OF_THE_TRIGGER.Marca WHERE marc_nombre = cru_fabricante)
+	(SELECT marc_id FROM EYE_OF_THE_TRIGGER.Marca WHERE marc_nombre = cru_fabricante),
+	(SELECT count(*)
+	FROM EYE_OF_THE_TRIGGER.vistaCabina vcab
+	WHERE vcab.crucero_identificador = crucero_identificador)
 	FROM [EYE_OF_THE_TRIGGER].[vistaCrucero]
 GO
 
@@ -1268,9 +1272,9 @@ CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_recorridos_mas_cabinas_libres_viaje_r
 
 SELECT TOP 5
 		r.reco_codigo AS codigo_recorrido, 
-		((SELECT Count(DISTINCT cabi_id)
-		FROM EYE_OF_THE_TRIGGER.Cabina JOIN EYE_OF_THE_TRIGGER.Viaje v1 ON cabi_cruc_id = v1.viaj_crucero_id
-		WHERE cabi_cruc_id = res.rese_crucero_id) - 
+		((SELECT c1.cruc_cant_cabinas
+		FROM EYE_OF_THE_TRIGGER.Crucero c1
+		WHERE c1.cruc_id = res.rese_crucero_id) - 
 		SUM(ISNULL(res.rese_cantidad_pasajeros, 1))) cant_cabinas_libres,
 		(SELECT TOP 1 p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
@@ -1284,9 +1288,9 @@ FROM EYE_OF_THE_TRIGGER.Recorrido r
 JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id = rv.reco_id
 JOIN EYE_OF_THE_TRIGGER.Viaje v ON rv.viaj_id = v.viaj_id
 JOIN EYE_OF_THE_TRIGGER.Reserva res ON res.rese_viaje_id = v.viaj_id
-WHERE res.rese_estado_reserva = 1 AND (FLOOR(MONTH(res.rese_fecha_creacion)/2) + 1) = 1
-	AND YEAR(res.rese_fecha_creacion) = 2018
-GROUP BY r.reco_codigo, res.rese_cantidad_pasajeros, res.rese_crucero_id
+WHERE res.rese_estado_reserva = 1 AND (FLOOR(MONTH(res.rese_fecha_creacion)/2) + 1) = @semestre
+	AND YEAR(res.rese_fecha_creacion) = @anio
+GROUP BY r.reco_codigo, res.rese_crucero_id
 ORDER BY cant_cabinas_libres DESC
 
 GO
@@ -1429,7 +1433,7 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].buscar_recorridos AS
 BEGIN
-SELECT reco_id, reco_codigo ,
+SELECT r.reco_id, r.reco_codigo ,
 		(SELECT TOP 1 p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
 		JOIN EYE_OF_THE_TRIGGER.Recorrido r1 ON c.ciud_id = r1.reco_origen_id
@@ -1444,7 +1448,7 @@ JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id = rv.reco_id
 JOIN EYE_OF_THE_TRIGGER.Viaje v ON rv.viaj_id = v.viaj_id
 JOIN EYE_OF_THE_TRIGGER.Reserva res ON res.rese_viaje_id = v.viaj_id
 WHERE r.reco_estado = 1
-GROUP BY r.reco_codigo, reco_precio
+GROUP BY r.reco_id, r.reco_codigo, reco_precio
 END
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[buscar_recorridos] creada -----'

@@ -48,6 +48,7 @@
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Codigo";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -57,6 +58,7 @@
             this.label2.Size = new System.Drawing.Size(114, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Ciudad - Puerto Origen";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -66,6 +68,7 @@
             this.label3.Size = new System.Drawing.Size(119, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Ciudad - Puerto Destino";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -75,6 +78,7 @@
             this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Precio";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // Codigo
             // 
@@ -114,6 +118,7 @@
             this.label5.Size = new System.Drawing.Size(137, 17);
             this.label5.TabIndex = 10;
             this.label5.Text = "Campos de Recorrido";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // comboBoxCiudadPuertoOrigen
             // 
