@@ -43,7 +43,7 @@ namespace FrbaCrucero
         public string Id { get; set; }
 
 
-        public string ToString() {
+        public override string ToString() {
             return this.Nombre + this.Modelo + this.Marca.Nombre;
         }
     }
