@@ -24,6 +24,7 @@ namespace FrbaCrucero
             //FrbaCrucero.GeneracionViaje.ViajeAlta rh = new GeneracionViaje.ViajeAlta();
 
 
+
             FrbaCrucero.menuBarra.menu menu = new menuBarra.menu();
             menu.Show();
 
