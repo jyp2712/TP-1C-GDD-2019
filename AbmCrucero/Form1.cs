@@ -16,5 +16,10 @@ namespace FrbaCrucero.AbmCrucero
         {
             InitializeComponent();
         }
+
+        private void Codigo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
