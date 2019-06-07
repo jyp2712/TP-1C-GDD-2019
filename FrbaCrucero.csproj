@@ -112,6 +112,19 @@
     <Compile Include="AbmRol\RolListadoModificacionForm.Designer.cs">
       <DependentUpon>RolListadoModificacionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\Cabina.cs" />
+    <Compile Include="Dominio\Cliente.cs" />
+    <Compile Include="Dominio\Crucero.cs" />
+    <Compile Include="Dominio\Domicilio.cs" />
+    <Compile Include="Dominio\Entidad.cs" />
+    <Compile Include="Dominio\EstadoReserva.cs" />
+    <Compile Include="Dominio\Marca.cs" />
+    <Compile Include="Dominio\MedioDePago.cs" />
+    <Compile Include="Dominio\Reserva.cs" />
+    <Compile Include="Dominio\Servicio.cs" />
+    <Compile Include="Dominio\TipoCabina.cs" />
+    <Compile Include="Dominio\TipoDocumento.cs" />
+    <Compile Include="Dominio\Viaje.cs" />
     <Compile Include="ExcepcionFrbaCrucero.cs" />
     <Compile Include="CompraReservaPasaje\Form1.cs">
       <SubType>Form</SubType>
@@ -131,6 +144,24 @@
     <Compile Include="Forms\Alta.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GeneracionViaje\ListadoCruceros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GeneracionViaje\ListadoCruceros.Designer.cs">
+      <DependentUpon>ListadoCruceros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GeneracionViaje\ListadoRecorridos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GeneracionViaje\ListadoRecorridos.Designer.cs">
+      <DependentUpon>ListadoRecorridos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GeneracionViaje\ViajeAlta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GeneracionViaje\ViajeAlta.Designer.cs">
+      <DependentUpon>ViajeAlta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Listado Estadistico\ListadoEstadistico.Design.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,23 +180,23 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GeneracionViaje\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GeneracionViaje\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Login\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PagoReserva\Form1.cs">
+    <Compile Include="PagoReserva\PagoReservaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PagoReserva\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="PagoReserva\PagoReservaForm.Designer.cs">
+      <DependentUpon>PagoReservaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PagoReserva\SeleccionReservaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PagoReserva\SeleccionReservaForm.Designer.cs">
+      <DependentUpon>SeleccionReservaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -200,6 +231,15 @@
     <EmbeddedResource Include="AbmRol\RolListadoModificacionForm.resx">
       <DependentUpon>RolListadoModificacionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GeneracionViaje\ListadoCruceros.resx">
+      <DependentUpon>ListadoCruceros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeneracionViaje\ListadoRecorridos.resx">
+      <DependentUpon>ListadoRecorridos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeneracionViaje\ViajeAlta.resx">
+      <DependentUpon>ViajeAlta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Listado Estadistico\HomeEstadistico.Design.resx">
       <DependentUpon>HomeEstadistico.Design.cs</DependentUpon>
     </EmbeddedResource>
@@ -212,6 +252,12 @@
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PagoReserva\PagoReservaForm.resx">
+      <DependentUpon>PagoReservaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PagoReserva\SeleccionReservaForm.resx">
+      <DependentUpon>SeleccionReservaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -221,6 +267,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Dominio\Cliente.cs.orig" />
+    <None Include="Dominio\Domicilio.cs.orig" />
+    <None Include="Dominio\Reserva.cs.orig" />
+    <None Include="Dominio\TipoDocumento.cs.orig" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
