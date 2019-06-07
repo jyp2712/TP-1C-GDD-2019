@@ -28,8 +28,8 @@ namespace FrbaCrucero
 
             //FrbaCrucero.GeneracionViaje.ViajeAlta rh = new GeneracionViaje.ViajeAlta();
 
-            FrbaCrucero.menuBarra.menu menu = new menuBarra.menu();
-            menu.Show();
+            //FrbaCrucero.menuBarra.menu menu = new menuBarra.menu();
+           // menu.Show();
 
            // FrbaCrucero.AbmCliente.ClienteHome rh = new AbmCliente.ClienteHome();
            // rh.Show();
@@ -39,6 +39,9 @@ namespace FrbaCrucero
             //FrbaCrucero.PagoReserva.PagoReservaForm frm = new FrbaCrucero.PagoReserva.PagoReservaForm();
             //frm.Show();
             //asd.Show();
+
+            FrbaCrucero.AbmCrucero.CruceroHome ch = new AbmCrucero.CruceroHome();
+            ch.Show();
 
 
         }

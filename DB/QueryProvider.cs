@@ -12,6 +12,8 @@ namespace FrbaCrucero.DB
 
         public static string SELECT_ROLES = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Rol]";
         public static string SELECT_RECORRIDOS = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Recorrido]";
+        public static string SELECT_MARCAS = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Marca]";
+        public static string SELECT_CRUCEROS = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Crucero]";
 
         public static string SELECT_RECORRIDOS_POR_ID(int id){
             return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_id="+id;
@@ -50,7 +52,16 @@ namespace FrbaCrucero.DB
         {
             return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_codigo LIKE '%" + nombreRecorrido + "%'";
         }
+        
+        public static string SELECT_CRUCEROS_TEXTUAL(string nombreCrucero)
+        {
+            return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Crucero] WHERE cruc_nombre =" + nombreCrucero;
+        }
 
+        public static string SELECT_CRUCEROS_LIKE(string nombreCrucero)
+        {
+            return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Crucero] WHERE cruc_nombre LIKE '%" + nombreCrucero + "%'";
+        }
 
         public static string SELECT_ALL_ROLES = "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol]";
 

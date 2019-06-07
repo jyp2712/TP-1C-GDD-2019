@@ -45,6 +45,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbmCliente\ClienteHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCliente\ClienteHome.Designer.cs">
+      <DependentUpon>ClienteHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroAlta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroAlta.Designer.cs">
+      <DependentUpon>CruceroAlta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroBaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroBaja.Designer.cs">
+      <DependentUpon>CruceroBaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroBajaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroBajaForm.Designer.cs">
+      <DependentUpon>CruceroBajaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroHome.Designer.cs">
+      <DependentUpon>CruceroHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroModificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroModificacion.Designer.cs">
+      <DependentUpon>CruceroModificacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroModificacionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroModificacionForm.Designer.cs">
+      <DependentUpon>CruceroModificacionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmCrucero\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +234,9 @@
     <Compile Include="menuBarra\menu.Designer.cs">
       <DependentUpon>menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="PagoReserva\PagoReservaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,6 +252,18 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validaciones\ValidacionesHelper.cs" />
+    <EmbeddedResource Include="AbmCliente\ClienteHome.resx">
+      <DependentUpon>ClienteHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\CruceroAlta.resx">
+      <DependentUpon>CruceroAlta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\CruceroHome.resx">
+      <DependentUpon>CruceroHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\CruceroModificacion.resx">
+      <DependentUpon>CruceroModificacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\AltaRecorrido.resx">
       <DependentUpon>AltaRecorrido.cs</DependentUpon>
     </EmbeddedResource>
@@ -276,10 +333,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="bin\Debug\FrbaCrucero.exe.config" />
+    <None Include="bin\Debug\FrbaCrucero.vshost.exe.config" />
+    <None Include="bin\Debug\FrbaCrucero.vshost.exe.manifest" />
     <None Include="Dominio\Cliente.cs.orig" />
     <None Include="Dominio\Domicilio.cs.orig" />
     <None Include="Dominio\Reserva.cs.orig" />
     <None Include="Dominio\TipoDocumento.cs.orig" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -292,6 +353,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\FrbaCrucero.vshost.exe" />
+    <Content Include="Migracion\script_creacion_inicial.sql" />
+    <Content Include="obj\Debug\FrbaCrucero.csproj.FileListAbsolute.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
