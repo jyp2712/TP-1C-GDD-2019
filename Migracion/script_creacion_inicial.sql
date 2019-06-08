@@ -924,11 +924,12 @@ CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarReserva] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Reserva -----'
 
-INSERT INTO EYE_OF_THE_TRIGGER.Reserva (rese_id, rese_cliente_id, rese_crucero_id, rese_fecha_creacion, rese_viaje_id, rese_estado_reserva)
-	SELECT DISTINCT vr.reserva_codigo, vr.cli_identificador, v.viaj_crucero_id, reserva_fecha, v.viaj_id, 1
+INSERT INTO EYE_OF_THE_TRIGGER.Reserva (rese_id, rese_cliente_id, rese_crucero_id, rese_fecha_creacion, rese_viaje_id)
+	SELECT DISTINCT vr.reserva_codigo, vr.cli_identificador, v.viaj_crucero_id, reserva_fecha, v.viaj_id
 	FROM [EYE_OF_THE_TRIGGER].[vistaReserva] vr
 	JOIN EYE_OF_THE_TRIGGER.vistaReservaViaje vrv ON vr.reserva_codigo = vrv.reserva_codigo
 	JOIN EYE_OF_THE_TRIGGER.Viaje v ON v.viaj_codigo = vrv.pasaje_codigo
+UPDATE EYE_OF_THE_TRIGGER.Reserva SET rese_estado_reserva = 1
 GO
 
 

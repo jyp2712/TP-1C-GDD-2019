@@ -192,6 +192,12 @@
     <Compile Include="Login\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="menuBarra\menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="menuBarra\menu.Designer.cs">
+      <DependentUpon>menu.cs</DependentUpon>
+    </Compile>
     <Compile Include="PagoReserva\PagoReservaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="menuBarra\menu.resx">
+      <DependentUpon>menu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PagoReserva\PagoReservaForm.resx">
       <DependentUpon>PagoReservaForm.cs</DependentUpon>
