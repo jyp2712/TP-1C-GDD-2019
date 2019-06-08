@@ -51,6 +51,30 @@
     <Compile Include="AbmCliente\ClienteHome.Designer.cs">
       <DependentUpon>ClienteHome.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmCrucero\CruceroAlta.cs" />
+    <Compile Include="AbmCrucero\CruceroAlta.Designer.cs">
+      <DependentUpon>CruceroAlta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroBaja.cs" />
+    <Compile Include="AbmCrucero\CruceroBaja.Designer.cs">
+      <DependentUpon>CruceroBaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroBajaForm.cs" />
+    <Compile Include="AbmCrucero\CruceroBajaForm.Designer.cs">
+      <DependentUpon>CruceroBajaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroHome.cs" />
+    <Compile Include="AbmCrucero\CruceroHome.Designer.cs">
+      <DependentUpon>CruceroHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroModificacion.cs" />
+    <Compile Include="AbmCrucero\CruceroModificacion.Designer.cs">
+      <DependentUpon>CruceroModificacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CruceroModificacionForm.cs" />
+    <Compile Include="AbmCrucero\CruceroModificacionForm.Designer.cs">
+      <DependentUpon>CruceroModificacionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmCrucero\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +239,18 @@
     <Compile Include="Validaciones\ValidacionesHelper.cs" />
     <EmbeddedResource Include="AbmCliente\ClienteHome.resx">
       <DependentUpon>ClienteHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\CruceroAlta.resx">
+      <DependentUpon>CruceroAlta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\CruceroHome.resx">
+      <DependentUpon>CruceroHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\CruceroModificacion.resx">
+      <DependentUpon>CruceroModificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\CruceroModificacionForm.resx">
+      <DependentUpon>CruceroModificacionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\AltaRecorrido.resx">
       <DependentUpon>AltaRecorrido.cs</DependentUpon>

@@ -974,6 +974,14 @@ PRINT '----- Insertando Tipos de Documento -----'
 INSERT INTO EYE_OF_THE_TRIGGER.TipoDocumento (descripcion)
 VALUES ('DNI'), ('Pasaporte'), ('LC'), ('LE')
 
+
+PRINT''
+PRINT '----- Realizando inserts a tabla EYE_OF_THE_TRIGGER.EstadoReserva -----'
+INSERT INTO EYE_OF_THE_TRIGGER.EstadoReserva (descripcion) 
+VALUES ('Reserva correcta'),('Reserva modificada'),
+('Reserva cancelada por Cliente'), ('Reserva vencida')
+
+
 EXEC EYE_OF_THE_TRIGGER.importarDomicilio
 GO
 PRINT''
@@ -1063,13 +1071,6 @@ EXEC EYE_OF_THE_TRIGGER.importarCabinasReservadas
 GO
 PRINT''
 PRINT '----- Cabinas Reservadas importadas -----'
-
-
-PRINT''
-PRINT '----- Realizando inserts a tabla EYE_OF_THE_TRIGGER.EstadoReserva -----'
-INSERT INTO EYE_OF_THE_TRIGGER.EstadoReserva (descripcion) 
-VALUES ('Reserva correcta'),('Reserva modificada'),
-('Reserva cancelada por Cliente'), ('Reserva vencida')
 
 
 PRINT''
