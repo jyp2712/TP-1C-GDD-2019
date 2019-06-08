@@ -785,12 +785,12 @@ PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Crucero -----'
 
 INSERT INTO EYE_OF_THE_TRIGGER.Crucero (cruc_id, cruc_modelo, cruc_marca, cruc_cant_cabinas)
-	SELECT crucero_identificador, crucero_modelo,
-	(SELECT marc_id FROM EYE_OF_THE_TRIGGER.Marca WHERE marc_nombre = cru_fabricante),
+	SELECT v.crucero_identificador, v.crucero_modelo,
+	(SELECT marc_id FROM EYE_OF_THE_TRIGGER.Marca WHERE marc_nombre = v.cru_fabricante),
 	(SELECT count(*)
 	FROM EYE_OF_THE_TRIGGER.vistaCabina vcab
-	WHERE vcab.crucero_identificador = crucero_identificador)
-	FROM [EYE_OF_THE_TRIGGER].[vistaCrucero]
+	WHERE vcab.crucero_identificador = v.crucero_identificador)
+	FROM [EYE_OF_THE_TRIGGER].[vistaCrucero] v
 GO
 
 
@@ -1243,7 +1243,7 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_recorridos_mas_pasajes_comprados(@semestre as bigint, @anio as bigint) AS
 
-SELECT TOP 5
+SELECT DISTINCT TOP 5
 		r.reco_codigo AS codigo_recorrido, count(DISTINCT v.viaj_id) cant_viajes,
 		(SELECT TOP 1 p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
@@ -1272,7 +1272,7 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_recorridos_mas_cabinas_libres_viaje_realizado(@semestre as bigint, @anio as bigint) AS
 
-SELECT TOP 5
+SELECT DISTINCT TOP 5
 		r.reco_codigo AS codigo_recorrido, 
 		((SELECT c1.cruc_cant_cabinas
 		FROM EYE_OF_THE_TRIGGER.Crucero c1
@@ -1305,7 +1305,7 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_cruceros_con_mayor_periodo_inhabilitado(@semestre as bigint, @anio as bigint) AS
 
-SELECT TOP 5
+SELECT DISTINCT TOP 5
 		inhab_crucero_id, inhab_fecha_inicio, inhab_fecha_fin, inhab_motivo, 
 		DATEDIFF(DAY, inhab_fecha_inicio,inhab_fecha_fin) cant_dias_inhabilitado
 FROM EYE_OF_THE_TRIGGER.CruceroInhabilitado
