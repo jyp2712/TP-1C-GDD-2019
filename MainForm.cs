@@ -22,14 +22,24 @@ namespace FrbaCrucero
         {
             this.Hide();
 
-            FrbaCrucero.AbmCliente.ClienteHome rh = new AbmCliente.ClienteHome();
-            rh.Show();
+
+            //FrbaCrucero.AbmCliente.ClienteHome rh = new AbmCliente.ClienteHome();
+            //rh.Show();
+
+            //FrbaCrucero.GeneracionViaje.ViajeAlta rh = new GeneracionViaje.ViajeAlta();
+
+            FrbaCrucero.menuBarra.menu menu = new menuBarra.menu();
+            menu.Show();
+
+           // FrbaCrucero.AbmCliente.ClienteHome rh = new AbmCliente.ClienteHome();
+           // rh.Show();
 
             //FrbaCrucero.GeneracionViaje.ViajeAlta rh = new GeneracionViaje.ViajeAlta();
             //FrbaCrucero.PagoReserva.SeleccionReservaForm asd = new PagoReserva.SeleccionReservaForm();
-            FrbaCrucero.PagoReserva.PagoReservaForm frm = new FrbaCrucero.PagoReserva.PagoReservaForm();
-            frm.Show();
+            //FrbaCrucero.PagoReserva.PagoReservaForm frm = new FrbaCrucero.PagoReserva.PagoReservaForm();
+            //frm.Show();
             //asd.Show();
+
 
         }
 
