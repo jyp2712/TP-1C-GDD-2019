@@ -45,20 +45,20 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBoxTipoDoc = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.Telefono = new System.Windows.Forms.TextBox();
             this.Tel = new System.Windows.Forms.Label();
-            this.Ciudad = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.Pais = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.Dpto = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.Piso = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.Nro = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.Calle = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.Calle = new System.Windows.Forms.TextBox();
+            this.Nro = new System.Windows.Forms.TextBox();
+            this.Piso = new System.Windows.Forms.TextBox();
+            this.Dpto = new System.Windows.Forms.TextBox();
+            this.Ciudad = new System.Windows.Forms.TextBox();
+            this.Pais = new System.Windows.Forms.TextBox();
+            this.Telefono = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -71,6 +71,7 @@
             this.button3.TabIndex = 43;
             this.button3.Text = "Limpiar";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Apellido
             // 
@@ -78,6 +79,7 @@
             this.Apellido.Name = "Apellido";
             this.Apellido.Size = new System.Drawing.Size(98, 20);
             this.Apellido.TabIndex = 41;
+            this.Apellido.TextChanged += new System.EventHandler(this.Apellido_TextChanged);
             // 
             // label6
             // 
@@ -98,6 +100,7 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(98, 20);
             this.dateTimePicker1.TabIndex = 37;
             this.dateTimePicker1.Value = new System.DateTime(2019, 6, 6, 12, 45, 33, 0);
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // label5
             // 
@@ -118,8 +121,9 @@
             this.Agregar.Name = "Agregar";
             this.Agregar.Size = new System.Drawing.Size(75, 23);
             this.Agregar.TabIndex = 35;
-            this.Agregar.Text = "Agregar";
+            this.Agregar.Text = "Confirmar";
             this.Agregar.UseVisualStyleBackColor = true;
+            this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
             // Nombre
             // 
@@ -179,6 +183,7 @@
             this.email.Name = "email";
             this.email.Size = new System.Drawing.Size(182, 20);
             this.email.TabIndex = 46;
+            this.email.TextChanged += new System.EventHandler(this.email_TextChanged);
             // 
             // label7
             // 
@@ -211,18 +216,18 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.Telefono);
-            this.groupBox2.Controls.Add(this.Tel);
-            this.groupBox2.Controls.Add(this.Ciudad);
-            this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.Pais);
-            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.Ciudad);
             this.groupBox2.Controls.Add(this.Dpto);
-            this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.Piso);
-            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.Nro);
-            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.Calle);
+            this.groupBox2.Controls.Add(this.Tel);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Location = new System.Drawing.Point(18, 269);
             this.groupBox2.Name = "groupBox2";
@@ -230,13 +235,6 @@
             this.groupBox2.TabIndex = 49;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos del Domicilio";
-            // 
-            // Telefono
-            // 
-            this.Telefono.Location = new System.Drawing.Point(50, 140);
-            this.Telefono.Name = "Telefono";
-            this.Telefono.Size = new System.Drawing.Size(114, 20);
-            this.Telefono.TabIndex = 61;
             // 
             // Tel
             // 
@@ -248,13 +246,6 @@
             this.Tel.Text = "Tel";
             this.Tel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // Ciudad
-            // 
-            this.Ciudad.Location = new System.Drawing.Point(50, 106);
-            this.Ciudad.Name = "Ciudad";
-            this.Ciudad.Size = new System.Drawing.Size(114, 20);
-            this.Ciudad.TabIndex = 59;
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -263,13 +254,6 @@
             this.label13.Size = new System.Drawing.Size(40, 13);
             this.label13.TabIndex = 60;
             this.label13.Text = "Ciudad";
-            // 
-            // Pais
-            // 
-            this.Pais.Location = new System.Drawing.Point(233, 106);
-            this.Pais.Name = "Pais";
-            this.Pais.Size = new System.Drawing.Size(114, 20);
-            this.Pais.TabIndex = 57;
             // 
             // label12
             // 
@@ -281,13 +265,6 @@
             this.label12.Text = "Pais";
             this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
-            // Dpto
-            // 
-            this.Dpto.Location = new System.Drawing.Point(155, 69);
-            this.Dpto.Name = "Dpto";
-            this.Dpto.Size = new System.Drawing.Size(57, 20);
-            this.Dpto.TabIndex = 56;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -296,13 +273,6 @@
             this.label11.Size = new System.Drawing.Size(30, 13);
             this.label11.TabIndex = 55;
             this.label11.Text = "Dpto";
-            // 
-            // Piso
-            // 
-            this.Piso.Location = new System.Drawing.Point(50, 69);
-            this.Piso.Name = "Piso";
-            this.Piso.Size = new System.Drawing.Size(57, 20);
-            this.Piso.TabIndex = 52;
             // 
             // label10
             // 
@@ -313,13 +283,6 @@
             this.label10.TabIndex = 53;
             this.label10.Text = "Piso";
             // 
-            // Nro
-            // 
-            this.Nro.Location = new System.Drawing.Point(242, 29);
-            this.Nro.Name = "Nro";
-            this.Nro.Size = new System.Drawing.Size(76, 20);
-            this.Nro.TabIndex = 50;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -329,13 +292,6 @@
             this.label9.TabIndex = 51;
             this.label9.Text = "Nro";
             // 
-            // Calle
-            // 
-            this.Calle.Location = new System.Drawing.Point(50, 29);
-            this.Calle.Name = "Calle";
-            this.Calle.Size = new System.Drawing.Size(139, 20);
-            this.Calle.TabIndex = 50;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -344,6 +300,60 @@
             this.label8.Size = new System.Drawing.Size(30, 13);
             this.label8.TabIndex = 51;
             this.label8.Text = "Calle";
+            // 
+            // Calle
+            // 
+            this.Calle.Location = new System.Drawing.Point(52, 29);
+            this.Calle.Name = "Calle";
+            this.Calle.Size = new System.Drawing.Size(147, 20);
+            this.Calle.TabIndex = 50;
+            this.Calle.TextChanged += new System.EventHandler(this.Calle_TextChanged_1);
+            // 
+            // Nro
+            // 
+            this.Nro.Location = new System.Drawing.Point(242, 29);
+            this.Nro.Name = "Nro";
+            this.Nro.Size = new System.Drawing.Size(79, 20);
+            this.Nro.TabIndex = 63;
+            this.Nro.TextChanged += new System.EventHandler(this.Nro_TextChanged);
+            // 
+            // Piso
+            // 
+            this.Piso.Location = new System.Drawing.Point(52, 69);
+            this.Piso.Name = "Piso";
+            this.Piso.Size = new System.Drawing.Size(47, 20);
+            this.Piso.TabIndex = 64;
+            // 
+            // Dpto
+            // 
+            this.Dpto.Location = new System.Drawing.Point(155, 69);
+            this.Dpto.Name = "Dpto";
+            this.Dpto.Size = new System.Drawing.Size(47, 20);
+            this.Dpto.TabIndex = 65;
+            // 
+            // Ciudad
+            // 
+            this.Ciudad.Location = new System.Drawing.Point(52, 106);
+            this.Ciudad.Name = "Ciudad";
+            this.Ciudad.Size = new System.Drawing.Size(120, 20);
+            this.Ciudad.TabIndex = 66;
+            this.Ciudad.TextChanged += new System.EventHandler(this.Ciudad_TextChanged);
+            // 
+            // Pais
+            // 
+            this.Pais.Location = new System.Drawing.Point(230, 106);
+            this.Pais.Name = "Pais";
+            this.Pais.Size = new System.Drawing.Size(107, 20);
+            this.Pais.TabIndex = 67;
+            this.Pais.TextChanged += new System.EventHandler(this.Pais_TextChanged);
+            // 
+            // Telefono
+            // 
+            this.Telefono.Location = new System.Drawing.Point(52, 140);
+            this.Telefono.Name = "Telefono";
+            this.Telefono.Size = new System.Drawing.Size(120, 20);
+            this.Telefono.TabIndex = 68;
+            this.Telefono.TextChanged += new System.EventHandler(this.Telefono_TextChanged);
             // 
             // ClienteHome
             // 
@@ -395,20 +405,20 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox Calle;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox Pais;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox Dpto;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox Piso;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox Nro;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox Ciudad;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox comboBoxTipoDoc;
-        private System.Windows.Forms.TextBox Telefono;
         private System.Windows.Forms.Label Tel;
+        private System.Windows.Forms.TextBox Telefono;
+        private System.Windows.Forms.TextBox Pais;
+        private System.Windows.Forms.TextBox Ciudad;
+        private System.Windows.Forms.TextBox Dpto;
+        private System.Windows.Forms.TextBox Piso;
+        private System.Windows.Forms.TextBox Nro;
+        private System.Windows.Forms.TextBox Calle;
     }
 }

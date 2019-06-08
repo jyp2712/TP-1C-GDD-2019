@@ -1297,11 +1297,11 @@ GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[top5_recorridos_mas_cabinas_libres_viaje_realizado] creada -----'
 
 
-IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[top5_cruceros_con_mayor_periodo_inahabilitado]', 'P') IS NOT NULL 
-DROP PROCEDURE [EYE_OF_THE_TRIGGER].top5_cruceros_con_mayor_periodo_inahabilitado
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[top5_cruceros_con_mayor_periodo_inhabilitado]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].top5_cruceros_con_mayor_periodo_inhabilitado
 GO
 
-CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_cruceros_con_mayor_periodo_inahabilitado(@semestre as bigint, @anio as bigint) AS
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_cruceros_con_mayor_periodo_inhabilitado(@semestre as bigint, @anio as bigint) AS
 
 SELECT TOP 5
 		inhab_crucero_id, inhab_fecha_inicio, inhab_fecha_fin, inhab_motivo, 
@@ -1312,7 +1312,7 @@ WHERE (FLOOR(MONTH(inhab_fecha_inicio)/2) + 1) = @semestre
 ORDER BY cant_dias_inhabilitado DESC
 
 GO
-PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[top5_cruceros_con_mayor_periodo_inahabilitado] creada -----'
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[top5_cruceros_con_mayor_periodo_inhabilitado] creada -----'
 
 
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[recorrido_finalizado]', 'P') IS NOT NULL 
@@ -1390,6 +1390,66 @@ BEGIN
 END
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_viaje] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[insertar_cliente]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].insertar_cliente
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].insertar_cliente
+(@Nombre as varchar(255), @Apellido as varchar(255), @TipoDocumento as int, @Documento as int,
+@Calle as varchar(255), @Numero as int, @Piso as int, @Dpto as varchar(255),
+@Ciudad as varchar(255), @Pais as varchar(255), @Telefono as int, @Email as varchar(255), @FechaNac as DATETIME) AS
+
+BEGIN
+	DECLARE @IdDom as int
+	SET @IdDom = (SELECT domi_id FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Domicilio] WHERE domi_calle= @Calle AND domi_nro_calle=@Numero
+                     AND domi_piso=@Piso AND domi_dpto= @Dpto AND domi_ciudad=@Ciudad AND domi_pais=@Pais)
+	
+	IF @IdDom IS NULL
+	BEGIN
+	INSERT INTO EYE_OF_THE_TRIGGER.Domicilio (domi_pais, domi_ciudad , domi_calle, domi_nro_calle, domi_piso, domi_dpto)
+	VALUES (@Pais, @Ciudad, @Calle, @Numero, @Piso, @Dpto)
+	SET @IdDom = (select MAX(domi_id) from EYE_OF_THE_TRIGGER.Domicilio)
+	END
+
+	INSERT INTO EYE_OF_THE_TRIGGER.Cliente (clie_nombre, clie_apellido, clie_tipo_doc, clie_doc, clie_domicilio_id, clie_tel, clie_mail, clie_fecha_nac)
+	VALUES (@Nombre, @Apellido, @TipoDocumento, @Documento, @IdDom, @Telefono, @Email, @FechaNac)
+	RETURN 1
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_cliente] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_cliente]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_cliente
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_cliente
+(@IdCliente as int, @Nombre as varchar(255), @Apellido as varchar(255), @TipoDocumento as int, @Documento as int,
+@Calle as varchar(255), @Numero as int, @Piso as int, @Dpto as varchar(255),
+@Ciudad as varchar(255), @Pais as varchar(255), @Telefono as int, @Email as varchar(255), @FechaNac as DATETIME) AS
+
+BEGIN
+	DECLARE @IdDom as int
+	SET @IdDom = (SELECT domi_id FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Domicilio] WHERE domi_calle= @Calle AND domi_nro_calle=@Numero
+                     AND domi_piso=@Piso AND domi_dpto= @Dpto AND domi_ciudad=@Ciudad AND domi_pais=@Pais)
+	
+	IF @IdDom IS NULL
+	BEGIN
+	INSERT INTO EYE_OF_THE_TRIGGER.Domicilio (domi_pais, domi_ciudad , domi_calle, domi_nro_calle, domi_piso, domi_dpto)
+	VALUES (@Pais, @Ciudad, @Calle, @Numero, @Piso, @Dpto)
+	SET @IdDom = (select MAX(domi_id) from EYE_OF_THE_TRIGGER.Domicilio)
+	END
+
+	UPDATE EYE_OF_THE_TRIGGER.Cliente 
+	SET clie_nombre = @Nombre, clie_apellido = @Apellido, clie_tipo_doc = @TipoDocumento, 
+	clie_doc = @Documento, clie_domicilio_id = @IdDom, clie_tel = @Telefono, clie_mail = @Email, clie_fecha_nac = @FechaNac
+	WHERE clie_id = @IdCliente
+	RETURN 0
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[actualizar_cliente] creada -----'
 
 
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[ciudad_id]', 'P') IS NOT NULL 
