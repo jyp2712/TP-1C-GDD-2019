@@ -51,27 +51,39 @@
     <Compile Include="AbmCliente\ClienteHome.Designer.cs">
       <DependentUpon>ClienteHome.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmCrucero\CruceroAlta.cs" />
+    <Compile Include="AbmCrucero\CruceroAlta.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AbmCrucero\CruceroAlta.Designer.cs">
       <DependentUpon>CruceroAlta.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmCrucero\CruceroBaja.cs" />
+    <Compile Include="AbmCrucero\CruceroBaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AbmCrucero\CruceroBaja.Designer.cs">
       <DependentUpon>CruceroBaja.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmCrucero\CruceroBajaForm.cs" />
+    <Compile Include="AbmCrucero\CruceroBajaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AbmCrucero\CruceroBajaForm.Designer.cs">
       <DependentUpon>CruceroBajaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmCrucero\CruceroHome.cs" />
+    <Compile Include="AbmCrucero\CruceroHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AbmCrucero\CruceroHome.Designer.cs">
       <DependentUpon>CruceroHome.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmCrucero\CruceroModificacion.cs" />
+    <Compile Include="AbmCrucero\CruceroModificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AbmCrucero\CruceroModificacion.Designer.cs">
       <DependentUpon>CruceroModificacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmCrucero\CruceroModificacionForm.cs" />
+    <Compile Include="AbmCrucero\CruceroModificacionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AbmCrucero\CruceroModificacionForm.Designer.cs">
       <DependentUpon>CruceroModificacionForm.cs</DependentUpon>
     </Compile>
