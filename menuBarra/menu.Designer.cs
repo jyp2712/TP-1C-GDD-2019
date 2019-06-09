@@ -1,6 +1,6 @@
 ﻿namespace FrbaCrucero.menuBarra
 {
-    partial class menu
+    partial class Menu
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.generarViaje = new System.Windows.Forms.ToolStripTextBox();
             this.abm = new System.Windows.Forms.ToolStripMenuItem();
             this.abmCrucero = new System.Windows.Forms.ToolStripTextBox();
             this.abmRol = new System.Windows.Forms.ToolStripTextBox();
@@ -43,7 +43,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripTextBox1,
+            this.generarViaje,
             this.abm,
             this.compra_reserva,
             this.pagoReserva,
@@ -54,12 +54,12 @@
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // toolStripTextBox1
+            // generarViaje
             // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(120, 31);
-            this.toolStripTextBox1.Text = "Generar Viaje";
-            this.toolStripTextBox1.Click += new System.EventHandler(this.toolStripTextBox1_Click);
+            this.generarViaje.Name = "generarViaje";
+            this.generarViaje.Size = new System.Drawing.Size(120, 31);
+            this.generarViaje.Text = "Generar Viaje";
+            this.generarViaje.Click += new System.EventHandler(this.toolStripTextBox1_Click);
             // 
             // abm
             // 
@@ -132,7 +132,7 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripTextBox generarViaje;
         private System.Windows.Forms.ToolStripMenuItem abm;
         private System.Windows.Forms.ToolStripTextBox abmCrucero;
         private System.Windows.Forms.ToolStripTextBox abmRol;

@@ -1083,7 +1083,7 @@ PRINT''
 PRINT '----- Insertando Funcionalidades -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Funcionalidad (func_nombre) 
 VALUES ('Administrar Roles'), ('Administrar Usuarios'), ('Administrar Puertos'), ('Administrar Recorridos'), ('Administrar Cruceros'),
-('Administrar Viajes'), ('Listado Estad\EDstico'), ('Realizar Compras y/o Reservas')
+('Administrar Viajes'), ('Listado Estadistico'), ('Realizar Compras y/o Reservas')
 
 
 PRINT''
