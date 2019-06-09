@@ -225,6 +225,25 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
+    	AND TABLE_NAME = 'Servicio' 
+	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
+)
+BEGIN
+CREATE TABLE [EYE_OF_THE_TRIGGER].[Servicio] (
+	[serv_id] [numeric](18,0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[serv_descripcion] [nvarchar](255) CONSTRAINT UQ_DESC_REGIMEN UNIQUE NOT NULL,
+	[serv_precio] [numeric](18,2) NOT NULL,
+	[serv_estado] [bit] DEFAULT 1
+)
+PRINT '----- Tabla EYE_OF_THE_TRIGGER.Servicio creada -----'
+END
+GO
+
+
+IF NOT EXISTS (
+	SELECT 1 
+	FROM INFORMATION_SCHEMA.TABLES 
+	WHERE TABLE_TYPE = 'BASE TABLE' 
     	AND TABLE_NAME = 'Crucero' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
@@ -236,8 +255,10 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Crucero] (
 	[cruc_modelo] [nvarchar](50),
 	[cruc_cant_cabinas] [numeric](4,0),
 	[cruc_marca] [numeric](18,0),
+	[cruc_servicio] [numeric](18,0),
 	[cruc_estado] [bit] DEFAULT 1,
-	CONSTRAINT FK_CRUCEROS_MARCA FOREIGN KEY ([cruc_marca]) REFERENCES [EYE_OF_THE_TRIGGER].[Marca] ([marc_id])
+	CONSTRAINT FK_CRUCEROS_MARCA FOREIGN KEY ([cruc_marca]) REFERENCES [EYE_OF_THE_TRIGGER].[Marca] ([marc_id]),
+	CONSTRAINT FK_CRUCEROS_SERVICIO FOREIGN KEY ([cruc_servicio]) REFERENCES [EYE_OF_THE_TRIGGER].[Servicio] ([serv_id])
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.Crucero creada -----'
 END
@@ -262,45 +283,6 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[CruceroInhabilitado] (
 	CONSTRAINT FK_MANTENIMIENTO_CRUCERO FOREIGN KEY ([inhab_crucero_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Crucero] ([cruc_id])
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.CruceroInhabilitado creada -----'
-END
-GO
-
-
-IF NOT EXISTS (
-	SELECT 1 
-	FROM INFORMATION_SCHEMA.TABLES 
-	WHERE TABLE_TYPE = 'BASE TABLE' 
-    	AND TABLE_NAME = 'Servicio' 
-	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
-)
-BEGIN
-CREATE TABLE [EYE_OF_THE_TRIGGER].[Servicio] (
-	[serv_id] [numeric](18,0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	[serv_descripcion] [nvarchar](255) CONSTRAINT UQ_DESC_REGIMEN UNIQUE NOT NULL,
-	[serv_precio] [numeric](18,2) NOT NULL,
-	[serv_estado] [bit] DEFAULT 1
-)
-PRINT '----- Tabla EYE_OF_THE_TRIGGER.Servicio creada -----'
-END
-GO
-
-
-IF NOT EXISTS (
-	SELECT 1 
-	FROM INFORMATION_SCHEMA.TABLES 
-	WHERE TABLE_TYPE = 'BASE TABLE' 
-    	AND TABLE_NAME = 'ServicioCrucero' 
-	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
-)
-BEGIN
-CREATE TABLE [EYE_OF_THE_TRIGGER].[ServicioCrucero] (
-	[serv_id] [numeric](18,0) NOT NULL,
-	[cruc_id] [nvarchar](50) NOT NULL,
-	CONSTRAINT PK_SERVICIO_CRUCERO PRIMARY KEY ([serv_id], [cruc_id]),
-	CONSTRAINT PK_SERVICIO_CRUCERO_SERVICIO FOREIGN KEY ([serv_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Servicio] ([serv_id]),
-	CONSTRAINT PK_SERVICIO_CRUCERO_CRUCERO FOREIGN KEY ([cruc_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Crucero] ([cruc_id])
-)
-PRINT '----- Tabla EYE_OF_THE_TRIGGER.ServicioCrucero creada -----'
 END
 GO
 
@@ -479,14 +461,12 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Reserva] (
 	[rese_fecha_creacion] [datetime],
 	[rese_viaje_id] [numeric](18,0),
 	[rese_cabina_id] [numeric](18,0),	
-	[rese_tipo_servicio_id] [numeric](18,0),
 	[rese_estado_reserva] [numeric](18,0),
 	[rese_cantidad_pasajeros] [numeric](1,0),
 	CONSTRAINT FK_RESERVA_CLIENTE FOREIGN KEY ([rese_cliente_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Cliente] ([clie_id]),
 	CONSTRAINT FK_RESERVA_CRUCERO FOREIGN KEY ([rese_crucero_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Crucero] ([cruc_id]),
 	CONSTRAINT FK_RESERVA_VIAJE FOREIGN KEY ([rese_viaje_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Viaje] ([viaj_id]),
 	CONSTRAINT FK_RESERVA_CABINA FOREIGN KEY ([rese_cabina_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Cabina] ([cabi_id]),
-	CONSTRAINT FK_RESERVA_TIPO_SERVICIO FOREIGN KEY ([rese_tipo_servicio_id])  REFERENCES [EYE_OF_THE_TRIGGER].[Servicio] ([serv_id]),
 	CONSTRAINT FK_RESERVA_ESTADO FOREIGN KEY ([rese_estado_reserva]) REFERENCES [EYE_OF_THE_TRIGGER].[EstadoReserva] ([id])
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.Reserva creada -----'
@@ -1087,6 +1067,12 @@ VALUES ('Administrar Roles'), ('Administrar Usuarios'), ('Administrar Puertos'),
 
 
 PRINT''
+PRINT '----- Insertando Servicios -----'
+INSERT INTO EYE_OF_THE_TRIGGER.Servicio (serv_descripcion, serv_estado, serv_precio) 
+VALUES ('All inclusive', 1, 1000), ('Pensión completa sin bebidas', 1, 300)
+
+
+PRINT''
 PRINT '----- Insertando Funcionalidades a los distintos roles -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Rol_Funcionalidad (rol_id, func_id)
 VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),
@@ -1514,6 +1500,35 @@ GROUP BY r.reco_id, r.reco_codigo, reco_precio
 END
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[buscar_recorridos] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[insertar_crucero]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].insertar_crucero
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].insertar_crucero(@Codigo as varchar(50), @FechaAlta as DATETIME, @Nombre as varchar(255),
+@Modelo as varchar(50), @Servicio as int, @Marca as int, @Cabinas as int) AS
+BEGIN
+	INSERT INTO EYE_OF_THE_TRIGGER.Crucero(cruc_id, cruc_fecha_alta, cruc_nombre, cruc_modelo, cruc_servicio, cruc_marca, cruc_cant_cabinas)
+	VALUES (@Codigo, @FechaAlta, @Nombre, @Modelo, @Servicio, @Marca, @Cabinas)
+	RETURN 0
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_crucero] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[insertar_cabina]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].insertar_cabina
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].insertar_cabina(@Numero as int, @Piso as int, @Tipo as int, @Codigo as varchar(50)) AS
+BEGIN
+	INSERT INTO EYE_OF_THE_TRIGGER.Cabina(cabi_numero, cabi_piso, cabi_tipo_cabina, cabi_cruc_id)
+	VALUES (@Numero, @Piso, @Tipo, @Codigo)
+	RETURN 0
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_cabina] creada -----'
 
 
 /*******  Funciones para la APP  *******/

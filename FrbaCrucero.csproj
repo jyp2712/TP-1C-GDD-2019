@@ -93,6 +93,12 @@
     <Compile Include="AbmCrucero\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmCrucero\AltaCabina.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\AltaCabina.Designer.cs">
+      <DependentUpon>AltaCabina.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRecorrido\AltaRecorrido.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\CruceroModificacionForm.resx">
       <DependentUpon>CruceroModificacionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\AltaCabina.resx">
+      <DependentUpon>AltaCabina.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\AltaRecorrido.resx">
       <DependentUpon>AltaRecorrido.cs</DependentUpon>
