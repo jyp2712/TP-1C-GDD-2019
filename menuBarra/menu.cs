@@ -10,11 +10,54 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.menuBarra
 {
-    public partial class menu : Form
+    public partial class Menu : Form
     {
-        public menu()
+        public Menu()
         {
             InitializeComponent();
+            this.abm.Visible = false;
+            this.estadistica.Visible = false;
+            this.generarViaje.Visible = false;
+        }
+
+        public Menu(String user)
+        {
+            InitializeComponent();
+            this.abm.Visible = false;
+            this.abmCrucero.Visible = false;
+            this.abmRecorrido.Visible = false;
+            this.abmRol.Visible = false;
+            this.estadistica.Visible = false;
+            this.generarViaje.Visible = false;
+            DataTable funcionalidades = new DataTable();
+            funcionalidades = DB.DBAdapter.traerDataTable("funcionalidades",user);
+            for (int i = 0; i < funcionalidades.Rows.Count; i++)
+            {
+                if (funcionalidades.Rows[i][0].Equals("Administrar Roles"))
+                {
+                    this.abm.Visible = true;
+                    this.abmRol.Visible = true;
+                }
+                if (funcionalidades.Rows[i][0].Equals("Administrar Recorridos"))
+                {
+                    this.abm.Visible = true;
+                    this.abmRecorrido.Visible = true;
+                }
+                if (funcionalidades.Rows[i][0].Equals("Administrar Cruceros"))
+                {
+                    this.abm.Visible = true;
+                    this.abmCrucero.Visible = true;
+                }
+                if (funcionalidades.Rows[i][0].Equals("Administrar Viajes"))
+                {
+                    this.generarViaje.Visible = true;
+                }
+
+                if (funcionalidades.Rows[i][0].Equals("Listado Estadistico"))
+                {
+                    this.estadistica.Visible = true;
+                }
+             }
         }
 
         private void toolStripTextBox2_Click(object sender, EventArgs e)
