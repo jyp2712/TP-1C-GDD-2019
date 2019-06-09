@@ -35,6 +35,8 @@ namespace FrbaCrucero
 
           //  FrbaCrucero.AbmCrucero.CruceroAlta menu = new AbmCrucero.CruceroAlta();
 
+         //   FrbaCrucero.AbmCrucero.CruceroAlta menu = new AbmCrucero.CruceroAlta();
+
             menu.Show();
 
            // FrbaCrucero.AbmCliente.ClienteHome rh = new AbmCliente.ClienteHome();
