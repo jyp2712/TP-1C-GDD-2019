@@ -1079,6 +1079,12 @@ VALUES ('All inclusive', 1, 1000), ('Pensión completa sin bebidas', 1, 300)
 
 
 PRINT''
+PRINT '----- Insertando Servicios -----'
+INSERT INTO EYE_OF_THE_TRIGGER.Servicio (serv_descripcion, serv_estado, serv_precio) 
+VALUES ('All inclusive', 1, 1000), ('Pensión completa sin bebidas', 1, 300)
+
+
+PRINT''
 PRINT '----- Insertando Funcionalidades a los distintos roles -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Rol_Funcionalidad (rol_id, func_id)
 VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),
