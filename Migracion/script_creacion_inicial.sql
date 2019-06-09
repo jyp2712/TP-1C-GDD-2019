@@ -1063,25 +1063,7 @@ PRINT''
 PRINT '----- Insertando Funcionalidades -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Funcionalidad (func_nombre) 
 VALUES ('Administrar Roles'), ('Administrar Usuarios'), ('Administrar Puertos'), ('Administrar Recorridos'), ('Administrar Cruceros'),
-('Administrar Viajes'), ('Listado Estadistico'), ('Realizar Compras y/o Reservas')
-
-
-PRINT''
-PRINT '----- Insertando Servicios -----'
-INSERT INTO EYE_OF_THE_TRIGGER.Servicio (serv_descripcion, serv_estado, serv_precio) 
-VALUES ('All inclusive', 1, 1000), ('Pensión completa sin bebidas', 1, 300)
-
-
-PRINT''
-PRINT '----- Insertando Servicios -----'
-INSERT INTO EYE_OF_THE_TRIGGER.Servicio (serv_descripcion, serv_estado, serv_precio) 
-VALUES ('All inclusive', 1, 1000), ('Pensión completa sin bebidas', 1, 300)
-
-
-PRINT''
-PRINT '----- Insertando Servicios -----'
-INSERT INTO EYE_OF_THE_TRIGGER.Servicio (serv_descripcion, serv_estado, serv_precio) 
-VALUES ('All inclusive', 1, 1000), ('Pensión completa sin bebidas', 1, 300)
+('Administrar Viajes'), ('Listado Estad\EDstico'), ('Realizar Compras y/o Reservas')
 
 
 PRINT''
