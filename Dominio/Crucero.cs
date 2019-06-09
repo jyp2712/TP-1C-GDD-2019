@@ -40,7 +40,7 @@ namespace FrbaCrucero
         public DateTime FechaAlta { get; set; }
         public Marca Marca { get; set; }
         public int estado { get; set; }
-        public string Id { get; set; }
+        new public string Id { get; set; }
 
 
         public override string ToString() {
