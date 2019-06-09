@@ -28,7 +28,7 @@ namespace FrbaCrucero
 
             //FrbaCrucero.GeneracionViaje.ViajeAlta rh = new GeneracionViaje.ViajeAlta();
 
-            FrbaCrucero.AbmCrucero.CruceroAlta menu = new AbmCrucero.CruceroAlta();
+            FrbaCrucero.AbmCrucero.CruceroHome menu = new AbmCrucero.CruceroHome();
             menu.Show();
 
            // FrbaCrucero.AbmCliente.ClienteHome rh = new AbmCliente.ClienteHome();

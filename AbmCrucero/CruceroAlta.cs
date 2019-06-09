@@ -100,7 +100,7 @@ namespace FrbaCrucero.AbmCrucero
                     DataSet dserv = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio] WHERE serv_descripcion='" + this.comboServicio.Text + "'");
                     DataSet dmarc = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Marca] WHERE marc_nombre='" + this.comboMarcas.Text + "'");
 
-                    DBAdapter.insertarDatosEnTabla("crucero", this.txtCodigo.Text, DateTime.Now, this.txtNombre.Text, this.txtModelo.Text, Convert.ToInt32(dserv.Tables[0].Rows[0]["serv_id"]),
+                    DBAdapter.insertarDatosEnTabla("crucero", this.txtCodigo.Text, DateTime.Today, this.txtNombre.Text, this.txtModelo.Text, Convert.ToInt32(dserv.Tables[0].Rows[0]["serv_id"]),
                         Convert.ToInt32(dmarc.Tables[0].Rows[0]["marc_id"]), Convert.ToInt32(this.txtCabinas.Text));
 
                     int nro = 1;
@@ -161,6 +161,13 @@ namespace FrbaCrucero.AbmCrucero
             this.txtNombre.Clear();
             this.txtCabinas.Clear();
             this.txtModelo.Clear();
+            this.comboServicio.ResetText();
+            this.comboMarcas.ResetText();
+        }
+
+        private void comboMarcas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

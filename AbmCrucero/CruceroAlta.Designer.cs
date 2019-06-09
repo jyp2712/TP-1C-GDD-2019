@@ -122,6 +122,7 @@
             this.comboMarcas.Name = "comboMarcas";
             this.comboMarcas.Size = new System.Drawing.Size(159, 21);
             this.comboMarcas.TabIndex = 12;
+            this.comboMarcas.SelectedIndexChanged += new System.EventHandler(this.comboMarcas_SelectedIndexChanged);
             // 
             // comboServicio
             // 

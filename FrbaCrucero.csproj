@@ -99,6 +99,12 @@
     <Compile Include="AbmCrucero\AltaCabina.Designer.cs">
       <DependentUpon>AltaCabina.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmCrucero\SeleccionarMarca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\SeleccionarMarca.Designer.cs">
+      <DependentUpon>SeleccionarMarca.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRecorrido\AltaRecorrido.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,6 +267,9 @@
     <EmbeddedResource Include="AbmCrucero\CruceroAlta.resx">
       <DependentUpon>CruceroAlta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\CruceroBaja.resx">
+      <DependentUpon>CruceroBaja.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\CruceroHome.resx">
       <DependentUpon>CruceroHome.cs</DependentUpon>
     </EmbeddedResource>
@@ -272,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\AltaCabina.resx">
       <DependentUpon>AltaCabina.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\SeleccionarMarca.resx">
+      <DependentUpon>SeleccionarMarca.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\AltaRecorrido.resx">
       <DependentUpon>AltaRecorrido.cs</DependentUpon>
