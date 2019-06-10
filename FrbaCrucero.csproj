@@ -35,6 +35,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,6 +51,12 @@
     </Compile>
     <Compile Include="AbmCliente\ClienteHome.Designer.cs">
       <DependentUpon>ClienteHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\CantidadDiasCorrimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\CantidadDiasCorrimiento.Designer.cs">
+      <DependentUpon>CantidadDiasCorrimiento.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmCrucero\CruceroAlta.cs">
       <SubType>Form</SubType>
@@ -86,6 +93,12 @@
     </Compile>
     <Compile Include="AbmCrucero\CruceroModificacionForm.Designer.cs">
       <DependentUpon>CruceroModificacionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmCrucero\DecisionReplanificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmCrucero\DecisionReplanificacion.Designer.cs">
+      <DependentUpon>DecisionReplanificacion.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmCrucero\Form1.cs">
       <SubType>Form</SubType>
@@ -273,11 +286,17 @@
     <EmbeddedResource Include="AbmCliente\ClienteHome.resx">
       <DependentUpon>ClienteHome.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\CantidadDiasCorrimiento.resx">
+      <DependentUpon>CantidadDiasCorrimiento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\CruceroAlta.resx">
       <DependentUpon>CruceroAlta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\CruceroBaja.resx">
       <DependentUpon>CruceroBaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\CruceroBajaForm.resx">
+      <DependentUpon>CruceroBajaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\CruceroHome.resx">
       <DependentUpon>CruceroHome.cs</DependentUpon>
@@ -290,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\AltaCabina.resx">
       <DependentUpon>AltaCabina.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmCrucero\DecisionReplanificacion.resx">
+      <DependentUpon>DecisionReplanificacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmCrucero\SeleccionarMarca.resx">
       <DependentUpon>SeleccionarMarca.cs</DependentUpon>

@@ -70,7 +70,19 @@ namespace FrbaCrucero.AbmCrucero
 
         private void dataGridViewCruceros_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            var senderGrid = (DataGridView)sender;
 
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewCruceros.Rows[e.RowIndex];
+                string selected_crucero_id = Convert.ToString(selectedRow.Cells["cruc_id"].Value);
+
+                CruceroBajaForm bajaForm = new CruceroBajaForm(selected_crucero_id);
+                bajaForm.Show();
+
+                initializeDataGridView(dataGridViewCruceros, ref ds);
+            }
         }
 
         private void Buscar_Click(object sender, EventArgs e)
@@ -131,6 +143,7 @@ namespace FrbaCrucero.AbmCrucero
             this.Codigo.Clear();
             this.CodigoContiene.Clear();
             this.comboServicio.ResetText();
+            initializeDataGridView(dataGridViewCruceros, ref ds);
         }
     }
 }

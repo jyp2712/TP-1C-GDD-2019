@@ -15,6 +15,27 @@ namespace FrbaCrucero.AbmCrucero
     public partial class CruceroAlta : Form
     {
         protected AltaCabina ac = new AltaCabina();
+        public string codigo { get; set; }
+
+        public CruceroAlta(string codigo)
+        {
+            InitializeComponent();
+            cargarComboMarcas();
+            cargarDatos(codigo);
+        }
+
+        private void cargarDatos(string codigo)
+        {
+            DBConnection dbConnection = DBConnection.getInstance();
+            DataSet ds = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Crucero] WHERE cruc_id='" + codigo + "'");
+            DataSet dserv = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio] WHERE serv_id=" + ds.Tables[0].Rows[0]["cruc_servicio"]);
+
+            this.comboServicio.Enabled = false;
+            this.comboServicio.Text = dserv.Tables[0].Rows[0]["serv_descripcion"].ToString();
+            this.txtCabinas.Enabled = false;
+            this.txtCabinas.Text = ds.Tables[0].Rows[0]["cruc_cant_cabinas"].ToString();
+
+        }
 
         public CruceroAlta()
         {
