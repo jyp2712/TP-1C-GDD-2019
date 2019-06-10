@@ -39,6 +39,8 @@ namespace FrbaCrucero.PagoReserva
             this.txtModeloCrucero.Enabled = false;
             this.txtCabina.Enabled = false;
             this.txtTipoCabina.Enabled = false;
+            this.btnCabina.Enabled = false;
+            this.btnCrucero.Enabled = false;
         }
 
         public PagoReservaForm(Reserva reserva)
@@ -84,11 +86,16 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnOrigen_Click(object sender, EventArgs e)
         {
-
             ListadoOrigenDestinoForm listadoOrigen = new ListadoOrigenDestinoForm(ref this.txtOrigen, true);
             listadoOrigen.Show();
             listadoOrigen.RefToPrevForm = this;
             this.Hide();
+        }
+
+        private void habilitarCruceroYCabinaSiCorresponde()
+        {
+            if (txtOrigen.Text.Length > 0 && txtDestino.Text.Length > 0)
+                this.btnCrucero.Enabled = true;
         }
 
         private void btnFechaSalida_Click(object sender, EventArgs e)
@@ -103,5 +110,16 @@ namespace FrbaCrucero.PagoReserva
             listadoDestino.RefToPrevForm = this;
             this.Hide();
         }
+
+        private void btnCrucero_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void onTxtChanged(object sender, EventArgs e)
+        {
+            habilitarCruceroYCabinaSiCorresponde();
+        }
+
     }
 }

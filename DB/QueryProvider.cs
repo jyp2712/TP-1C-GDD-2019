@@ -92,6 +92,11 @@ namespace FrbaCrucero.DB
             return "";
         }
 
-        public static string SELECT_CIUDADES_ORIGEN = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = ciud_id";
+        public static string SELECT_CIUDADES_Y_PUERTO = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = ciud_id WHERE puer_estado = 1";
+
+        public static string SELECT_CIUDADES_Y_PUERTO_LIKE(string nombre)
+        {
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = ciud_id WHERE puer_estado = 1 AND (ciud_nombre LIKE '%"+ nombre +"%' OR puer_nombre LIKE '%" + nombre + "%')";
+        }
     }
 }

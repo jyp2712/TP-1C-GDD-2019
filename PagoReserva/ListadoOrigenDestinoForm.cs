@@ -22,19 +22,41 @@ namespace FrbaCrucero.PagoReserva
         public ListadoOrigenDestinoForm(ref TextBox txtToModify, Boolean isOrigen)
         {
             InitializeComponent();
-            DBConnection dbConnection = DBConnection.getInstance();
-            ds = dbConnection.executeQuery(QueryProvider.SELECT_CIUDADES_ORIGEN);
-            dgv.ReadOnly = true;
-            dgv.DataSource = ds.Tables[0];
+            inicializarDataGridView();
             this.txtToModify = txtToModify;
             this.isOrigen = isOrigen;
 
-            RolHelper.addButtonToDataGridView(dgv, "Seleccionar", "   *  ");
         }
+
+        private void inicializarDataGridView()
+        {
+            cargarEstadoInicial();
+            dgv.ReadOnly = true;
+            dgv.DataSource = ds.Tables[0];
+
+            dgv.Columns["ciud_id"].Visible = false;
+            dgv.Columns["ciud_nombre"].HeaderText = "Nombre Ciudad";
+            dgv.Columns["ciud_puerto_id"].Visible = false;
+            dgv.Columns["puer_id"].Visible = false;
+            dgv.Columns["puer_estado"].Visible = false;
+            dgv.Columns["puer_nombre"].HeaderText = "Nombre Puerto";
+
+            RolHelper.addButtonToDataGridView(dgv, "Seleccionar", "   *  ");
+
+        }
+
+        private void cargarEstadoInicial() 
+        {
+            DBConnection dbConnection = DBConnection.getInstance();
+            ds = dbConnection.executeQuery(QueryProvider.SELECT_CIUDADES_Y_PUERTO);
+        }
+
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-
+            string query = QueryProvider.SELECT_CIUDADES_Y_PUERTO_LIKE(this.txtNombreCiudad.Text);
+            DataSet ds = DBConnection.getInstance().executeQuery(query);
+            dgv.DataSource = ds.Tables[0];
         }
 
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -74,5 +96,14 @@ namespace FrbaCrucero.PagoReserva
         }
 
         public PagoReservaForm RefToPrevForm { get; set; }
+
+        //TODO no anda.
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtNombreCiudad.Clear();
+            ds.Clear();
+            cargarEstadoInicial();
+            dgv.Refresh();
+        }
     }
 }

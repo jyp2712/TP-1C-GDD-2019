@@ -62,7 +62,7 @@ namespace FrbaCrucero.menuBarra
 
         private void toolStripTextBox2_Click(object sender, EventArgs e)
         {
-            FrbaCrucero.CompraPasaje.Form1 compra = new CompraPasaje.Form1();
+            FrbaCrucero.PagoReserva.PagoReservaForm compra = new PagoReserva.PagoReservaForm();
             compra.Show();
         }
 
