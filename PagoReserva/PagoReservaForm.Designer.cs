@@ -124,6 +124,7 @@
             this.txtOrigen.Name = "txtOrigen";
             this.txtOrigen.Size = new System.Drawing.Size(198, 20);
             this.txtOrigen.TabIndex = 8;
+            this.txtOrigen.TextChanged += new System.EventHandler(this.onTxtChanged);
             // 
             // btnOrigen
             // 
@@ -141,6 +142,7 @@
             this.txtDestino.Name = "txtDestino";
             this.txtDestino.Size = new System.Drawing.Size(198, 20);
             this.txtDestino.TabIndex = 10;
+            this.txtDestino.TextChanged += new System.EventHandler(this.onTxtChanged);
             // 
             // txtNombreCrucero
             // 
@@ -209,6 +211,7 @@
             this.btnCrucero.TabIndex = 20;
             this.btnCrucero.Text = "Seleccionar";
             this.btnCrucero.UseVisualStyleBackColor = true;
+            this.btnCrucero.Click += new System.EventHandler(this.btnCrucero_Click);
             // 
             // btnCabina
             // 

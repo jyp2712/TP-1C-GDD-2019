@@ -18,24 +18,58 @@ namespace FrbaCrucero.AbmCrucero
         public CruceroModificacion()
         {
             InitializeComponent();
+            cargarServicios();
             initializeDataGridView(dataGridViewCruceros, ref ds);
             addButtonToDataGridView(dataGridViewCruceros, "Seleccionar", "   Modificar  ");
 
         }
 
+        private void cargarServicios()
+        {
+
+            try
+            {
+                DBConnection dbConnection = DBConnection.getInstance();
+                ds = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio]");
+                this.comboServicio.DisplayMember = comboServicio.Text;
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    comboServicio.Items.Add(row["serv_descripcion"].ToString());
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
         public static void initializeDataGridView(DataGridView dgv, ref DataSet ds)
         {
             DBConnection dbConnection = DBConnection.getInstance();
-            ds = dbConnection.executeQuery(QueryProvider.SELECT_CRUCEROS);
+            ds = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Crucero] WHERE cruc_estado=1");
             dgv.ReadOnly = true;
             dgv.DataSource = ds.Tables[0];
 
 
-            dgv.Columns["cruc_id"].HeaderText = "Id";
-            dgv.Columns["cruc_nombre"].HeaderText = "Nombre";
-            dgv.Columns["cruc_fecha_alta"].HeaderText = "Fecha de alta";
-            dgv.Columns["cruc_marca"].HeaderText = "Marca";
-            dgv.Columns["cruc_estado"].HeaderText = "Estado";
+            dgv.Columns["cruc_id"].HeaderText = "Codigo";
+            dgv.Columns["cruc_estado"].Visible = false;
+        }
+        
+        private void dataGridViewCruceros_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewCruceros.Rows[e.RowIndex];
+                string selected_crucero_id = Convert.ToString(selectedRow.Cells["cruc_id"].Value);
+
+                CruceroModificacionForm bajaForm = new CruceroModificacionForm(selected_crucero_id);
+                bajaForm.Show();
+
+                initializeDataGridView(dataGridViewCruceros, ref ds);
+            }
         }
 
         public static void addButtonToDataGridView(DataGridView dgv, string headerText, string buttonText)
@@ -52,49 +86,69 @@ namespace FrbaCrucero.AbmCrucero
         }
 
 
-
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            this.txtNombre.Clear();
-            this.textNombre2.Clear();
+            this.Marca.Clear();
+            this.Codigo.Clear();
+            this.CodigoContiene.Clear();
+            this.comboServicio.ResetText();
+            initializeDataGridView(dataGridViewCruceros, ref ds);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             DBConnection dbConnection = DBConnection.getInstance();
-            if (this.txtNombre.TextLength < 1 && this.textNombre2.TextLength < 1)
+            if (this.Codigo.TextLength < 1 && this.CodigoContiene.TextLength < 1 && string.IsNullOrEmpty(this.comboServicio.Text) && this.Marca.TextLength < 1)
                 initializeDataGridView(dataGridViewCruceros, ref ds);
             else
             {
-                if (this.txtNombre.TextLength > 0)
+                if (this.CodigoContiene.TextLength < 1 && string.IsNullOrEmpty(this.comboServicio.Text) && this.Marca.TextLength < 1)
                 {
-                    ds = dbConnection.executeQuery(QueryProvider.SELECT_CRUCEROS_TEXTUAL(this.txtNombre.Text));
+                    ds = dbConnection.executeQuery("SELECT * FROM EYE_OF_THE_TRIGGER.Crucero WHERE cruc_id='" + this.Codigo.Text + "' AND cruc_estado=1");
                 }
                 else
                 {
-                    if (this.textNombre2.TextLength > 0)
+                    DataSet dserv;
+                    dserv = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio] WHERE serv_descripcion='" + this.comboServicio.Text.ToString() + "'");
+                    if (dserv.Tables[0].Rows.Count > 0)
                     {
-                        ds = dbConnection.executeQuery(QueryProvider.SELECT_CRUCEROS_LIKE(this.textNombre2.Text));
+                        if (this.Codigo.TextLength < 1)
+                        {
+                            ds = dbConnection.executeQuery("SELECT * FROM EYE_OF_THE_TRIGGER.Crucero WHERE cruc_id LIKE('%" + this.CodigoContiene.Text + "%') AND cruc_marca LIKE('%" + this.Marca.Text + "%') AND ISNULL(cruc_servicio, 0) LIKE('%" + dserv.Tables[0].Rows[0]["serv_id"] + "%') AND cruc_estado=1");
+                        }
+                        else
+                        {
+                            ds = dbConnection.executeQuery("SELECT * FROM EYE_OF_THE_TRIGGER.Crucero WHERE cruc_id='" + this.Codigo.Text + "' AND cruc_id LIKE('%" + this.CodigoContiene.Text + "%') AND cruc_marca LIKE('%" + this.Marca.Text + "%') AND ISNULL(cruc_servicio, 0) LIKE('%" + dserv.Tables[0].Rows[0]["serv_id"] + "%') AND cruc_estado=1");
+                        }
+                    }
+                    else
+                    {
+                        if (this.Codigo.TextLength < 1)
+                        {
+                            ds = dbConnection.executeQuery("SELECT * FROM EYE_OF_THE_TRIGGER.Crucero WHERE cruc_id LIKE('%" + this.CodigoContiene.Text + "%') AND cruc_marca LIKE('%" + this.Marca.Text + "%') AND ISNULL(cruc_servicio, 0) LIKE('%%') AND cruc_estado=1");
+                        }
+                        else
+                        {
+                            ds = dbConnection.executeQuery("SELECT * FROM EYE_OF_THE_TRIGGER.Crucero WHERE cruc_id='" + this.Codigo.Text + "' AND cruc_id LIKE('%" + this.CodigoContiene.Text + "%') AND cruc_marca LIKE('%" + this.Marca.Text + "%') AND ISNULL(cruc_servicio, 0) LIKE('%%') AND cruc_estado=1");
+                        }
                     }
                 }
 
                 dataGridViewCruceros.ReadOnly = true;
                 dataGridViewCruceros.DataSource = ds.Tables[0];
 
-
-                dataGridViewCruceros.Columns["cruc_id"].HeaderText = "Id";
-                dataGridViewCruceros.Columns["cruc_nombre"].HeaderText = "Nombre";
-                dataGridViewCruceros.Columns["cruc_fecha_alta"].HeaderText = "Fecha de alta";
-                dataGridViewCruceros.Columns["cruc_marca"].HeaderText = "Marca";
-                dataGridViewCruceros.Columns["cruc_estado"].HeaderText = "Estado";
-         
+                dataGridViewCruceros.Columns["cruc_id"].HeaderText = "Codigo";
+                dataGridViewCruceros.Columns["cruc_estado"].Visible = false;
             }
         }
 
-        private void dataGridViewCruceros_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void Seleccionar_Click(object sender, EventArgs e)
         {
-            /*Para esto tengo problemas con los tipos (por ejemplo el del ID y particularmente
-            con los nulls de las tablas)*/
+            SeleccionarMarca sm = new SeleccionarMarca();
+            sm.ShowDialog();
+            this.Marca.Text = sm.id.ToString();
         }
+
+        
     }
 }
