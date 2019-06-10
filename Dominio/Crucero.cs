@@ -24,17 +24,6 @@ namespace FrbaCrucero
             this.estado = estado;
         }
 
-        public Crucero(DataSet ds)
-        {
-            this.Id = Convert.ToString(ds.Tables[0].Rows[0]["cruc_id"]);
-            this.estado = Convert.ToInt32(ds.Tables[0].Rows[0]["cruc_estado"]);
-            this.Nombre = Convert.ToString(ds.Tables[0].Rows[0]["cruc_nombre"]);
-            this.Modelo = Convert.ToString(ds.Tables[0].Rows[0]["cruc_modelo"]);
-            this.Marca = new Marca(ds);
-            //TODO la fecha en null rompe
-            //this.FechaAlta = Convert.ToDateTime(ds.Tables[0].Rows[0]["cruc_fecha_alta"]);
-        }
-
         public string Nombre { get; set; }
         public string Modelo { get; set; }
         public DateTime FechaAlta { get; set; }

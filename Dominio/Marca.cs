@@ -15,13 +15,5 @@ namespace FrbaCrucero.Dominio
             Id = id;
             Nombre = descripcion;
         }
-
-        public Marca(System.Data.DataSet ds)
-        {
-            this.Nombre = Convert.ToString(ds.Tables[0].Rows[0]["marc_nombre"]);
-            this.Id = Convert.ToInt32(ds.Tables[0].Rows[0]["marc_id"]);
-            this.ds = ds;
-        }
-
     }
 }

@@ -50,6 +50,9 @@ namespace FrbaCrucero
             //asd.Show();
 
 
+            //FrbaCrucero.PagoReserva.SeleccionReservaForm frm = new PagoReserva.SeleccionReservaForm();
+            //FrbaCrucero.PagoReserva.PagoReservaForm frm = new FrbaCrucero.PagoReserva.PagoReservaForm();
+            //frm.Show();
         }
 
         private void btnIngresarAdministrador_Click(object sender, EventArgs e)

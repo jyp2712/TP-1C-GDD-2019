@@ -180,6 +180,7 @@
       <DependentUpon>RolListadoModificacionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dominio\Cabina.cs" />
+    <Compile Include="Dominio\Ciudad.cs" />
     <Compile Include="Dominio\Cliente.cs" />
     <Compile Include="Dominio\Crucero.cs" />
     <Compile Include="Dominio\Domicilio.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="Dominio\EstadoReserva.cs" />
     <Compile Include="Dominio\Marca.cs" />
     <Compile Include="Dominio\MedioDePago.cs" />
+    <Compile Include="Dominio\Puerto.cs" />
     <Compile Include="Dominio\Reserva.cs" />
     <Compile Include="Dominio\Servicio.cs" />
     <Compile Include="Dominio\TipoCabina.cs" />
@@ -258,6 +260,13 @@
     </Compile>
     <Compile Include="menuBarra\menu.Designer.cs">
       <DependentUpon>menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mappers\GeneralMapper.cs" />
+    <Compile Include="PagoReserva\ListadoOrigenDestinoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PagoReserva\ListadoOrigenDestinoForm.Designer.cs">
+      <DependentUpon>ListadoOrigenDestinoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PagoReserva\PagoReservaForm.cs">
       <SubType>Form</SubType>
@@ -358,8 +367,8 @@
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="menuBarra\menu.resx">
-      <DependentUpon>menu.cs</DependentUpon>
+    <EmbeddedResource Include="PagoReserva\ListadoOrigenDestinoForm.resx">
+      <DependentUpon>ListadoOrigenDestinoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PagoReserva\PagoReservaForm.resx">
       <DependentUpon>PagoReservaForm.cs</DependentUpon>

@@ -78,5 +78,30 @@ namespace FrbaCrucero.DB
         public static string SELECT_ROLES_CON_FUNCIONALIDADES(string rol_id) { 
             return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol] JOIN [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad] on [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad].[rol_id] = [EYE_OF_THE_TRIGGER].[Rol].[rol_id] JOIN [EYE_OF_THE_TRIGGER].[Funcionalidad] on[EYE_OF_THE_TRIGGER].[Funcionalidad].[func_id] = [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad].[func_id]WHERE [EYE_OF_THE_TRIGGER].[Rol].[rol_id] =" + rol_id;
         }
+
+        /*public static string SELECT_RESERVA(string idReserva) {
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Reserva JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Cliente on rese_cliente_id = clie_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Crucero on cruc_id = rese_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].TipoDocumento on clie_tipo_doc = TipoDocumento.id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Domicilio on clie_domicilio_id = domi_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Marca on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Viaje on rese_viaje_id = viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].RecorridoViaje on RecorridoViaje.viaj_id = Reserva.rese_viaje_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Recorrido on Recorrido.reco_id = RecorridoViaje.reco_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad origen on ciud_id = reco_origen_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad destino on destino.ciud_id = reco_origen_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Puerto puertoOrigen on origen.ciud_puerto_id = puertoOrigen.puer_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Puerto puertoDestino on reco_destino_id = puertoDestino.puer_id WHERE rese_id='" + idReserva + "'";
+        }
+        */
+        public static string SELECT_RESERVA(string idReserva)
+        {
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Reserva JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Cliente on rese_cliente_id = clie_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Crucero on cruc_id = rese_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].TipoDocumento on clie_tipo_doc = TipoDocumento.id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Domicilio on clie_domicilio_id = domi_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Marca on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Viaje on rese_viaje_id = viaj_id WHERE rese_id='" + idReserva + "'";
+        }
+
+
+        public static string SELECT_PUERTO_POR_CIUDAD(string ciudadId)
+        {
+
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Puerto on ciud_puerto_id = puer_id WHERE ciud_id='" + ciudadId + "'";
+
+        }
+
+        internal static string SELECT_CABINA()
+        {
+            //throw new NotImplementedException();
+            return "";
+        }
+
+        public static string SELECT_CIUDADES_ORIGEN = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = ciud_id";
     }
 }

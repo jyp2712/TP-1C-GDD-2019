@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using FrbaCrucero.DB;
 
 namespace FrbaCrucero.Dominio
 {
     public class Reserva:Entidad
     {
         public Reserva (int id, Cliente cliente, Crucero crucero, DateTime fechaCreacion, Viaje viaje, Cabina cabina,
-            TipoServicio servicio, EstadoReserva estadoReserva, int pasajeros)
+            TipoServicio servicio, EstadoReserva estadoReserva, int pasajeros, Puerto origen, Puerto destino)
         {
             this.Id=id;
             this.Cliente = cliente;
@@ -20,17 +21,16 @@ namespace FrbaCrucero.Dominio
             this.Servicio = servicio;
             this.EstadoReserva = estadoReserva;
             this.Pasajeros = pasajeros;
+            this.Origen = origen;
+            this.Destino = destino;
         }
 
         public Reserva(DataSet ds)
         {
-            Crucero crucero = new Crucero(ds);
-            this.Id = Convert.ToInt32(ds.Tables[0].Rows[0]["rese_id"]);
-            this.Cliente = new Cliente(ds);
-            this.Crucero = new Crucero(ds);
-            this.FechaCreacion = Convert.ToDateTime(ds.Tables[0].Rows[0]["rese_fecha_creacion"]);
-            this.Viaje = new Viaje(ds, crucero);
-           // this.Cabina = new Cabina(ds);
+            DataSet dsOrigen = DBConnection.getInstance().executeQuery(QueryProvider.SELECT_PUERTO_POR_CIUDAD(Convert.ToString(ds.Tables[0].Rows[0]["reco_origen_id"])));
+            //Crucero crucero = new Crucero(ds);
+            Puerto origen = new Puerto(dsOrigen);
+
             /*this.TipoServicio = new TipoServicio(ds);
             this.EstadoReserva = new EstadoReserva(ds);
             this.Pasajeros = ds.Tables[0].Rows[0]["rese_cantidad_pasajeros"];*/
@@ -44,5 +44,7 @@ namespace FrbaCrucero.Dominio
         public TipoServicio Servicio { get; set; }
         public EstadoReserva EstadoReserva { get; set; }
         public int Pasajeros { get; set; }
+        public Puerto Origen { get; set; }
+        public Puerto Destino { get; set; }
     }
 }

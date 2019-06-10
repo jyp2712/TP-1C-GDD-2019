@@ -15,7 +15,7 @@ namespace FrbaCrucero.Dominio
             this.Id = Id;
         }
 
-        public Cliente(DataSet ds)
+       /* public Cliente(DataSet ds)
         {
             this.Id = Convert.ToInt32(ds.Tables[0].Rows[0]["clie_id"]);
             this.Nombre = Convert.ToString(ds.Tables[0].Rows[0]["clie_nombre"]);
@@ -26,7 +26,7 @@ namespace FrbaCrucero.Dominio
             this.Doc = Convert.ToInt32(ds.Tables[0].Rows[0]["clie_doc"]);
             this.Tel = Convert.ToString(ds.Tables[0].Rows[0]["clie_tel"]);
             this.FechaNac = Convert.ToDateTime(ds.Tables[0].Rows[0]["clie_fecha_nac"]);
-        }
+        }*/
 
         public Cliente(int Id, string nombre, string apellido, string mail, TipoDocumento tipoDoc, Domicilio domicilio,
             int doc, string tel, DateTime fechaNac)

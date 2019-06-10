@@ -8,18 +8,37 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaCrucero.Dominio;
+using FrbaCrucero.DB;
 
 namespace FrbaCrucero.PagoReserva
 {
     public partial class PagoReservaForm : Form
     {
-        Reserva reserva;
+        public Reserva reserva {get; set;}
+        public Ciudad ciudadOrigen { get; set; }
+        public Ciudad ciudadDestino {get; set;}
+        public Puerto puertoOrigen {get; set;}
+        public Puerto puertoDestino { get; set; }
+
+
 
         public PagoReservaForm()
         {
             InitializeComponent();
             this.dtpSalida.Value = DateTime.Now.AddDays(1);
             this.dtpRegreso.Value = DateTime.Now.AddDays(1);
+            desactivarTodosLosControlesComunes();
+        }
+
+        private void desactivarTodosLosControlesComunes()
+        {
+            this.txtOrigen.Enabled = false;
+            this.txtDestino.Enabled = false;
+            this.txtNombreCrucero.Enabled = false;
+            this.txtMarcaCrucero.Enabled = false;
+            this.txtModeloCrucero.Enabled = false;
+            this.txtCabina.Enabled = false;
+            this.txtTipoCabina.Enabled = false;
         }
 
         public PagoReservaForm(Reserva reserva)
@@ -37,6 +56,10 @@ namespace FrbaCrucero.PagoReserva
 
             this.txtCantidadPasajes.Text = Convert.ToString(reserva.Pasajeros);
 
+            desactivarTodosLosControlesComunes();
+            this.dtpSalida.Enabled = false;
+            this.dtpRegreso.Enabled = false;
+            this.txtCantidadPasajes.Enabled = false;
         }
 
         private void PagoReservaForm_Load(object sender, EventArgs e)
@@ -62,11 +85,23 @@ namespace FrbaCrucero.PagoReserva
         private void btnOrigen_Click(object sender, EventArgs e)
         {
 
+            ListadoOrigenDestinoForm listadoOrigen = new ListadoOrigenDestinoForm(ref this.txtOrigen, true);
+            listadoOrigen.Show();
+            listadoOrigen.RefToPrevForm = this;
+            this.Hide();
         }
 
         private void btnFechaSalida_Click(object sender, EventArgs e)
         {
+            
+        }
 
+        private void btnDestino_Click(object sender, EventArgs e)
+        {
+            ListadoOrigenDestinoForm listadoDestino = new ListadoOrigenDestinoForm(ref this.txtDestino,false);
+            listadoDestino.Show();
+            listadoDestino.RefToPrevForm = this;
+            this.Hide();
         }
     }
 }
