@@ -22,7 +22,7 @@ namespace FrbaCrucero.AbmCrucero
             InitializeComponent();
             cargarDatos();
             cargarMotivos();
-            this.dateTimePickerBaja.MinDate = DateTime.Now;
+            this.dateTimePickerBaja.MinDate = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]);
         }
 
         private void cargarMotivos()
@@ -65,14 +65,24 @@ namespace FrbaCrucero.AbmCrucero
             }
             else
             {
-                if (DBAdapter.checkIfExists("reservas_para_crucero", this.txtCodigo.Text))
+                if (DBAdapter.checkIfExists("reservas_para_crucero", this.txtCodigo.Text, Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]), Convert.ToDateTime(this.dateTimePickerBaja.Value)))
                 {
                     DecisionReplanificacion dr = new DecisionReplanificacion(this.txtCodigo.Text, this.comboBoxMotivo.Text, Convert.ToDateTime(this.dateTimePickerBaja.Value));
                     dr.ShowDialog();
+                    if (dr.reemplazoOk)
+                    {
+                        DBAdapter.actualizarDatosEnTabla("crucero_estado", this.id, this.comboBoxMotivo.Text, Convert.ToDateTime(this.dateTimePickerBaja.Value), Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]));
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ups! Algo fallo, estamos trabajando para solucionarlo");
+                    }
                 }
-                DBAdapter.actualizarDatosEnTabla("crucero_estado", this.id, this.comboBoxMotivo.Text, Convert.ToDateTime(this.dateTimePickerBaja.Value));
+                else {
+                    DBAdapter.actualizarDatosEnTabla("crucero_estado", this.id, this.comboBoxMotivo.Text, Convert.ToDateTime(this.dateTimePickerBaja.Value), Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]));
+                }
                 MessageBox.Show("Crucero " + id + " dado de baja");
-                this.cargarDatos();
+                this.Close();
             }
         }
 
@@ -91,9 +101,11 @@ namespace FrbaCrucero.AbmCrucero
             if (string.Equals(this.comboBoxMotivo.Text, "Baja Definitiva"))
             {
                 this.dateTimePickerBaja.Enabled = false;
+                this.dateTimePickerBaja.Value = this.dateTimePickerBaja.MaxDate;
             }
             else
             {
+                this.dateTimePickerBaja.Value = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]);
                 this.dateTimePickerBaja.Enabled = true;
             }
         }

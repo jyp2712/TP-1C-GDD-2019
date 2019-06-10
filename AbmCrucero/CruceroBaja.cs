@@ -79,9 +79,9 @@ namespace FrbaCrucero.AbmCrucero
                 string selected_crucero_id = Convert.ToString(selectedRow.Cells["cruc_id"].Value);
 
                 CruceroBajaForm bajaForm = new CruceroBajaForm(selected_crucero_id);
-                bajaForm.Show();
+                bajaForm.ShowDialog();
 
-                initializeDataGridView(dataGridViewCruceros, ref ds);
+                this.Limpiar_Click(sender, e);
             }
         }
 

@@ -89,7 +89,7 @@ namespace FrbaCrucero.AbmRecorrido
                 {
                     ValidacionesHelper.validarCampoSoloNumerico(this.Codigo);
                     ValidacionesHelper.validarCampoSoloNumerico(this.Precio);
-                    if (DBAdapter.checkIfExists("recorrido_finalizado", Codigo.Text))
+                    if (DBAdapter.checkIfExists("recorrido_finalizado", Codigo.Text, Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"])))
                     {
                         MessageBox.Show("Ese recorrido ya fue realizado");
                     }

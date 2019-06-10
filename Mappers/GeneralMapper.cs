@@ -55,7 +55,7 @@ namespace FrbaCrucero.Mappers
             //TODO la fecha en null rompe
             //DateTime fechaAlta = Convert.ToDateTime(ds.Tables[0].Rows[0]["cruc_fecha_alta"]);
             //TODO
-            DateTime fechaAlta = DateTime.Now;
+            DateTime fechaAlta = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]);
             return new Crucero(id, nombre, modelo, fechaAlta, marca, estado);//TODO
         }
 

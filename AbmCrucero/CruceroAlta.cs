@@ -121,7 +121,7 @@ namespace FrbaCrucero.AbmCrucero
                     DataSet dserv = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio] WHERE serv_descripcion='" + this.comboServicio.Text + "'");
                     DataSet dmarc = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Marca] WHERE marc_nombre='" + this.comboMarcas.Text + "'");
 
-                    DBAdapter.insertarDatosEnTabla("crucero", this.txtCodigo.Text, DateTime.Today, this.txtNombre.Text, this.txtModelo.Text, Convert.ToInt32(dserv.Tables[0].Rows[0]["serv_id"]),
+                    DBAdapter.insertarDatosEnTabla("crucero", this.txtCodigo.Text, Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]), this.txtNombre.Text, this.txtModelo.Text, Convert.ToInt32(dserv.Tables[0].Rows[0]["serv_id"]),
                         Convert.ToInt32(dmarc.Tables[0].Rows[0]["marc_id"]), Convert.ToInt32(this.txtCabinas.Text));
 
                     int nro = 1;
@@ -159,7 +159,9 @@ namespace FrbaCrucero.AbmCrucero
                             nro++;
                         }
                     }
+                    this.codigo = this.txtCodigo.Text;
                     MessageBox.Show("Crucero dado de Alta");
+                    this.Close();
                 }
             }
 

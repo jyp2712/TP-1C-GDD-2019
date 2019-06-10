@@ -25,8 +25,8 @@ namespace FrbaCrucero.PagoReserva
         public PagoReservaForm()
         {
             InitializeComponent();
-            this.dtpSalida.Value = DateTime.Now.AddDays(1);
-            this.dtpRegreso.Value = DateTime.Now.AddDays(1);
+            this.dtpSalida.Value = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddDays(1);
+            this.dtpRegreso.Value = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddDays(1);
             desactivarTodosLosControlesComunes();
         }
 

@@ -18,8 +18,8 @@ namespace FrbaCrucero.GeneracionViaje
         public ViajeAlta()
         {
             InitializeComponent();
-            this.dateTimePicker1.MinDate = DateTime.Now.AddDays(1);
-            this.dateTimePicker2.MinDate = DateTime.Now.AddDays(1);
+            this.dateTimePicker1.MinDate = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddDays(1);
+            this.dateTimePicker2.MinDate = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddDays(1);
         }
 
         private void Codigo_TextChanged(object sender, EventArgs e)
@@ -101,8 +101,8 @@ namespace FrbaCrucero.GeneracionViaje
             this.Codigo.Clear();
             this.Viaje.Clear();
             this.Crucero.Clear();
-            this.dateTimePicker1.Value = DateTime.Now.AddDays(1);
-            this.dateTimePicker2.Value = DateTime.Now.AddDays(1);
+            this.dateTimePicker1.Value = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddDays(1);
+            this.dateTimePicker2.Value = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddDays(1);
 
         }
     }

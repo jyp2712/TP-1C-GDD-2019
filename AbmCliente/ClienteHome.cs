@@ -25,7 +25,7 @@ namespace FrbaCrucero.AbmCliente
             this.tipoDocumento = "DNI";
             InitializeComponent();
             cargarTiposDocumentos();
-            this.dateTimePicker1.MaxDate = DateTime.Now.AddYears(-18);
+            this.dateTimePicker1.MaxDate = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddYears(-18);
 
         }
 
@@ -149,7 +149,7 @@ namespace FrbaCrucero.AbmCliente
             this.Ciudad.Clear();
             this.Pais.Clear();
             this.Telefono.Clear();
-            this.dateTimePicker1.Text = DateTime.Now.AddYears(-18).ToShortDateString();
+            this.dateTimePicker1.Text = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddYears(-18).ToShortDateString();
 
         }
 
