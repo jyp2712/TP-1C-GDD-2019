@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace FrbaCrucero.AbmCrucero
 {
-    public partial class Form1 : Form
+    public partial class CruceroBajaForm : Form
     {
-        public Form1()
+        public CruceroBajaForm()
         {
             InitializeComponent();
-        }
-
-        private void Codigo_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

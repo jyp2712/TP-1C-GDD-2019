@@ -225,6 +225,25 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
+    	AND TABLE_NAME = 'Servicio' 
+	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
+)
+BEGIN
+CREATE TABLE [EYE_OF_THE_TRIGGER].[Servicio] (
+	[serv_id] [numeric](18,0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[serv_descripcion] [nvarchar](255) CONSTRAINT UQ_DESC_REGIMEN UNIQUE NOT NULL,
+	[serv_precio] [numeric](18,2) NOT NULL,
+	[serv_estado] [bit] DEFAULT 1
+)
+PRINT '----- Tabla EYE_OF_THE_TRIGGER.Servicio creada -----'
+END
+GO
+
+
+IF NOT EXISTS (
+	SELECT 1 
+	FROM INFORMATION_SCHEMA.TABLES 
+	WHERE TABLE_TYPE = 'BASE TABLE' 
     	AND TABLE_NAME = 'Crucero' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
@@ -234,9 +253,12 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Crucero] (
 	[cruc_fecha_alta] [datetime],
 	[cruc_nombre] [nvarchar](255),
 	[cruc_modelo] [nvarchar](50),
+	[cruc_cant_cabinas] [numeric](4,0),
 	[cruc_marca] [numeric](18,0),
+	[cruc_servicio] [numeric](18,0),
 	[cruc_estado] [bit] DEFAULT 1,
-	CONSTRAINT FK_CRUCEROS_MARCA FOREIGN KEY ([cruc_marca]) REFERENCES [EYE_OF_THE_TRIGGER].[Marca] ([marc_id])
+	CONSTRAINT FK_CRUCEROS_MARCA FOREIGN KEY ([cruc_marca]) REFERENCES [EYE_OF_THE_TRIGGER].[Marca] ([marc_id]),
+	CONSTRAINT FK_CRUCEROS_SERVICIO FOREIGN KEY ([cruc_servicio]) REFERENCES [EYE_OF_THE_TRIGGER].[Servicio] ([serv_id])
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.Crucero creada -----'
 END
@@ -261,45 +283,6 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[CruceroInhabilitado] (
 	CONSTRAINT FK_MANTENIMIENTO_CRUCERO FOREIGN KEY ([inhab_crucero_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Crucero] ([cruc_id])
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.CruceroInhabilitado creada -----'
-END
-GO
-
-
-IF NOT EXISTS (
-	SELECT 1 
-	FROM INFORMATION_SCHEMA.TABLES 
-	WHERE TABLE_TYPE = 'BASE TABLE' 
-    	AND TABLE_NAME = 'Servicio' 
-	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
-)
-BEGIN
-CREATE TABLE [EYE_OF_THE_TRIGGER].[Servicio] (
-	[serv_id] [numeric](18,0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	[serv_descripcion] [nvarchar](255) CONSTRAINT UQ_DESC_REGIMEN UNIQUE NOT NULL,
-	[serv_precio] [numeric](18,2) NOT NULL,
-	[serv_estado] [bit] DEFAULT 1
-)
-PRINT '----- Tabla EYE_OF_THE_TRIGGER.Servicio creada -----'
-END
-GO
-
-
-IF NOT EXISTS (
-	SELECT 1 
-	FROM INFORMATION_SCHEMA.TABLES 
-	WHERE TABLE_TYPE = 'BASE TABLE' 
-    	AND TABLE_NAME = 'ServicioCrucero' 
-	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
-)
-BEGIN
-CREATE TABLE [EYE_OF_THE_TRIGGER].[ServicioCrucero] (
-	[serv_id] [numeric](18,0) NOT NULL,
-	[cruc_id] [nvarchar](50) NOT NULL,
-	CONSTRAINT PK_SERVICIO_CRUCERO PRIMARY KEY ([serv_id], [cruc_id]),
-	CONSTRAINT PK_SERVICIO_CRUCERO_SERVICIO FOREIGN KEY ([serv_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Servicio] ([serv_id]),
-	CONSTRAINT PK_SERVICIO_CRUCERO_CRUCERO FOREIGN KEY ([cruc_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Crucero] ([cruc_id])
-)
-PRINT '----- Tabla EYE_OF_THE_TRIGGER.ServicioCrucero creada -----'
 END
 GO
 
@@ -478,14 +461,12 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Reserva] (
 	[rese_fecha_creacion] [datetime],
 	[rese_viaje_id] [numeric](18,0),
 	[rese_cabina_id] [numeric](18,0),	
-	[rese_tipo_servicio_id] [numeric](18,0),
 	[rese_estado_reserva] [numeric](18,0),
 	[rese_cantidad_pasajeros] [numeric](1,0),
 	CONSTRAINT FK_RESERVA_CLIENTE FOREIGN KEY ([rese_cliente_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Cliente] ([clie_id]),
 	CONSTRAINT FK_RESERVA_CRUCERO FOREIGN KEY ([rese_crucero_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Crucero] ([cruc_id]),
 	CONSTRAINT FK_RESERVA_VIAJE FOREIGN KEY ([rese_viaje_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Viaje] ([viaj_id]),
 	CONSTRAINT FK_RESERVA_CABINA FOREIGN KEY ([rese_cabina_id]) REFERENCES [EYE_OF_THE_TRIGGER].[Cabina] ([cabi_id]),
-	CONSTRAINT FK_RESERVA_TIPO_SERVICIO FOREIGN KEY ([rese_tipo_servicio_id])  REFERENCES [EYE_OF_THE_TRIGGER].[Servicio] ([serv_id]),
 	CONSTRAINT FK_RESERVA_ESTADO FOREIGN KEY ([rese_estado_reserva]) REFERENCES [EYE_OF_THE_TRIGGER].[EstadoReserva] ([id])
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.Reserva creada -----'
@@ -783,10 +764,13 @@ CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarCrucero] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Crucero -----'
 
-INSERT INTO EYE_OF_THE_TRIGGER.Crucero (cruc_id, cruc_modelo, cruc_marca)
-	SELECT crucero_identificador, crucero_modelo,
-	(SELECT marc_id FROM EYE_OF_THE_TRIGGER.Marca WHERE marc_nombre = cru_fabricante)
-	FROM [EYE_OF_THE_TRIGGER].[vistaCrucero]
+INSERT INTO EYE_OF_THE_TRIGGER.Crucero (cruc_id, cruc_modelo, cruc_marca, cruc_cant_cabinas)
+	SELECT v.crucero_identificador, v.crucero_modelo,
+	(SELECT marc_id FROM EYE_OF_THE_TRIGGER.Marca WHERE marc_nombre = v.cru_fabricante),
+	(SELECT count(*)
+	FROM EYE_OF_THE_TRIGGER.vistaCabina vcab
+	WHERE vcab.crucero_identificador = v.crucero_identificador)
+	FROM [EYE_OF_THE_TRIGGER].[vistaCrucero] v
 GO
 
 
@@ -925,6 +909,7 @@ INSERT INTO EYE_OF_THE_TRIGGER.Reserva (rese_id, rese_cliente_id, rese_crucero_i
 	FROM [EYE_OF_THE_TRIGGER].[vistaReserva] vr
 	JOIN EYE_OF_THE_TRIGGER.vistaReservaViaje vrv ON vr.reserva_codigo = vrv.reserva_codigo
 	JOIN EYE_OF_THE_TRIGGER.Viaje v ON v.viaj_codigo = vrv.pasaje_codigo
+UPDATE EYE_OF_THE_TRIGGER.Reserva SET rese_estado_reserva = 1
 GO
 
 
@@ -968,6 +953,14 @@ PRINT''
 PRINT '----- Insertando Tipos de Documento -----'
 INSERT INTO EYE_OF_THE_TRIGGER.TipoDocumento (descripcion)
 VALUES ('DNI'), ('Pasaporte'), ('LC'), ('LE')
+
+
+PRINT''
+PRINT '----- Realizando inserts a tabla EYE_OF_THE_TRIGGER.EstadoReserva -----'
+INSERT INTO EYE_OF_THE_TRIGGER.EstadoReserva (descripcion) 
+VALUES ('Reserva correcta'),('Reserva modificada'),
+('Reserva cancelada por Cliente'), ('Reserva vencida')
+
 
 EXEC EYE_OF_THE_TRIGGER.importarDomicilio
 GO
@@ -1061,13 +1054,6 @@ PRINT '----- Cabinas Reservadas importadas -----'
 
 
 PRINT''
-PRINT '----- Realizando inserts a tabla EYE_OF_THE_TRIGGER.EstadoReserva -----'
-INSERT INTO EYE_OF_THE_TRIGGER.EstadoReserva (descripcion) 
-VALUES ('Reserva correcta'),('Reserva modificada'),
-('Reserva cancelada por Cliente'), ('Reserva vencida')
-
-
-PRINT''
 PRINT '----- Insertando Roles -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Rol (Rol_Nombre) 
 VALUES ('Administrador General'), ('Administrador'), ('Cliente')
@@ -1078,6 +1064,12 @@ PRINT '----- Insertando Funcionalidades -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Funcionalidad (func_nombre) 
 VALUES ('Administrar Roles'), ('Administrar Usuarios'), ('Administrar Puertos'), ('Administrar Recorridos'), ('Administrar Cruceros'),
 ('Administrar Viajes'), ('Listado Estad\EDstico'), ('Realizar Compras y/o Reservas')
+
+
+PRINT''
+PRINT '----- Insertando Servicios -----'
+INSERT INTO EYE_OF_THE_TRIGGER.Servicio (serv_descripcion, serv_estado, serv_precio) 
+VALUES ('All inclusive', 1, 1000), ('Pensión completa sin bebidas', 1, 300)
 
 
 PRINT''
@@ -1237,7 +1229,7 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_recorridos_mas_pasajes_comprados(@semestre as bigint, @anio as bigint) AS
 
-SELECT TOP 5
+SELECT DISTINCT TOP 5
 		r.reco_codigo AS codigo_recorrido, count(DISTINCT v.viaj_id) cant_viajes,
 		(SELECT TOP 1 p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
@@ -1266,11 +1258,11 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_recorridos_mas_cabinas_libres_viaje_realizado(@semestre as bigint, @anio as bigint) AS
 
-SELECT TOP 5
+SELECT DISTINCT TOP 5
 		r.reco_codigo AS codigo_recorrido, 
-		((SELECT Count(DISTINCT cabi_id)
-		FROM EYE_OF_THE_TRIGGER.Cabina JOIN EYE_OF_THE_TRIGGER.Viaje v1 ON cabi_cruc_id = v1.viaj_crucero_id
-		WHERE cabi_cruc_id = res.rese_crucero_id) - 
+		((SELECT c1.cruc_cant_cabinas
+		FROM EYE_OF_THE_TRIGGER.Crucero c1
+		WHERE c1.cruc_id = res.rese_crucero_id) - 
 		SUM(ISNULL(res.rese_cantidad_pasajeros, 1))) cant_cabinas_libres,
 		(SELECT TOP 1 p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
@@ -1284,22 +1276,22 @@ FROM EYE_OF_THE_TRIGGER.Recorrido r
 JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id = rv.reco_id
 JOIN EYE_OF_THE_TRIGGER.Viaje v ON rv.viaj_id = v.viaj_id
 JOIN EYE_OF_THE_TRIGGER.Reserva res ON res.rese_viaje_id = v.viaj_id
-WHERE res.rese_estado_reserva = 1 AND (FLOOR(MONTH(res.rese_fecha_creacion)/2) + 1) = 1
-	AND YEAR(res.rese_fecha_creacion) = 2018
-GROUP BY r.reco_codigo, res.rese_cantidad_pasajeros, res.rese_crucero_id
+WHERE res.rese_estado_reserva = 1 AND (FLOOR(MONTH(res.rese_fecha_creacion)/2) + 1) = @semestre
+	AND YEAR(res.rese_fecha_creacion) = @anio
+GROUP BY r.reco_codigo, res.rese_crucero_id
 ORDER BY cant_cabinas_libres DESC
 
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[top5_recorridos_mas_cabinas_libres_viaje_realizado] creada -----'
 
 
-IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[top5_cruceros_con_mayor_periodo_inahabilitado]', 'P') IS NOT NULL 
-DROP PROCEDURE [EYE_OF_THE_TRIGGER].top5_cruceros_con_mayor_periodo_inahabilitado
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[top5_cruceros_con_mayor_periodo_inhabilitado]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].top5_cruceros_con_mayor_periodo_inhabilitado
 GO
 
-CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_cruceros_con_mayor_periodo_inahabilitado(@semestre as bigint, @anio as bigint) AS
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_cruceros_con_mayor_periodo_inhabilitado(@semestre as bigint, @anio as bigint) AS
 
-SELECT TOP 5
+SELECT DISTINCT TOP 5
 		inhab_crucero_id, inhab_fecha_inicio, inhab_fecha_fin, inhab_motivo, 
 		DATEDIFF(DAY, inhab_fecha_inicio,inhab_fecha_fin) cant_dias_inhabilitado
 FROM EYE_OF_THE_TRIGGER.CruceroInhabilitado
@@ -1308,7 +1300,7 @@ WHERE (FLOOR(MONTH(inhab_fecha_inicio)/2) + 1) = @semestre
 ORDER BY cant_dias_inhabilitado DESC
 
 GO
-PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[top5_cruceros_con_mayor_periodo_inahabilitado] creada -----'
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[top5_cruceros_con_mayor_periodo_inhabilitado] creada -----'
 
 
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[recorrido_finalizado]', 'P') IS NOT NULL 
@@ -1388,6 +1380,66 @@ GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_viaje] creada -----'
 
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[insertar_cliente]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].insertar_cliente
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].insertar_cliente
+(@Nombre as varchar(255), @Apellido as varchar(255), @TipoDocumento as int, @Documento as int,
+@Calle as varchar(255), @Numero as int, @Piso as int, @Dpto as varchar(255),
+@Ciudad as varchar(255), @Pais as varchar(255), @Telefono as int, @Email as varchar(255), @FechaNac as DATETIME) AS
+
+BEGIN
+	DECLARE @IdDom as int
+	SET @IdDom = (SELECT domi_id FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Domicilio] WHERE domi_calle= @Calle AND domi_nro_calle=@Numero
+                     AND domi_piso=@Piso AND domi_dpto= @Dpto AND domi_ciudad=@Ciudad AND domi_pais=@Pais)
+	
+	IF @IdDom IS NULL
+	BEGIN
+	INSERT INTO EYE_OF_THE_TRIGGER.Domicilio (domi_pais, domi_ciudad , domi_calle, domi_nro_calle, domi_piso, domi_dpto)
+	VALUES (@Pais, @Ciudad, @Calle, @Numero, @Piso, @Dpto)
+	SET @IdDom = (select MAX(domi_id) from EYE_OF_THE_TRIGGER.Domicilio)
+	END
+
+	INSERT INTO EYE_OF_THE_TRIGGER.Cliente (clie_nombre, clie_apellido, clie_tipo_doc, clie_doc, clie_domicilio_id, clie_tel, clie_mail, clie_fecha_nac)
+	VALUES (@Nombre, @Apellido, @TipoDocumento, @Documento, @IdDom, @Telefono, @Email, @FechaNac)
+	RETURN 1
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_cliente] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_cliente]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_cliente
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_cliente
+(@IdCliente as int, @Nombre as varchar(255), @Apellido as varchar(255), @TipoDocumento as int, @Documento as int,
+@Calle as varchar(255), @Numero as int, @Piso as int, @Dpto as varchar(255),
+@Ciudad as varchar(255), @Pais as varchar(255), @Telefono as int, @Email as varchar(255), @FechaNac as DATETIME) AS
+
+BEGIN
+	DECLARE @IdDom as int
+	SET @IdDom = (SELECT domi_id FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Domicilio] WHERE domi_calle= @Calle AND domi_nro_calle=@Numero
+                     AND domi_piso=@Piso AND domi_dpto= @Dpto AND domi_ciudad=@Ciudad AND domi_pais=@Pais)
+	
+	IF @IdDom IS NULL
+	BEGIN
+	INSERT INTO EYE_OF_THE_TRIGGER.Domicilio (domi_pais, domi_ciudad , domi_calle, domi_nro_calle, domi_piso, domi_dpto)
+	VALUES (@Pais, @Ciudad, @Calle, @Numero, @Piso, @Dpto)
+	SET @IdDom = (select MAX(domi_id) from EYE_OF_THE_TRIGGER.Domicilio)
+	END
+
+	UPDATE EYE_OF_THE_TRIGGER.Cliente 
+	SET clie_nombre = @Nombre, clie_apellido = @Apellido, clie_tipo_doc = @TipoDocumento, 
+	clie_doc = @Documento, clie_domicilio_id = @IdDom, clie_tel = @Telefono, clie_mail = @Email, clie_fecha_nac = @FechaNac
+	WHERE clie_id = @IdCliente
+	RETURN 0
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[actualizar_cliente] creada -----'
+
+
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[ciudad_id]', 'P') IS NOT NULL 
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].ciudad_id
 GO
@@ -1429,7 +1481,7 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].buscar_recorridos AS
 BEGIN
-SELECT reco_id, reco_codigo ,
+SELECT r.reco_id, r.reco_codigo ,
 		(SELECT TOP 1 p.puer_nombre 
 		FROM EYE_OF_THE_TRIGGER.Puerto p JOIN EYE_OF_THE_TRIGGER.Ciudad c ON c.ciud_puerto_id = p.puer_id
 		JOIN EYE_OF_THE_TRIGGER.Recorrido r1 ON c.ciud_id = r1.reco_origen_id
@@ -1444,10 +1496,39 @@ JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id = rv.reco_id
 JOIN EYE_OF_THE_TRIGGER.Viaje v ON rv.viaj_id = v.viaj_id
 JOIN EYE_OF_THE_TRIGGER.Reserva res ON res.rese_viaje_id = v.viaj_id
 WHERE r.reco_estado = 1
-GROUP BY r.reco_codigo, reco_precio
+GROUP BY r.reco_id, r.reco_codigo, reco_precio
 END
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[buscar_recorridos] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[insertar_crucero]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].insertar_crucero
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].insertar_crucero(@Codigo as varchar(50), @FechaAlta as DATETIME, @Nombre as varchar(255),
+@Modelo as varchar(50), @Servicio as int, @Marca as int, @Cabinas as int) AS
+BEGIN
+	INSERT INTO EYE_OF_THE_TRIGGER.Crucero(cruc_id, cruc_fecha_alta, cruc_nombre, cruc_modelo, cruc_servicio, cruc_marca, cruc_cant_cabinas)
+	VALUES (@Codigo, @FechaAlta, @Nombre, @Modelo, @Servicio, @Marca, @Cabinas)
+	RETURN 0
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_crucero] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[insertar_cabina]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].insertar_cabina
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].insertar_cabina(@Numero as int, @Piso as int, @Tipo as int, @Codigo as varchar(50)) AS
+BEGIN
+	INSERT INTO EYE_OF_THE_TRIGGER.Cabina(cabi_numero, cabi_piso, cabi_tipo_cabina, cabi_cruc_id)
+	VALUES (@Numero, @Piso, @Tipo, @Codigo)
+	RETURN 0
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_cabina] creada -----'
 
 
 /*******  Funciones para la APP  *******/

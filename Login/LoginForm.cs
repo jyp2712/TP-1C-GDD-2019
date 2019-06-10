@@ -36,8 +36,8 @@ namespace FrbaCrucero.Login
             if (this.checkUserAndPassword())
             {
                 this.Hide();
-                RolForm rolForm = new RolForm();
-                rolForm.Show();
+                FrbaCrucero.menuBarra.Menu menu = new menuBarra.Menu(this.txtUser.Text);
+                menu.Show();
                 //TODO abrir form con cosas de administrador
             }
             else

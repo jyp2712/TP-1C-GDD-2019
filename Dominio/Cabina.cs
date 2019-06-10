@@ -27,7 +27,7 @@ namespace FrbaCrucero.Dominio
         public int Piso { get; set; }
         public TipoCabina Tipo { get; set; }
 
-        public string ToString(){
+        public override string ToString(){
             return Convert.ToString(this.NumeroCabina); 
         }
 
