@@ -764,12 +764,12 @@ CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarCrucero] AS
 PRINT''
 PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Crucero -----'
 
-INSERT INTO EYE_OF_THE_TRIGGER.Crucero (cruc_id, cruc_modelo, cruc_marca, cruc_cant_cabinas)
+INSERT INTO EYE_OF_THE_TRIGGER.Crucero (cruc_id, cruc_modelo, cruc_marca, cruc_cant_cabinas, cruc_servicio)
 	SELECT v.crucero_identificador, v.crucero_modelo,
 	(SELECT marc_id FROM EYE_OF_THE_TRIGGER.Marca WHERE marc_nombre = v.cru_fabricante),
 	(SELECT count(*)
 	FROM EYE_OF_THE_TRIGGER.vistaCabina vcab
-	WHERE vcab.crucero_identificador = v.crucero_identificador)
+	WHERE vcab.crucero_identificador = v.crucero_identificador), 1
 	FROM [EYE_OF_THE_TRIGGER].[vistaCrucero] v
 GO
 
@@ -959,7 +959,13 @@ PRINT''
 PRINT '----- Realizando inserts a tabla EYE_OF_THE_TRIGGER.EstadoReserva -----'
 INSERT INTO EYE_OF_THE_TRIGGER.EstadoReserva (descripcion) 
 VALUES ('Reserva correcta'),('Reserva modificada'),
-('Reserva cancelada por Cliente'), ('Reserva vencida')
+('Reserva cancelada por Cliente'), ('Reserva cancelada por Baja de Crucero'), ('Reserva vencida')
+
+
+PRINT''
+PRINT '----- Insertando Servicios -----'
+INSERT INTO EYE_OF_THE_TRIGGER.Servicio (serv_descripcion, serv_estado, serv_precio) 
+VALUES ('Sin servicio', 1, 0), ('All inclusive', 1, 1000), ('Pensión completa sin bebidas', 1, 300)
 
 
 EXEC EYE_OF_THE_TRIGGER.importarDomicilio
@@ -1064,12 +1070,6 @@ PRINT '----- Insertando Funcionalidades -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Funcionalidad (func_nombre) 
 VALUES ('Administrar Roles'), ('Administrar Usuarios'), ('Administrar Puertos'), ('Administrar Recorridos'), ('Administrar Cruceros'),
 ('Administrar Viajes'), ('Listado Estad\EDstico'), ('Realizar Compras y/o Reservas')
-
-
-PRINT''
-PRINT '----- Insertando Servicios -----'
-INSERT INTO EYE_OF_THE_TRIGGER.Servicio (serv_descripcion, serv_estado, serv_precio) 
-VALUES ('All inclusive', 1, 1000), ('Pensión completa sin bebidas', 1, 300)
 
 
 PRINT''
@@ -1529,6 +1529,71 @@ BEGIN
 END
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_cabina] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[reservas_para_crucero]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].reservas_para_crucero
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reservas_para_crucero(@Codigo as varchar(50)) AS
+SELECT DISTINCT r.rese_id
+FROM Reserva r JOIN Viaje v ON r.rese_crucero_id = v.viaj_crucero_id
+WHERE r.rese_crucero_id = @Codigo AND v.viaj_fecha_inicio >= GETDATE()
+
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[reservas_para_crucero] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_crucero_estado]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_crucero_estado
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_crucero_estado(@Codigo as varchar(50), @Motivo as varchar(255), @FechaFin as DATETIME) AS
+
+UPDATE Crucero SET cruc_estado = 0 WHERE cruc_id = @Codigo
+IF @Motivo = 'Baja Definitiva'
+BEGIN
+INSERT INTO CruceroInhabilitado (inhab_crucero_id, inhab_motivo, inhab_fecha_inicio, inhab_definitiva)
+VALUES (@Codigo, @Motivo, GETDATE(), 1)
+END
+ELSE
+BEGIN
+INSERT INTO CruceroInhabilitado (inhab_crucero_id, inhab_motivo, inhab_fecha_inicio, inhab_fecha_fin)
+VALUES (@Codigo, @Motivo, GETDATE(), @FechaFin)
+END
+RETURN 0
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[actualizar_crucero_estado] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[baja_reserva_por_crucero]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].baja_reserva_por_crucero
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].baja_reserva_por_crucero(@Id as varchar(50)) AS
+
+UPDATE Reserva SET rese_estado_reserva = 4 WHERE rese_id = @Id
+
+RETURN 0
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[baja_reserva_por_crucero] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[correr_fecha_reserva]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].correr_fecha_reserva
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].correr_fecha_reserva(@Id as int, @FechaReactivacion as DATETIME, @Crucero as varchar(50), @Dias as int) AS
+
+UPDATE Viaje SET viaj_fecha_inicio = @FechaReactivacion + @Dias, viaj_fecha_fin_estimada = @FechaReactivacion + @Dias
+WHERE viaj_crucero_id = @Crucero AND viaj_fecha_inicio >= GETDATE()
+
+UPDATE Reserva SET rese_estado_reserva = 2 WHERE rese_id = @Id
+
+RETURN 1
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[correr_fecha_reserva] creada -----'
+
 
 
 /*******  Funciones para la APP  *******/
