@@ -1594,6 +1594,17 @@ RETURN 1
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[correr_fecha_reserva] creada -----'
 
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_crucero]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_crucero
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_crucero(@Codigo as varchar(50), @FechaAlta as DATETIME, @Nombre as varchar(255),
+@Modelo as varchar(50), @Servicio as int, @Marca as int, @Cabinas as int) AS
+
+UPDATE [EYE_OF_THE_TRIGGER].Crucero SET cruc_id = @Codigo, cruc_nombre = @Nombre, cruc_modelo = @Modelo, cruc_servicio = @Servicio, cruc_marca = @Marca 
+WHERE cruc_id = @Codigo  
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[actualizar_crucero] creada -----'
 
 
 /*******  Funciones para la APP  *******/
