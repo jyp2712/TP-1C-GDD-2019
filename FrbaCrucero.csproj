@@ -348,9 +348,6 @@
     <EmbeddedResource Include="PagoReserva\ListadoOrigenDestinoForm.resx">
       <DependentUpon>ListadoOrigenDestinoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="menuBarra\menu.resx">
-      <DependentUpon>menu.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PagoReserva\PagoReservaForm.resx">
       <DependentUpon>PagoReservaForm.cs</DependentUpon>
     </EmbeddedResource>
