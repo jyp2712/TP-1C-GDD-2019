@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FrbaCrucero.DB;
 
 namespace FrbaCrucero.menuBarra
 {
@@ -15,6 +16,7 @@ namespace FrbaCrucero.menuBarra
         public Menu()
         {
             InitializeComponent();
+            verificarReservasVencidas();
             this.abm.Visible = false;
             this.estadistica.Visible = false;
             this.generarViaje.Visible = false;
@@ -23,6 +25,7 @@ namespace FrbaCrucero.menuBarra
         public Menu(String user)
         {
             InitializeComponent();
+            verificarReservasVencidas();
             this.abm.Visible = false;
             this.abmCrucero.Visible = false;
             this.abmRecorrido.Visible = false;
@@ -58,6 +61,11 @@ namespace FrbaCrucero.menuBarra
                     this.estadistica.Visible = true;
                 }
              }
+        }
+
+        private void verificarReservasVencidas()
+        {
+            DBAdapter.ejecutarProcedure("verificar_reservas_vencidas");
         }
 
         private void toolStripTextBox2_Click(object sender, EventArgs e)
