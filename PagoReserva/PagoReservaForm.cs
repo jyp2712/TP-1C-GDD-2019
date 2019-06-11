@@ -114,7 +114,10 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnCrucero_Click(object sender, EventArgs e)
         {
-            SeleccionCruceroForm seleccionCrucero = new SeleccionCruceroForm();
+            string format = "yyyy-MM-dd HH:mm:ss.fff";
+            string fechaSalida = dtpSalida.Value.Date.ToString(format);
+            string fechaRegreso = dtpRegreso.Value.Date.ToString(format);
+            SeleccionCruceroForm seleccionCrucero = new SeleccionCruceroForm(fechaSalida, fechaRegreso);
             seleccionCrucero.Show();
             seleccionCrucero.RefToNextForm = this;
             this.Hide();

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboMarcas = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtModelo = new System.Windows.Forms.TextBox();
             this.comboServicio = new System.Windows.Forms.ComboBox();
@@ -37,7 +38,6 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.dgv = new System.Windows.Forms.DataGridView();
-            this.comboMarcas = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -58,6 +58,14 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
+            // 
+            // comboMarcas
+            // 
+            this.comboMarcas.FormattingEnabled = true;
+            this.comboMarcas.Location = new System.Drawing.Point(49, 45);
+            this.comboMarcas.Name = "comboMarcas";
+            this.comboMarcas.Size = new System.Drawing.Size(145, 21);
+            this.comboMarcas.TabIndex = 19;
             // 
             // label1
             // 
@@ -103,7 +111,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(509, 77);
+            this.btnBuscar.Location = new System.Drawing.Point(495, 77);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 3;
@@ -134,14 +142,6 @@
             this.dgv.Size = new System.Drawing.Size(590, 191);
             this.dgv.TabIndex = 9;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
-            // 
-            // comboMarcas
-            // 
-            this.comboMarcas.FormattingEnabled = true;
-            this.comboMarcas.Location = new System.Drawing.Point(49, 45);
-            this.comboMarcas.Name = "comboMarcas";
-            this.comboMarcas.Size = new System.Drawing.Size(145, 21);
-            this.comboMarcas.TabIndex = 19;
             // 
             // SeleccionCruceroForm
             // 

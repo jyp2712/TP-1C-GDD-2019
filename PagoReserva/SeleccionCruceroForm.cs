@@ -17,7 +17,7 @@ namespace FrbaCrucero.PagoReserva
         DataSet ds;
         public PagoReservaForm RefToNextForm{ get; set;}
 
-        public SeleccionCruceroForm()
+        public SeleccionCruceroForm(String fechaSalida, String fechaRegreso)
         {
             InitializeComponent();
             cargarServicios();
@@ -62,6 +62,7 @@ namespace FrbaCrucero.PagoReserva
             }
         }
 
+        //TODO falta tener en cuenta en la query que los cruceros tengan un viaje disponible en esas fechas...
         private void buscar() 
         {
             DBConnection dbConnection = DBConnection.getInstance();
