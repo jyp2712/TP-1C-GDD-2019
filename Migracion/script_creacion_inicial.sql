@@ -1682,9 +1682,40 @@ CREATE PROCEDURE [EYE_OF_THE_TRIGGER].verificar_reservas_vencidas AS
 BEGIN
 UPDATE EYE_OF_THE_TRIGGER.Reserva SET rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva vencida')
 WHERE rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva pendiente') AND (GETDATE() - rese_fecha_creacion) > 3 
+
 END
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[verificar_reservas_vencidas] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[liberar_cabina]', 'TR') IS NOT NULL 
+DROP TRIGGER [EYE_OF_THE_TRIGGER].liberar_cabina
+GO
+
+CREATE TRIGGER [EYE_OF_THE_TRIGGER].liberar_cabina ON [EYE_OF_THE_TRIGGER].Reserva AFTER UPDATE AS
+BEGIN
+
+DECLARE @Reserva AS INT, @Cabina AS INT
+DECLARE c1 CURSOR for SELECT r.rese_id, cr.cabi_id FROM [EYE_OF_THE_TRIGGER].Reserva r JOIN [EYE_OF_THE_TRIGGER].CabinasReservadas cr ON r.rese_id = cr.cabi_id
+					 WHERE r.rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva vencida' OR descripcion='Reserva cancelada por Baja de Crucero')
+
+OPEN c1
+FETCH NEXT FROM c1 INTO @Reserva, @Cabina
+
+IF @@FETCH_STATUS <> 0
+RETURN
+WHILE @@FETCH_STATUS = 0
+BEGIN
+DELETE FROM [EYE_OF_THE_TRIGGER].CabinasReservadas WHERE cabi_id = @Cabina AND rese_id = @Reserva
+
+FETCH NEXT FROM c1 INTO @Reserva, @Cabina
+END
+
+CLOSE c1
+DEALLOCATE c1
+END
+GO
+PRINT '----- Trigger [EYE_OF_THE_TRIGGER].[liberar_cabina] creada -----'
 
 
 /*******  Funciones para la APP  *******/
