@@ -1571,8 +1571,22 @@ CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_crucero(@Codigo as varchar(50),
 
 UPDATE [EYE_OF_THE_TRIGGER].Crucero SET cruc_id = @Codigo, cruc_nombre = @Nombre, cruc_modelo = @Modelo, cruc_servicio = @Servicio, cruc_marca = @Marca 
 WHERE cruc_id = @Codigo  
+RETURN 1
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[actualizar_crucero] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[reservas_para_replanificar]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].reservas_para_replanificar
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reservas_para_replanificar(@Codigo as varchar(50), @FechaActual as DATETIME, @FechaReactivacion as DATETIME) AS
+RETURN SELECT DISTINCT rese_id, viaj_id, viaj_fecha_inicio, viaj_fecha_fin_estimada 
+FROM EYE_OF_THE_TRIGGER.Reserva JOIN EYE_OF_THE_TRIGGER.Viaje ON viaj_crucero_id = rese_crucero_id 
+WHERE viaj_fecha_inicio >= @FechaActual AND viaj_crucero_id = @Codigo AND viaj_fecha_inicio <= @FechaReactivacion
+
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[reservas_para_replanificar] creada -----'
 
 
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_reemplazar_crucero]', 'P') IS NOT NULL 
@@ -1594,12 +1608,12 @@ ELSE
 BEGIN
 	UPDATE Viaje SET viaj_crucero_id = @CruceroNuevo
 	WHERE viaj_id = @Viaje
+
 	UPDATE Reserva SET rese_crucero_id = @CruceroNuevo, rese_estado_reserva = 2
 	WHERE rese_id = @Reserva
-	INSERT INTO CabinasReservadas (cabi_id, rese_id)
-	SELECT cabi_id, @Reserva
-	FROM Cabina 
-	WHERE cabi_cruc_id = @CruceroNuevo
+
+	UPDATE CabinasReservadas SET cabi_id = (SELECT TOP 1 c.cabi_id FROM Cabina c WHERE cabi_cruc_id = @CruceroNuevo AND c.cabi_id NOT IN(SELECT cabi_id FROM CabinasReservadas))
+	WHERE rese_id = @Reserva
 END
 
 RETURN 0
@@ -1607,42 +1621,43 @@ GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[actualizar_reemplazar_crucero] creada -----'
 
 
-IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[reservas_para_replanificar]', 'P') IS NOT NULL 
-DROP PROCEDURE [EYE_OF_THE_TRIGGER].reservas_para_replanificar
-GO
-
-CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reservas_para_replanificar(@Codigo as varchar(50), @FechaActual as DATETIME, @FechaReactivacion as DATETIME) AS
-RETURN SELECT DISTINCT rese_id, viaj_id, viaj_fecha_inicio, viaj_fecha_fin_estimada 
-FROM EYE_OF_THE_TRIGGER.Reserva JOIN EYE_OF_THE_TRIGGER.Viaje ON viaj_crucero_id = rese_crucero_id 
-WHERE viaj_fecha_inicio >= @FechaActual AND viaj_crucero_id = @Codigo AND viaj_fecha_inicio <= @FechaReactivacion
-
-GO
-PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[reservas_para_replanificar] creada -----'
-
-
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[reemplazar_crucero_reserva]', 'P') IS NOT NULL 
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].reemplazar_crucero_reserva
 GO
 
-CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reemplazar_crucero_reserva(@Reserva as int, @Crucero as varchar(50), @CruceroAnterior as varchar(50)) AS
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reemplazar_crucero_reserva(@Reserva as int, @Crucero as varchar(50), @Viaje as int, @CruceroAnterior as varchar(50)) AS
+
+UPDATE Viaje SET viaj_crucero_id = @Crucero
+WHERE viaj_id = @Viaje
 
 UPDATE Reserva SET rese_crucero_id = @Crucero, rese_estado_reserva = 2
 WHERE rese_id = @Reserva
+
+UPDATE CabinasReservadas SET cabi_id = (SELECT TOP 1 c.cabi_id FROM Cabina c WHERE cabi_cruc_id = @Crucero AND c.cabi_id NOT IN(SELECT cabi_id FROM CabinasReservadas))
+WHERE rese_id = @Reserva
+
+
+RETURN 1
+
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[reemplazar_crucero_reserva] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[replicar_cabinas]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].replicar_cabinas
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].replicar_cabinas(@Crucero as varchar(50), @CruceroAnterior as varchar(50)) AS
 
 INSERT INTO Cabina (cabi_numero, cabi_piso, cabi_tipo_cabina, cabi_cruc_id)
 SELECT cabi_numero, cabi_piso, cabi_tipo_cabina, @Crucero
 FROM Cabina 
 WHERE cabi_cruc_id = @CruceroAnterior
 
-INSERT INTO CabinasReservadas (cabi_id, rese_id)
-SELECT cabi_id, @Reserva
-FROM Cabina 
-WHERE cabi_cruc_id = @Crucero
-
 RETURN 1
 
 GO
-PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[reemplazar_crucero_reserva] creada -----'
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[replicar_cabinas] creada -----'
 
 
 /*******  Funciones para la APP  *******/

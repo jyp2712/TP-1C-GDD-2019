@@ -42,6 +42,8 @@ namespace FrbaCrucero.AbmCrucero
         private void button2_Click(object sender, EventArgs e)
         {
             DBConnection dbConnection = DBConnection.getInstance();
+            Console.WriteLine(QueryProvider.SELECT_RESERVAS_REPLANIFICACION(crucero, DateTime.Parse(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).ToShortDateString(), fechaReactivacion.ToShortDateString()));
+
             DataSet ds = dbConnection.executeQuery(QueryProvider.SELECT_RESERVAS_REPLANIFICACION(crucero, DateTime.Parse(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).ToShortDateString(), fechaReactivacion.ToShortDateString()));
 
             if (string.Equals("Fuera de Servicio", this.motivo))
