@@ -930,8 +930,7 @@ VALUES ('DNI'), ('Pasaporte'), ('LC'), ('LE')
 PRINT''
 PRINT '----- Realizando inserts a tabla EYE_OF_THE_TRIGGER.EstadoReserva -----'
 INSERT INTO EYE_OF_THE_TRIGGER.EstadoReserva (descripcion) 
-VALUES ('Reserva correcta'),('Reserva modificada'),
-('Reserva cancelada por Cliente'), ('Reserva cancelada por Baja de Crucero'), ('Reserva vencida')
+VALUES ('Reserva correcta'), ('Reserva modificada'), ('Reserva pendiente'), ('Reserva cancelada por Baja de Crucero'), ('Reserva vencida')
 
 
 PRINT''
@@ -1291,7 +1290,7 @@ GO
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].recorrido_finalizado(@Codigo as bigint, @FechaActual as DATETIME) AS
 
 SELECT *
-FROM Recorrido r JOIN RecorridoViaje rv ON r.reco_id = rv.reco_id JOIN Viaje v ON v.viaj_id = rv.viaj_id
+FROM EYE_OF_THE_TRIGGER.Recorrido r JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id = rv.reco_id JOIN Viaje v ON v.viaj_id = rv.viaj_id
 WHERE v.viaj_fecha_fin < @FechaActual AND r.reco_codigo = @Codigo
 
 GO
@@ -1323,8 +1322,8 @@ SET @puertoInicio = (SELECT MIN(Item) FROM [EYE_OF_THE_TRIGGER].[SplitString] (@
 SET @PuertoDestino = (SELECT MIN(Item) FROM [EYE_OF_THE_TRIGGER].[SplitString] (@PuertoDestino, '-'))
 
 SELECT *
-FROM Recorrido r JOIN Ciudad c1 ON r.reco_origen_id = c1.ciud_id JOIN Ciudad c2 ON r.reco_destino_id = c2.ciud_id
-JOIN Puerto p1 ON p1.puer_nombre = @puertoInicio JOIN Puerto p ON p.puer_nombre = @PuertoDestino
+FROM EYE_OF_THE_TRIGGER.Recorrido r JOIN EYE_OF_THE_TRIGGER.Ciudad c1 ON r.reco_origen_id = c1.ciud_id JOIN EYE_OF_THE_TRIGGER.Ciudad c2 ON r.reco_destino_id = c2.ciud_id
+JOIN EYE_OF_THE_TRIGGER.Puerto p1 ON p1.puer_nombre = @puertoInicio JOIN Puerto p ON p.puer_nombre = @PuertoDestino
 WHERE r.reco_codigo = @Codigo
 
 GO
@@ -1518,7 +1517,7 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reservas_para_crucero(@Codigo as varchar(50), @FechaActual as DATETIME, @FechaReactivacion as DATETIME) AS
 SELECT DISTINCT r.rese_id
-FROM Reserva r JOIN Viaje v ON r.rese_crucero_id = v.viaj_crucero_id
+FROM EYE_OF_THE_TRIGGER.Reserva r JOIN EYE_OF_THE_TRIGGER.Viaje v ON r.rese_crucero_id = v.viaj_crucero_id
 WHERE r.rese_crucero_id = @Codigo AND (v.viaj_fecha_inicio BETWEEN @FechaActual AND @FechaReactivacion)
 
 GO
@@ -1531,15 +1530,15 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_crucero_estado(@Codigo as varchar(50), @Motivo as varchar(255), @FechaFin as DATETIME, @FechaActual as DATETIME) AS
 
-UPDATE Crucero SET cruc_estado = 0 WHERE cruc_id = @Codigo
+UPDATE EYE_OF_THE_TRIGGER.Crucero SET cruc_estado = 0 WHERE cruc_id = @Codigo
 IF @Motivo = 'Baja Definitiva'
 BEGIN
-INSERT INTO CruceroInhabilitado (inhab_crucero_id, inhab_motivo, inhab_fecha_inicio, inhab_definitiva)
+INSERT INTO EYE_OF_THE_TRIGGER.CruceroInhabilitado (inhab_crucero_id, inhab_motivo, inhab_fecha_inicio, inhab_definitiva)
 VALUES (@Codigo, @Motivo, @FechaActual, 1)
 END
 ELSE
 BEGIN
-INSERT INTO CruceroInhabilitado (inhab_crucero_id, inhab_motivo, inhab_fecha_inicio, inhab_fecha_fin)
+INSERT INTO EYE_OF_THE_TRIGGER.CruceroInhabilitado (inhab_crucero_id, inhab_motivo, inhab_fecha_inicio, inhab_fecha_fin)
 VALUES (@Codigo, @Motivo, @FechaActual, @FechaFin)
 END
 RETURN 0
@@ -1553,7 +1552,7 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].baja_reserva_por_crucero(@Id as varchar(50), @FechaActual as DATETIME) AS
 
-UPDATE Reserva SET rese_estado_reserva = 4 WHERE rese_id = @Id
+UPDATE EYE_OF_THE_TRIGGER.Reserva SET rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva cancelada por Baja de Crucero') WHERE rese_id = @Id
 INSERT INTO  [EYE_OF_THE_TRIGGER].CancelacionReserva (canc_fecha, canc_reserva_id, canc_motivo)
 VALUES (@FechaActual, @Id, 'Cancelacion por baja de Crucero')
 RETURN 0
@@ -1567,10 +1566,10 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].correr_fecha_reserva(@Id as int, @Crucero as varchar(50), @Dias as int, @FechaActual as DATETIME) AS
 
-UPDATE Viaje SET viaj_fecha_inicio = DATEADD(day, @Dias, viaj_fecha_inicio), viaj_fecha_fin_estimada = DATEADD(day, @Dias, viaj_fecha_fin_estimada)
+UPDATE EYE_OF_THE_TRIGGER.Viaje SET viaj_fecha_inicio = DATEADD(day, @Dias, viaj_fecha_inicio), viaj_fecha_fin_estimada = DATEADD(day, @Dias, viaj_fecha_fin_estimada)
 WHERE viaj_crucero_id = @Crucero AND viaj_fecha_inicio >= @FechaActual
 
-UPDATE Reserva SET rese_estado_reserva = 2 WHERE rese_id = @Id
+UPDATE EYE_OF_THE_TRIGGER.Reserva SET rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva modificada') WHERE rese_id = @Id
 
 RETURN 1
 GO
@@ -1611,8 +1610,8 @@ GO
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_reemplazar_crucero(@Crucero as varchar(50), @Reserva as int, @Viaje as int, @FechaInicio as DATETIME, @FechaFin as DATETIME) AS
 
 DECLARE @CruceroNuevo as varchar(50)
-SET @CruceroNuevo = (SELECT TOP 1 c1.cruc_id FROM Crucero c1 JOIN Crucero c2 ON c1.cruc_id != c2.cruc_id AND c1.cruc_servicio = c2.cruc_servicio AND c1.cruc_modelo = c2.cruc_modelo AND c1.cruc_marca = c2.cruc_marca AND c1.cruc_cant_cabinas >= c2.cruc_cant_cabinas
-WHERE c1.cruc_estado = 1 AND c2.cruc_id = @Crucero AND c1.cruc_id NOT IN(SELECT c3.cruc_id FROM Crucero c3 JOIN Viaje v ON v.viaj_crucero_id = c3.cruc_id
+SET @CruceroNuevo = (SELECT TOP 1 c1.cruc_id FROM EYE_OF_THE_TRIGGER.Crucero c1 JOIN EYE_OF_THE_TRIGGER.Crucero c2 ON c1.cruc_id != c2.cruc_id AND c1.cruc_servicio = c2.cruc_servicio AND c1.cruc_modelo = c2.cruc_modelo AND c1.cruc_marca = c2.cruc_marca AND c1.cruc_cant_cabinas >= c2.cruc_cant_cabinas
+WHERE c1.cruc_estado = 1 AND c2.cruc_id = @Crucero AND c1.cruc_id NOT IN(SELECT c3.cruc_id FROM EYE_OF_THE_TRIGGER.Crucero c3 JOIN EYE_OF_THE_TRIGGER.Viaje v ON v.viaj_crucero_id = c3.cruc_id
 																		WHERE (v.viaj_fecha_inicio NOT BETWEEN @FechaInicio AND @FechaFin) AND (v.viaj_fecha_fin_estimada NOT BETWEEN @FechaInicio AND @FechaFin)))
 
 IF @CruceroNuevo IS NULL
@@ -1621,13 +1620,13 @@ BEGIN
 END
 ELSE
 BEGIN
-	UPDATE Viaje SET viaj_crucero_id = @CruceroNuevo
+	UPDATE EYE_OF_THE_TRIGGER.Viaje SET viaj_crucero_id = @CruceroNuevo
 	WHERE viaj_id = @Viaje
 
-	UPDATE Reserva SET rese_crucero_id = @CruceroNuevo, rese_estado_reserva = 2
+	UPDATE EYE_OF_THE_TRIGGER.Reserva SET rese_crucero_id = @CruceroNuevo, rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva modificada')
 	WHERE rese_id = @Reserva
 
-	UPDATE CabinasReservadas SET cabi_id = (SELECT TOP 1 c.cabi_id FROM Cabina c WHERE cabi_cruc_id = @CruceroNuevo AND c.cabi_id NOT IN(SELECT cabi_id FROM CabinasReservadas))
+	UPDATE EYE_OF_THE_TRIGGER.CabinasReservadas SET cabi_id = (SELECT TOP 1 c.cabi_id FROM EYE_OF_THE_TRIGGER.Cabina c WHERE cabi_cruc_id = @CruceroNuevo AND c.cabi_id NOT IN(SELECT cabi_id FROM CabinasReservadas))
 	WHERE rese_id = @Reserva
 END
 
@@ -1642,13 +1641,13 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reemplazar_crucero_reserva(@Reserva as int, @Crucero as varchar(50), @Viaje as int, @CruceroAnterior as varchar(50)) AS
 
-UPDATE Viaje SET viaj_crucero_id = @Crucero
+UPDATE EYE_OF_THE_TRIGGER.Viaje SET viaj_crucero_id = @Crucero
 WHERE viaj_id = @Viaje
 
-UPDATE Reserva SET rese_crucero_id = @Crucero, rese_estado_reserva = 2
+UPDATE EYE_OF_THE_TRIGGER.Reserva SET rese_crucero_id = @Crucero, rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva modificada')
 WHERE rese_id = @Reserva
 
-UPDATE CabinasReservadas SET cabi_id = (SELECT TOP 1 c.cabi_id FROM Cabina c WHERE cabi_cruc_id = @Crucero AND c.cabi_id NOT IN(SELECT cabi_id FROM CabinasReservadas))
+UPDATE EYE_OF_THE_TRIGGER.CabinasReservadas SET cabi_id = (SELECT TOP 1 c.cabi_id FROM EYE_OF_THE_TRIGGER.Cabina c WHERE cabi_cruc_id = @Crucero AND c.cabi_id NOT IN(SELECT cabi_id FROM CabinasReservadas))
 WHERE rese_id = @Reserva
 
 
@@ -1664,15 +1663,28 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].replicar_cabinas(@Crucero as varchar(50), @CruceroAnterior as varchar(50)) AS
 
-INSERT INTO Cabina (cabi_numero, cabi_piso, cabi_tipo_cabina, cabi_cruc_id)
+INSERT INTO EYE_OF_THE_TRIGGER.Cabina (cabi_numero, cabi_piso, cabi_tipo_cabina, cabi_cruc_id)
 SELECT cabi_numero, cabi_piso, cabi_tipo_cabina, @Crucero
-FROM Cabina 
+FROM EYE_OF_THE_TRIGGER.Cabina 
 WHERE cabi_cruc_id = @CruceroAnterior
 
 RETURN 1
 
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[replicar_cabinas] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[verificar_reservas_vencidas]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].verificar_reservas_vencidas
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].verificar_reservas_vencidas AS
+BEGIN
+UPDATE EYE_OF_THE_TRIGGER.Reserva SET rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva vencida')
+WHERE rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva pendiente') AND (GETDATE() - rese_fecha_creacion) > 3 
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[verificar_reservas_vencidas] creada -----'
 
 
 /*******  Funciones para la APP  *******/
