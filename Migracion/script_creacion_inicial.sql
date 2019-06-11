@@ -1703,7 +1703,7 @@ OPEN c1
 FETCH NEXT FROM c1 INTO @Reserva, @Cabina
 
 IF @@FETCH_STATUS <> 0
-RETURN
+RETURN 
 WHILE @@FETCH_STATUS = 0
 BEGIN
 DELETE FROM [EYE_OF_THE_TRIGGER].CabinasReservadas WHERE cabi_id = @Cabina AND rese_id = @Reserva
@@ -1714,6 +1714,7 @@ END
 CLOSE c1
 DEALLOCATE c1
 END
+
 GO
 PRINT '----- Trigger [EYE_OF_THE_TRIGGER].[liberar_cabina] creada -----'
 
