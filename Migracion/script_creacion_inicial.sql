@@ -816,7 +816,7 @@ PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.Puerto -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Puerto (puer_nombre)
 	SELECT puerto_desde 
 	FROM [EYE_OF_THE_TRIGGER].[vistaRecorrido]
-	INTERSECT
+	UNION
 	SELECT puerto_hasta
 	FROM [EYE_OF_THE_TRIGGER].[vistaRecorrido]
 GO
@@ -1035,7 +1035,7 @@ PRINT''
 PRINT '----- Insertando Funcionalidades -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Funcionalidad (func_nombre) 
 VALUES ('Administrar Roles'), ('Administrar Usuarios'), ('Administrar Puertos'), ('Administrar Recorridos'), ('Administrar Cruceros'),
-('Administrar Viajes'), ('Listado Estad\EDstico'), ('Realizar Compras y/o Reservas')
+('Administrar Viajes'), ('Listado EstadiDstico'), ('Realizar Compras y/o Reservas')
 
 
 PRINT''
@@ -1085,7 +1085,8 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[login] (
     @user_name varchar(255),
-    @user_contrasenia varchar(255)
+    @user_contrasenia varchar(255),
+	@Resultado bit output
 ) AS
 BEGIN
 	declare @intentosFallidos INT;
@@ -1095,7 +1096,6 @@ BEGIN
 	IF(@intentosFallidos > 2)
 	BEGIN
 		RAISERROR('Usuario bloqueado por cantidad de reintentos', 11, 1) WITH SETERROR;
-		RETURN 0;
 	END
 
 	SELECT @cantidadUsuarios = COUNT(*) FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[User] WHERE user_usuario=@user_name AND user_contrasenia=HASHBYTES('SHA2_256', @user_contrasenia);
@@ -1103,7 +1103,7 @@ BEGIN
 	IF (@cantidadUsuarios > 0)
 	BEGIN 
 		UPDATE [EYE_OF_THE_TRIGGER].[User] SET [user_intentos_fallidos] = 0 WHERE [User].[user_usuario] = @user_name;
-		RETURN 1;
+		SET @Resultado = 1;
 	END
 	ELSE
 	BEGIN
@@ -1113,11 +1113,26 @@ BEGIN
 			UPDATE [EYE_OF_THE_TRIGGER].[User] SET [user_estado] = 0 WHERE [User].[user_usuario] = @user_name;
 			RAISERROR('Usuario bloqueado por cantidad de reintentos', 11, 1) WITH SETERROR;
 		END
-		RETURN 0;
+		SET @Resultado = 0;
 	END;
 END;
 GO
 PRINT '----- STORED PROCEDURE para Login [EYE_OF_THE_TRIGGER].[login] CREADO -----'
+
+
+PRINT''
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[funcionalidades]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].funcionalidades
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].funcionalidades (@user_name varchar(255)) AS
+BEGIN
+SELECT * 
+FROM Funcionalidad f JOIN Rol_Funcionalidad rf ON f.func_id = rf.func_id JOIN Rol r ON r.rol_id = rf.rol_id AND r.rol_estado=1 JOIN User_Rol ur ON r.rol_id = ur.rol_id JOIN [User] u ON u.[user_id] = ur.[user_id]
+WHERE u.user_usuario = @user_name
+END  
+GO
+PRINT '----- STORED PROCEDURE para Login [EYE_OF_THE_TRIGGER].[funcionalidades] CREADO -----'
 
 
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[crearRol]', 'P') IS NOT NULL 
