@@ -118,6 +118,7 @@
     <Compile Include="AbmCrucero\SeleccionarMarca.Designer.cs">
       <DependentUpon>SeleccionarMarca.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABMHelper.cs" />
     <Compile Include="AbmRecorrido\AltaRecorrido.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -280,6 +281,12 @@
     <Compile Include="PagoReserva\SeleccionReservaForm.Designer.cs">
       <DependentUpon>SeleccionReservaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PagoReserva\SeleccionCruceroForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PagoReserva\SeleccionCruceroForm.Designer.cs">
+      <DependentUpon>SeleccionCruceroForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validaciones\ValidacionesHelper.cs" />
@@ -375,6 +382,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PagoReserva\SeleccionReservaForm.resx">
       <DependentUpon>SeleccionReservaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PagoReserva\SeleccionCruceroForm.resx">
+      <DependentUpon>SeleccionCruceroForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

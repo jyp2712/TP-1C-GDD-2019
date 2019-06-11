@@ -113,7 +113,10 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnCrucero_Click(object sender, EventArgs e)
         {
-
+            SeleccionCruceroForm seleccionCrucero = new SeleccionCruceroForm();
+            seleccionCrucero.Show();
+            seleccionCrucero.RefToNextForm = this;
+            this.Hide();
         }
 
         private void onTxtChanged(object sender, EventArgs e)
@@ -121,5 +124,12 @@ namespace FrbaCrucero.PagoReserva
             habilitarCruceroYCabinaSiCorresponde();
         }
 
+
+        internal void llenarInfoCrucero(Crucero crucero)
+        {
+            this.txtMarcaCrucero.Text = crucero.Marca.Nombre;
+            this.txtModeloCrucero.Text = crucero.Modelo;
+            this.txtNombreCrucero.Text = crucero.Nombre;
+        }
     }
 }

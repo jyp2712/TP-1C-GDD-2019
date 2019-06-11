@@ -103,5 +103,18 @@ namespace FrbaCrucero.DB
         {
             return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = ciud_id WHERE puer_estado = 1 AND (ciud_nombre LIKE '%"+ nombre +"%' OR puer_nombre LIKE '%" + nombre + "%')";
         }
+
+        public static string SELECT_CRUCERO_MARCA_SERVICIO_MODELO(string marca, string servicio, string modelo) 
+        {
+            string baseQuery = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Crucero] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Marca] on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio] on serv_id = cruc_servicio WHERE cruc_estado=1";
+            if (marca.Length > 0)
+                baseQuery = baseQuery + "AND marc_nombre LIKE '%" + marca + "%'";
+            if(servicio.Length > 0)
+                baseQuery = baseQuery + "AND serv_descripcion = '%" + servicio + "%' AND serv_estado = 1";
+            if(modelo.Length > 0)
+                baseQuery = baseQuery + "AND cruc_modelo LIKE '%" + modelo + "%'";
+
+            return baseQuery;
+        }
     }
 }
