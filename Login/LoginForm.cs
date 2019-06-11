@@ -52,19 +52,36 @@ namespace FrbaCrucero.Login
             this.txtUser.Clear();
         }
 
-        private Boolean checkUserAndPassword() {
+        private Boolean checkUserAndPassword()
+        {
 
-            String user_name = this.txtUser.Text;
-            String password = this.txtPassword.Text;
-            try
+            DBConnection dbConnection = DBConnection.getInstance();
+
+            using (SqlCommand cmd = dbConnection.connection.CreateCommand())
             {
-                int logueado = DBAdapter.ejecutarProcedureWithReturnValue("login", user_name, password);
-                return Convert.ToBoolean(logueado);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return false;
+                cmd.CommandText = "[GD1C2019].[EYE_OF_THE_TRIGGER].[login]";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@user_name", this.txtUser.Text);
+                cmd.Parameters.AddWithValue("@user_contrasenia", this.txtPassword.Text);
+
+                cmd.Parameters.Add("@Resultado", SqlDbType.Bit).Direction = ParameterDirection.Output;
+
+                try
+                {
+                    dbConnection.connection.Open();
+                    cmd.ExecuteNonQuery();
+                    var logueado = cmd.Parameters["@Resultado"].Value;
+                    dbConnection.connection.Close();
+                    return Convert.ToBoolean(logueado);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    return false;
+                }
+                finally {
+                    if (dbConnection.connection.State == ConnectionState.Open) dbConnection.connection.Close();
+                }
             }
         }
     }

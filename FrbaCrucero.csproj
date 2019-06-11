@@ -374,6 +374,9 @@
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="menuBarra\menu.resx">
+      <DependentUpon>menu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PagoReserva\ListadoOrigenDestinoForm.resx">
       <DependentUpon>ListadoOrigenDestinoForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -394,6 +397,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -407,6 +411,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Logo\Captura.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -33,27 +33,27 @@ namespace FrbaCrucero.menuBarra
             funcionalidades = DB.DBAdapter.traerDataTable("funcionalidades",user);
             for (int i = 0; i < funcionalidades.Rows.Count; i++)
             {
-                if (funcionalidades.Rows[i][0].Equals("Administrar Roles"))
+                if (funcionalidades.Rows[i]["func_nombre"].Equals("Administrar Roles"))
                 {
                     this.abm.Visible = true;
                     this.abmRol.Visible = true;
                 }
-                if (funcionalidades.Rows[i][0].Equals("Administrar Recorridos"))
+                if (funcionalidades.Rows[i]["func_nombre"].Equals("Administrar Recorridos"))
                 {
                     this.abm.Visible = true;
                     this.abmRecorrido.Visible = true;
                 }
-                if (funcionalidades.Rows[i][0].Equals("Administrar Cruceros"))
+                if (funcionalidades.Rows[i]["func_nombre"].Equals("Administrar Cruceros"))
                 {
                     this.abm.Visible = true;
                     this.abmCrucero.Visible = true;
                 }
-                if (funcionalidades.Rows[i][0].Equals("Administrar Viajes"))
+                if (funcionalidades.Rows[i]["func_nombre"].Equals("Administrar Viajes"))
                 {
                     this.generarViaje.Visible = true;
                 }
 
-                if (funcionalidades.Rows[i][0].Equals("Listado Estadistico"))
+                if (funcionalidades.Rows[i]["func_nombre"].Equals("Listado Estadistico"))
                 {
                     this.estadistica.Visible = true;
                 }
@@ -92,7 +92,7 @@ namespace FrbaCrucero.menuBarra
 
         private void abmCrucero_Click(object sender, EventArgs e)
         {
-            FrbaCrucero.AbmCrucero.Form1 crucero = new AbmCrucero.Form1();
+            FrbaCrucero.AbmCrucero.CruceroHome crucero = new AbmCrucero.CruceroHome();
             crucero.Show();
         }
 
