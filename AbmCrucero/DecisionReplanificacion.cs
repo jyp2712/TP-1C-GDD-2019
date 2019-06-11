@@ -42,7 +42,6 @@ namespace FrbaCrucero.AbmCrucero
         private void button2_Click(object sender, EventArgs e)
         {
             DBConnection dbConnection = DBConnection.getInstance();
-            Console.WriteLine(QueryProvider.SELECT_RESERVAS_REPLANIFICACION(crucero, DateTime.Parse(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).ToShortDateString(), fechaReactivacion.ToShortDateString()));
             DataSet ds = dbConnection.executeQuery(QueryProvider.SELECT_RESERVAS_REPLANIFICACION(crucero, DateTime.Parse(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).ToShortDateString(), fechaReactivacion.ToShortDateString()));
 
             if (string.Equals("Fuera de Servicio", this.motivo))
@@ -63,6 +62,8 @@ namespace FrbaCrucero.AbmCrucero
                     {
                         DBAdapter.actualizarDatosEnTabla("reemplazar_crucero", this.crucero, Convert.ToInt32(row["rese_id"]), Convert.ToInt32(row["viaj_id"]), Convert.ToDateTime(row["viaj_fecha_inicio"]), Convert.ToDateTime(row["viaj_fecha_fin_estimada"]));
                     }
+                    MessageBox.Show("Viajes replanificados");
+                    this.reemplazoOk = true;
                 }
                 catch { 
                     MessageBox.Show("No se pueden reemplazar todas las reservas. Debera dar de alta un crucero nuevo");
@@ -72,19 +73,20 @@ namespace FrbaCrucero.AbmCrucero
                     if (!String.IsNullOrEmpty(car.codigo))
                     {
                         this.cruceroNuevo = car.codigo;
+                        DBAdapter.ejecutarProcedure("replicar_cabinas", cruceroNuevo, this.crucero);
 
                         foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            DBAdapter.ejecutarProcedure("reemplazar_crucero_reserva", row["rese_id"], cruceroNuevo, this.crucero);
+                            DBAdapter.ejecutarProcedure("reemplazar_crucero_reserva", row["rese_id"], cruceroNuevo, row["viaj_id"], this.crucero);
                         }
+                        MessageBox.Show("Viajes replanificados");
+                        this.reemplazoOk = true;
                     }
                     else {
                         MessageBox.Show("Replanificacion abortada");
                         this.Close();
                     }
                 }
-                MessageBox.Show("Viajes replanificados");
-                this.reemplazoOk = true;
             }
 
             this.Close();

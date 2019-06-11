@@ -684,18 +684,6 @@ GO
 PRINT '----- Vista [EYE_OF_THE_TRIGGER].[vistaReserva] creada -----'
 
 
-IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[vistaCabinaReserva]', 'V') IS NOT NULL 
-DROP VIEW [EYE_OF_THE_TRIGGER].[vistaCabinaReserva]
-GO
-
-CREATE VIEW [EYE_OF_THE_TRIGGER].[vistaCabinaReserva] AS
-	SELECT M.RESERVA_CODIGO AS reserva_codigo, vrv.pasaje_codigo AS pasaje_codigo, M.CABINA_PISO AS cabina_piso, 
-	M.CABINA_NRO AS cabina_nro, M.CABINA_TIPO as cabina_tipo, M.CRUCERO_IDENTIFICADOR AS crucero_identificador
-	FROM gd_esquema.Maestra M JOIN EYE_OF_THE_TRIGGER.vistaReservaViaje vrv ON M.RESERVA_CODIGO = vrv.reserva_codigo
-GO
-PRINT '----- Vista [EYE_OF_THE_TRIGGER].[vistaCabinaReserva] creada -----'
-
-
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[vistaRecorridoViaje]', 'V') IS NOT NULL 
 DROP VIEW [EYE_OF_THE_TRIGGER].[vistaRecorridoViaje]
 GO
@@ -929,22 +917,6 @@ INSERT INTO EYE_OF_THE_TRIGGER.Compra (comp_reserva_id, comp_fact_id)
 GO
 
 
-IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[importarCabinasReservadas]', 'P') IS NOT NULL 
-DROP PROCEDURE [EYE_OF_THE_TRIGGER].[importarCabinasReservadas]
-GO
-
-CREATE PROCEDURE [EYE_OF_THE_TRIGGER].[importarCabinasReservadas] AS
-PRINT''
-PRINT '----- Realizando inserts tabla EYE_OF_THE_TRIGGER.CabinasReservadas -----'
-
-INSERT INTO EYE_OF_THE_TRIGGER.CabinasReservadas (rese_id, cabi_id)
-	SELECT reserva_codigo, cabi_id
-	FROM [EYE_OF_THE_TRIGGER].[vistaCabinaReserva]
-	JOIN EYE_OF_THE_TRIGGER.Cabina ON cabi_piso = cabina_piso AND cabi_numero = cabina_nro AND cabi_cruc_id = crucero_identificador 
-	JOIN EYE_OF_THE_TRIGGER.TipoCabina ON cabi_tipo_cabina = id AND descripcion = cabina_tipo
-	
-GO
-
 
 /*******  INSERTS EN TABLAS  *******/
 
@@ -1051,12 +1023,6 @@ EXEC EYE_OF_THE_TRIGGER.importarCompra
 GO
 PRINT''
 PRINT '----- Compras importadas -----'
-
-
-EXEC EYE_OF_THE_TRIGGER.importarCabinasReservadas
-GO
-PRINT''
-PRINT '----- Cabinas Reservadas importadas -----'
 
 
 PRINT''
@@ -1595,6 +1561,7 @@ RETURN 1
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[correr_fecha_reserva] creada -----'
 
+
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_crucero]', 'P') IS NOT NULL 
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_crucero
 GO
@@ -1606,6 +1573,7 @@ UPDATE [EYE_OF_THE_TRIGGER].Crucero SET cruc_id = @Codigo, cruc_nombre = @Nombre
 WHERE cruc_id = @Codigo  
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[actualizar_crucero] creada -----'
+
 
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_reemplazar_crucero]', 'P') IS NOT NULL 
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_reemplazar_crucero
@@ -1629,7 +1597,9 @@ BEGIN
 	UPDATE Reserva SET rese_crucero_id = @CruceroNuevo, rese_estado_reserva = 2
 	WHERE rese_id = @Reserva
 	INSERT INTO CabinasReservadas (cabi_id, rese_id)
-	VALUES((SELECT cabi_id FROM Cabina WHERE cabi_cruc_id = @CruceroNuevo), @Reserva)
+	SELECT cabi_id, @Reserva
+	FROM Cabina 
+	WHERE cabi_cruc_id = @CruceroNuevo
 END
 
 RETURN 0
@@ -1654,11 +1624,20 @@ IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[reemplazar_crucero_reserva]', 'P') IS NOT NU
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].reemplazar_crucero_reserva
 GO
 
-CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reemplazar_crucero_reserva(@Reserva as int, @Crucero as varchar(50)) AS
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reemplazar_crucero_reserva(@Reserva as int, @Crucero as varchar(50), @CruceroAnterior as varchar(50)) AS
 
 UPDATE Reserva SET rese_crucero_id = @Crucero, rese_estado_reserva = 2
 WHERE rese_id = @Reserva
 
+INSERT INTO Cabina (cabi_numero, cabi_piso, cabi_tipo_cabina, cabi_cruc_id)
+SELECT cabi_numero, cabi_piso, cabi_tipo_cabina, @Crucero
+FROM Cabina 
+WHERE cabi_cruc_id = @CruceroAnterior
+
+INSERT INTO CabinasReservadas (cabi_id, rese_id)
+SELECT cabi_id, @Reserva
+FROM Cabina 
+WHERE cabi_cruc_id = @Crucero
 
 RETURN 1
 
