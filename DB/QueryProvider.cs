@@ -116,5 +116,17 @@ namespace FrbaCrucero.DB
 
             return baseQuery;
         }
+
+        internal static string SELECT_TIPO_CABINAS_DISPONIBLES(string idCrucero)
+        {
+            return "SELECT DISTINCT(descripcion) FROM [EYE_OF_THE_TRIGGER].[Cabina] JOIN [EYE_OF_THE_TRIGGER].TipoCabina on cabi_tipo_cabina = id WHERE cabi_cruc_id = '" + idCrucero + "' and cabi_id not in (SELECT cabi_id FROM [EYE_OF_THE_TRIGGER].CabinasReservadas)";
+        }
+
+
+
+        internal static string SELECT_CABINAS(string idCrucero, string descripcion)
+        {
+            return "SELECT TOP 1 * FROM [EYE_OF_THE_TRIGGER].[Cabina] JOIN [EYE_OF_THE_TRIGGER].TipoCabina on cabi_tipo_cabina = id WHERE cabi_cruc_id = '" + idCrucero + "' and cabi_id not in (SELECT cabi_id FROM [EYE_OF_THE_TRIGGER].CabinasReservadas) and descripcion = '" + descripcion + "'";
+        }
     }
 }

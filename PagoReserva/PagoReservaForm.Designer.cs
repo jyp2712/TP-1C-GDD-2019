@@ -40,12 +40,8 @@
             this.txtNombreCrucero = new System.Windows.Forms.TextBox();
             this.txtCabina = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.txtCantidadPasajes = new System.Windows.Forms.TextBox();
             this.btnDestino = new System.Windows.Forms.Button();
-            this.btnFechaSalida = new System.Windows.Forms.Button();
-            this.btnFechaLlegada = new System.Windows.Forms.Button();
             this.btnCrucero = new System.Windows.Forms.Button();
-            this.btnCabina = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtModeloCrucero = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -56,14 +52,18 @@
             this.dtpSalida = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtTipoCabina = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnReservar = new System.Windows.Forms.Button();
             this.btnReservarYPagar = new System.Windows.Forms.Button();
+            this.btnReservar = new System.Windows.Forms.Button();
+            this.pasajesUpDown = new System.Windows.Forms.NumericUpDown();
+            this.comboTipoCabina = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtPiso = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pasajesUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -171,13 +171,6 @@
             this.label8.TabIndex = 15;
             this.label8.Text = "Cantidad de pasajes:";
             // 
-            // txtCantidadPasajes
-            // 
-            this.txtCantidadPasajes.Location = new System.Drawing.Point(116, 117);
-            this.txtCantidadPasajes.Name = "txtCantidadPasajes";
-            this.txtCantidadPasajes.Size = new System.Drawing.Size(100, 20);
-            this.txtCantidadPasajes.TabIndex = 16;
-            // 
             // btnDestino
             // 
             this.btnDestino.Location = new System.Drawing.Point(322, 37);
@@ -188,25 +181,6 @@
             this.btnDestino.UseVisualStyleBackColor = true;
             this.btnDestino.Click += new System.EventHandler(this.btnDestino_Click);
             // 
-            // btnFechaSalida
-            // 
-            this.btnFechaSalida.Location = new System.Drawing.Point(322, 67);
-            this.btnFechaSalida.Name = "btnFechaSalida";
-            this.btnFechaSalida.Size = new System.Drawing.Size(75, 23);
-            this.btnFechaSalida.TabIndex = 18;
-            this.btnFechaSalida.Text = "Seleccionar";
-            this.btnFechaSalida.UseVisualStyleBackColor = true;
-            this.btnFechaSalida.Click += new System.EventHandler(this.btnFechaSalida_Click);
-            // 
-            // btnFechaLlegada
-            // 
-            this.btnFechaLlegada.Location = new System.Drawing.Point(322, 90);
-            this.btnFechaLlegada.Name = "btnFechaLlegada";
-            this.btnFechaLlegada.Size = new System.Drawing.Size(75, 23);
-            this.btnFechaLlegada.TabIndex = 19;
-            this.btnFechaLlegada.Text = "Seleccionar";
-            this.btnFechaLlegada.UseVisualStyleBackColor = true;
-            // 
             // btnCrucero
             // 
             this.btnCrucero.Location = new System.Drawing.Point(140, 277);
@@ -216,16 +190,6 @@
             this.btnCrucero.Text = "Seleccionar";
             this.btnCrucero.UseVisualStyleBackColor = true;
             this.btnCrucero.Click += new System.EventHandler(this.btnCrucero_Click);
-            // 
-            // btnCabina
-            // 
-            this.btnCabina.Location = new System.Drawing.Point(321, 277);
-            this.btnCabina.Name = "btnCabina";
-            this.btnCabina.Size = new System.Drawing.Size(100, 23);
-            this.btnCabina.TabIndex = 21;
-            this.btnCabina.Text = "Seleccionar";
-            this.btnCabina.UseVisualStyleBackColor = true;
-            this.btnCabina.Click += new System.EventHandler(this.btnCabina_Click);
             // 
             // groupBox1
             // 
@@ -276,14 +240,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.pasajesUpDown);
             this.groupBox2.Controls.Add(this.dtpRegreso);
             this.groupBox2.Controls.Add(this.dtpSalida);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.btnFechaLlegada);
-            this.groupBox2.Controls.Add(this.txtCantidadPasajes);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.btnFechaSalida);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.btnDestino);
@@ -322,7 +284,9 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.txtTipoCabina);
+            this.groupBox3.Controls.Add(this.txtPiso);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.comboTipoCabina);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.txtCabina);
@@ -332,13 +296,7 @@
             this.groupBox3.TabIndex = 24;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cabina";
-            // 
-            // txtTipoCabina
-            // 
-            this.txtTipoCabina.Location = new System.Drawing.Point(66, 39);
-            this.txtTipoCabina.Name = "txtTipoCabina";
-            this.txtTipoCabina.Size = new System.Drawing.Size(100, 20);
-            this.txtTipoCabina.TabIndex = 25;
+            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // groupBox4
             // 
@@ -351,6 +309,15 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Reserva / Pago";
             // 
+            // btnReservarYPagar
+            // 
+            this.btnReservarYPagar.Location = new System.Drawing.Point(289, 28);
+            this.btnReservarYPagar.Name = "btnReservarYPagar";
+            this.btnReservarYPagar.Size = new System.Drawing.Size(108, 55);
+            this.btnReservarYPagar.TabIndex = 1;
+            this.btnReservarYPagar.Text = "Confirmar Reserva y Pagar";
+            this.btnReservarYPagar.UseVisualStyleBackColor = true;
+            // 
             // btnReservar
             // 
             this.btnReservar.Location = new System.Drawing.Point(11, 28);
@@ -361,14 +328,42 @@
             this.btnReservar.UseVisualStyleBackColor = true;
             this.btnReservar.Click += new System.EventHandler(this.btnReservar_Click);
             // 
-            // btnReservarYPagar
+            // pasajesUpDown
             // 
-            this.btnReservarYPagar.Location = new System.Drawing.Point(289, 28);
-            this.btnReservarYPagar.Name = "btnReservarYPagar";
-            this.btnReservarYPagar.Size = new System.Drawing.Size(108, 55);
-            this.btnReservarYPagar.TabIndex = 1;
-            this.btnReservarYPagar.Text = "Confirmar Reserva y Pagar";
-            this.btnReservarYPagar.UseVisualStyleBackColor = true;
+            this.pasajesUpDown.Location = new System.Drawing.Point(116, 120);
+            this.pasajesUpDown.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.pasajesUpDown.Name = "pasajesUpDown";
+            this.pasajesUpDown.Size = new System.Drawing.Size(120, 20);
+            this.pasajesUpDown.TabIndex = 22;
+            // 
+            // comboTipoCabina
+            // 
+            this.comboTipoCabina.FormattingEnabled = true;
+            this.comboTipoCabina.Location = new System.Drawing.Point(66, 39);
+            this.comboTipoCabina.Name = "comboTipoCabina";
+            this.comboTipoCabina.Size = new System.Drawing.Size(100, 21);
+            this.comboTipoCabina.TabIndex = 25;
+            this.comboTipoCabina.SelectedIndexChanged += new System.EventHandler(this.comboTipoCabina_SelectedIndexChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 68);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(27, 13);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Piso";
+            // 
+            // txtPiso
+            // 
+            this.txtPiso.Location = new System.Drawing.Point(66, 65);
+            this.txtPiso.Name = "txtPiso";
+            this.txtPiso.Size = new System.Drawing.Size(100, 20);
+            this.txtPiso.TabIndex = 27;
             // 
             // PagoReservaForm
             // 
@@ -379,7 +374,6 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnCabina);
             this.Controls.Add(this.btnCrucero);
             this.Name = "PagoReservaForm";
             this.Text = "PagoReservaForm";
@@ -391,6 +385,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pasajesUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -409,19 +404,14 @@
         private System.Windows.Forms.TextBox txtNombreCrucero;
         private System.Windows.Forms.TextBox txtCabina;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtCantidadPasajes;
         private System.Windows.Forms.Button btnDestino;
-        private System.Windows.Forms.Button btnFechaSalida;
-        private System.Windows.Forms.Button btnFechaLlegada;
         private System.Windows.Forms.Button btnCrucero;
-        private System.Windows.Forms.Button btnCabina;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMarcaCrucero;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox txtTipoCabina;
         private System.Windows.Forms.TextBox txtModeloCrucero;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DateTimePicker dtpRegreso;
@@ -429,5 +419,9 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnReservarYPagar;
         private System.Windows.Forms.Button btnReservar;
+        private System.Windows.Forms.NumericUpDown pasajesUpDown;
+        private System.Windows.Forms.ComboBox comboTipoCabina;
+        private System.Windows.Forms.TextBox txtPiso;
+        private System.Windows.Forms.Label label11;
     }
 }

@@ -20,7 +20,24 @@ namespace FrbaCrucero.PagoReserva
         public Puerto puertoOrigen {get; set;}
         public Puerto puertoDestino { get; set; }
 
-
+        private void cargarTipoCabina()
+        {
+            try
+            {
+                DBConnection dbConnection = DBConnection.getInstance();
+                string query = QueryProvider.SELECT_TIPO_CABINAS_DISPONIBLES(this.crucero.Id);
+                DataSet dsServicio = dbConnection.executeQuery(query);
+                this.comboTipoCabina.DisplayMember = comboTipoCabina.Text;
+                foreach (DataRow row in dsServicio.Tables[0].Rows)
+                {
+                    comboTipoCabina.Items.Add(row["descripcion"].ToString());
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
 
         public PagoReservaForm()
         {
@@ -38,8 +55,7 @@ namespace FrbaCrucero.PagoReserva
             this.txtMarcaCrucero.Enabled = false;
             this.txtModeloCrucero.Enabled = false;
             this.txtCabina.Enabled = false;
-            this.txtTipoCabina.Enabled = false;
-            this.btnCabina.Enabled = false;
+            this.comboTipoCabina.Enabled = false;
             this.btnCrucero.Enabled = false;
         }
 
@@ -56,12 +72,12 @@ namespace FrbaCrucero.PagoReserva
             //this.txtTipoCabina.Text = reserva.Cabina.Tipo.Descripcion;
             //this.txtCabina.Text = Convert.ToString(reserva.Cabina.NumeroCabina);
 
-            this.txtCantidadPasajes.Text = Convert.ToString(reserva.Pasajeros);
+            this.pasajesUpDown.Text = Convert.ToString(reserva.Pasajeros);
 
             desactivarTodosLosControlesComunes();
             this.dtpSalida.Enabled = false;
             this.dtpRegreso.Enabled = false;
-            this.txtCantidadPasajes.Enabled = false;
+            this.pasajesUpDown.Enabled = false;
         }
 
         private void PagoReservaForm_Load(object sender, EventArgs e)
@@ -131,10 +147,12 @@ namespace FrbaCrucero.PagoReserva
 
         internal void llenarInfoCrucero(Crucero crucero)
         {
+            this.crucero = crucero;
+            this.cargarTipoCabina();
+            this.comboTipoCabina.Enabled = true;
             this.txtMarcaCrucero.Text = crucero.Marca.Nombre;
             this.txtModeloCrucero.Text = crucero.Modelo;
             this.txtNombreCrucero.Text = crucero.Nombre;
-            this.btnCabina.Enabled = true;
         }
 
         private void btnCabina_Click(object sender, EventArgs e)
@@ -143,6 +161,28 @@ namespace FrbaCrucero.PagoReserva
         }
 
         private void btnReservar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnFechaLlegada_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public Crucero crucero { get; set; }
+
+        private void comboTipoCabina_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DBConnection dbConnection = DBConnection.getInstance();
+            string query = QueryProvider.SELECT_CABINAS(this.crucero.Id, this.comboTipoCabina.Text);
+            DataTable dt = dbConnection.executeQuery(query).Tables[0];
+            this.txtCabina.Text = Convert.ToString(dt.Rows[0]["cabi_numero"]);
+            this.txtPiso.Text = Convert.ToString(dt.Rows[0]["cabi_piso"]);
+
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
         {
 
         }
