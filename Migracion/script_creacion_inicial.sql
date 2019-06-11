@@ -1697,7 +1697,7 @@ BEGIN
 
 DECLARE @Reserva AS INT, @Cabina AS INT
 DECLARE c1 CURSOR for SELECT r.rese_id, cr.cabi_id FROM [EYE_OF_THE_TRIGGER].Reserva r JOIN [EYE_OF_THE_TRIGGER].CabinasReservadas cr ON r.rese_id = cr.cabi_id
-					 WHERE r.rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva vencida' OR descripcion='Reserva cancelada por Baja de Crucero')
+					 WHERE r.rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva vencida') OR r.rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva cancelada por Baja de Crucero')
 
 OPEN c1
 FETCH NEXT FROM c1 INTO @Reserva, @Cabina
