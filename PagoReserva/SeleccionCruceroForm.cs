@@ -17,9 +17,18 @@ namespace FrbaCrucero.PagoReserva
         DataSet ds;
         public PagoReservaForm RefToNextForm{ get; set;}
 
-        public SeleccionCruceroForm(String fechaSalida, String fechaRegreso)
+        private string fechaSalida;
+        private string fechaRegreso;
+        int puertoIdOrigen;
+        int puertoIdDestino;
+
+        public SeleccionCruceroForm(string fechaSalida, string fechaRegreso, int puertoIdOrigen, int puertoIdDestino)
         {
             InitializeComponent();
+            this.fechaSalida = fechaSalida;
+            this.fechaRegreso = fechaRegreso;
+            this.puertoIdOrigen = puertoIdOrigen;
+            this.puertoIdDestino = puertoIdDestino;
             cargarServicios();
             cargarMarcas();
             inicializarDataGridView();
@@ -66,10 +75,16 @@ namespace FrbaCrucero.PagoReserva
         private void buscar() 
         {
             DBConnection dbConnection = DBConnection.getInstance();
-            ds = dbConnection.executeQuery(QueryProvider.SELECT_CRUCERO_MARCA_SERVICIO_MODELO(this.comboMarcas.Text, this.comboServicio.Text, this.txtModelo.Text));
+            string query = QueryProvider.SELECT_CRUCERO_MARCA_SERVICIO_MODELO(this.comboMarcas.Text, this.comboServicio.Text, this.txtModelo.Text, this.fechaSalida, this.fechaRegreso, this.puertoIdOrigen, this.puertoIdDestino);
+            ds = dbConnection.executeQuery(query);
             dgv.ReadOnly = true;
             dgv.DataSource = ds.Tables[0];
-           // dgv.Refresh();
+            for (int i = 0; i < dgv.Columns.Count; i++ )
+            {
+                dgv.Columns[i].Visible = false;
+            }
+
+            dgv.Refresh();
         }
 
         private void inicializarDataGridView() 
@@ -77,20 +92,17 @@ namespace FrbaCrucero.PagoReserva
             buscar();
 
             dgv.Columns["cruc_id"].HeaderText = "Codigo";
-            dgv.Columns["cruc_fecha_alta"].Visible = false;
+            dgv.Columns["cruc_id"].Visible = true;
             dgv.Columns["cruc_nombre"].HeaderText = "Nombre";
+            dgv.Columns["cruc_nombre"].Visible = true;
             dgv.Columns["cruc_modelo"].HeaderText = "Modelo";
-            dgv.Columns["cruc_cant_cabinas"].Visible = false;
-            dgv.Columns["cruc_marca"].Visible = false;
-            dgv.Columns["cruc_servicio"].Visible = false;
-            dgv.Columns["cruc_estado"].Visible = false;
-            dgv.Columns["marc_id"].Visible = false;
+            dgv.Columns["cruc_modelo"].Visible = true;
             dgv.Columns["marc_nombre"].HeaderText = "Marca";
-            dgv.Columns["serv_id"].Visible = false;
+            dgv.Columns["marc_nombre"].Visible = true;
             dgv.Columns["serv_descripcion"].HeaderText = "Tipo Servicio";
-            dgv.Columns["serv_precio"].Visible = false;
-            dgv.Columns["serv_estado"].Visible = false;
-
+            dgv.Columns["serv_descripcion"].Visible = true;
+            dgv.Refresh();
+            
         }
 
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -101,7 +113,6 @@ namespace FrbaCrucero.PagoReserva
                 e.RowIndex >= 0)
             {
                 DataGridViewRow selectedRow = dgv.Rows[e.RowIndex];
-//                string selected_crucero_id = Convert.ToString(selectedRow.Cells["cruc_id"].Value);
 
                 Crucero crucero = Mappers.GeneralMapper.deDataRowACrucero(selectedRow);
 

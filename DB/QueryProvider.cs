@@ -97,16 +97,16 @@ namespace FrbaCrucero.DB
             return "";
         }
 
-        public static string SELECT_CIUDADES_Y_PUERTO = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = ciud_id WHERE puer_estado = 1";
+        public static string SELECT_CIUDADES_Y_PUERTO = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = puer_id WHERE puer_estado = 1";
 
         public static string SELECT_CIUDADES_Y_PUERTO_LIKE(string nombre)
         {
-            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = ciud_id WHERE puer_estado = 1 AND (ciud_nombre LIKE '%"+ nombre +"%' OR puer_nombre LIKE '%" + nombre + "%')";
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = puer_id WHERE puer_estado = 1 AND (ciud_nombre LIKE '%"+ nombre +"%' OR puer_nombre LIKE '%" + nombre + "%')";
         }
 
-        public static string SELECT_CRUCERO_MARCA_SERVICIO_MODELO(string marca, string servicio, string modelo) 
+        public static string SELECT_CRUCERO_MARCA_SERVICIO_MODELO(string marca, string servicio, string modelo, string fechaSalida, string fechaRegreso, int puertoIdOrigen, int puertoIdDestino) 
         {
-            string baseQuery = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Crucero] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Marca] on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio] on serv_id = cruc_servicio WHERE cruc_estado=1";
+            string baseQuery = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Crucero] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Marca] on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio] on serv_id = cruc_servicio JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Viaje] on cruc_id = viaj_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].RecorridoViaje on RecorridoViaje.viaj_id = Viaje.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Recorrido on Recorrido.reco_id = RecorridoViaje.reco_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Puerto p1 on p1.puer_id = Recorrido.reco_origen_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Puerto p2 on p2.puer_id = Recorrido.reco_destino_id WHERE cruc_estado=1 AND Convert(date, viaj_fecha_fin) = Convert(date, '" + fechaRegreso + "') AND Convert(date, viaj_fecha_inicio) = Convert(date, '" + fechaSalida + "') AND p1.puer_id =" + puertoIdOrigen + " AND p2.puer_id = " + puertoIdDestino + " ";
             if (marca.Length > 0)
                 baseQuery = baseQuery + "AND marc_nombre LIKE '%" + marca + "%'";
             if(servicio.Length > 0)

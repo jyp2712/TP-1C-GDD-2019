@@ -48,7 +48,8 @@ namespace FrbaCrucero.PagoReserva
         private void cargarEstadoInicial() 
         {
             DBConnection dbConnection = DBConnection.getInstance();
-            ds = dbConnection.executeQuery(QueryProvider.SELECT_CIUDADES_Y_PUERTO);
+            string query = QueryProvider.SELECT_CIUDADES_Y_PUERTO;
+            ds = dbConnection.executeQuery(query);
         }
 
 
