@@ -94,6 +94,7 @@ namespace FrbaCrucero.PagoReserva
 
         private void habilitarCruceroYCabinaSiCorresponde()
         {
+            //TODO logica de cabina
             if (txtOrigen.Text.Length > 0 && txtDestino.Text.Length > 0)
                 this.btnCrucero.Enabled = true;
         }
@@ -130,6 +131,17 @@ namespace FrbaCrucero.PagoReserva
             this.txtMarcaCrucero.Text = crucero.Marca.Nombre;
             this.txtModeloCrucero.Text = crucero.Modelo;
             this.txtNombreCrucero.Text = crucero.Nombre;
+            this.btnCabina.Enabled = true;
+        }
+
+        private void btnCabina_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReservar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
