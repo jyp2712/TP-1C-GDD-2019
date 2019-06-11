@@ -21,19 +21,37 @@ namespace FrbaCrucero.PagoReserva
         {
             InitializeComponent();
             cargarServicios();
+            cargarMarcas();
             inicializarDataGridView();
             ABMHelper.addButtonToDataGridView(dgv, "Seleccionar", "  Seleccionar ");
         }
 
-        private void cargarServicios()
+        private void cargarMarcas()
         {
-
             try
             {
                 DBConnection dbConnection = DBConnection.getInstance();
-                ds = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio]");
+                DataSet dsMarca = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Marca]");
+                this.comboMarcas.DisplayMember = comboMarcas.Text;
+                foreach (DataRow row in dsMarca.Tables[0].Rows)
+                {
+                    comboMarcas.Items.Add(row["marc_nombre"].ToString());
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void cargarServicios()
+        {
+            try
+            {
+                DBConnection dbConnection = DBConnection.getInstance();
+                DataSet dsServicio = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio]");
                 this.comboServicio.DisplayMember = comboServicio.Text;
-                foreach (DataRow row in ds.Tables[0].Rows)
+                foreach (DataRow row in dsServicio.Tables[0].Rows)
                 {
                     comboServicio.Items.Add(row["serv_descripcion"].ToString());
                 }
@@ -42,17 +60,20 @@ namespace FrbaCrucero.PagoReserva
             {
                 MessageBox.Show(exc.Message);
             }
-        }        
+        }
+
+        private void buscar() 
+        {
+            DBConnection dbConnection = DBConnection.getInstance();
+            ds = dbConnection.executeQuery(QueryProvider.SELECT_CRUCERO_MARCA_SERVICIO_MODELO(this.comboMarcas.Text, this.comboServicio.Text, this.txtModelo.Text));
+            dgv.ReadOnly = true;
+            dgv.DataSource = ds.Tables[0];
+           // dgv.Refresh();
+        }
 
         private void inicializarDataGridView() 
         {
-
-
-            DBConnection dbConnection = DBConnection.getInstance();
-            ds = dbConnection.executeQuery(QueryProvider.SELECT_CRUCERO_MARCA_SERVICIO_MODELO(this.txtMarca.Text, this.comboServicio.Text, this.txtModelo.Text));
-            dgv.ReadOnly = true;
-            dgv.DataSource = ds.Tables[0];
-
+            buscar();
 
             dgv.Columns["cruc_id"].HeaderText = "Codigo";
             dgv.Columns["cruc_fecha_alta"].Visible = false;
@@ -87,6 +108,11 @@ namespace FrbaCrucero.PagoReserva
                 this.RefToNextForm.Show();
                 this.Hide();
             }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            buscar();
         }
         
     }

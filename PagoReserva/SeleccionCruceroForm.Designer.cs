@@ -32,24 +32,22 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtModelo = new System.Windows.Forms.TextBox();
             this.comboServicio = new System.Windows.Forms.ComboBox();
-            this.btnSeleccionarMarca = new System.Windows.Forms.Button();
-            this.txtMarca = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.dgv = new System.Windows.Forms.DataGridView();
+            this.comboMarcas = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboMarcas);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtModelo);
             this.groupBox1.Controls.Add(this.comboServicio);
-            this.groupBox1.Controls.Add(this.btnSeleccionarMarca);
-            this.groupBox1.Controls.Add(this.txtMarca);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btnBuscar);
@@ -74,7 +72,7 @@
             // 
             this.txtModelo.Location = new System.Drawing.Point(49, 16);
             this.txtModelo.Name = "txtModelo";
-            this.txtModelo.Size = new System.Drawing.Size(100, 20);
+            this.txtModelo.Size = new System.Drawing.Size(145, 20);
             this.txtModelo.TabIndex = 17;
             // 
             // comboServicio
@@ -84,23 +82,6 @@
             this.comboServicio.Name = "comboServicio";
             this.comboServicio.Size = new System.Drawing.Size(150, 21);
             this.comboServicio.TabIndex = 16;
-            // 
-            // btnSeleccionarMarca
-            // 
-            this.btnSeleccionarMarca.Location = new System.Drawing.Point(156, 43);
-            this.btnSeleccionarMarca.Name = "btnSeleccionarMarca";
-            this.btnSeleccionarMarca.Size = new System.Drawing.Size(75, 23);
-            this.btnSeleccionarMarca.TabIndex = 15;
-            this.btnSeleccionarMarca.Text = "Seleccionar";
-            this.btnSeleccionarMarca.UseVisualStyleBackColor = true;
-            // 
-            // txtMarca
-            // 
-            this.txtMarca.Enabled = false;
-            this.txtMarca.Location = new System.Drawing.Point(49, 45);
-            this.txtMarca.Name = "txtMarca";
-            this.txtMarca.Size = new System.Drawing.Size(100, 20);
-            this.txtMarca.TabIndex = 14;
             // 
             // label3
             // 
@@ -128,6 +109,7 @@
             this.btnBuscar.TabIndex = 3;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // btnLimpiar
             // 
@@ -153,6 +135,14 @@
             this.dgv.TabIndex = 9;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
+            // comboMarcas
+            // 
+            this.comboMarcas.FormattingEnabled = true;
+            this.comboMarcas.Location = new System.Drawing.Point(49, 45);
+            this.comboMarcas.Name = "comboMarcas";
+            this.comboMarcas.Size = new System.Drawing.Size(145, 21);
+            this.comboMarcas.TabIndex = 19;
+            // 
             // SeleccionCruceroForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -173,8 +163,6 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox comboServicio;
-        private System.Windows.Forms.Button btnSeleccionarMarca;
-        private System.Windows.Forms.TextBox txtMarca;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnBuscar;
@@ -182,5 +170,6 @@
         private System.Windows.Forms.DataGridView dgv;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtModelo;
+        private System.Windows.Forms.ComboBox comboMarcas;
     }
 }

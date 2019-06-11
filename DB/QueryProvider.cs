@@ -110,7 +110,7 @@ namespace FrbaCrucero.DB
             if (marca.Length > 0)
                 baseQuery = baseQuery + "AND marc_nombre LIKE '%" + marca + "%'";
             if(servicio.Length > 0)
-                baseQuery = baseQuery + "AND serv_descripcion = '%" + servicio + "%' AND serv_estado = 1";
+                baseQuery = baseQuery + "AND serv_descripcion = '" + servicio + "' AND serv_estado = 1";
             if(modelo.Length > 0)
                 baseQuery = baseQuery + "AND cruc_modelo LIKE '%" + modelo + "%'";
 
