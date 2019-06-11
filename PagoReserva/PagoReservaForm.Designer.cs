@@ -57,9 +57,13 @@
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtTipoCabina = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnReservar = new System.Windows.Forms.Button();
+            this.btnReservarYPagar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
@@ -221,6 +225,7 @@
             this.btnCabina.TabIndex = 21;
             this.btnCabina.Text = "Seleccionar";
             this.btnCabina.UseVisualStyleBackColor = true;
+            this.btnCabina.Click += new System.EventHandler(this.btnCabina_Click);
             // 
             // groupBox1
             // 
@@ -335,11 +340,42 @@
             this.txtTipoCabina.Size = new System.Drawing.Size(100, 20);
             this.txtTipoCabina.TabIndex = 25;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.btnReservarYPagar);
+            this.groupBox4.Controls.Add(this.btnReservar);
+            this.groupBox4.Location = new System.Drawing.Point(24, 306);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(407, 100);
+            this.groupBox4.TabIndex = 25;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Reserva / Pago";
+            // 
+            // btnReservar
+            // 
+            this.btnReservar.Location = new System.Drawing.Point(11, 28);
+            this.btnReservar.Name = "btnReservar";
+            this.btnReservar.Size = new System.Drawing.Size(108, 55);
+            this.btnReservar.TabIndex = 0;
+            this.btnReservar.Text = "Reservar (Pago diferido)";
+            this.btnReservar.UseVisualStyleBackColor = true;
+            this.btnReservar.Click += new System.EventHandler(this.btnReservar_Click);
+            // 
+            // btnReservarYPagar
+            // 
+            this.btnReservarYPagar.Location = new System.Drawing.Point(289, 28);
+            this.btnReservarYPagar.Name = "btnReservarYPagar";
+            this.btnReservarYPagar.Size = new System.Drawing.Size(108, 55);
+            this.btnReservarYPagar.TabIndex = 1;
+            this.btnReservarYPagar.Text = "Confirmar Reserva y Pagar";
+            this.btnReservarYPagar.UseVisualStyleBackColor = true;
+            // 
             // PagoReservaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 438);
+            this.ClientSize = new System.Drawing.Size(446, 414);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -354,6 +390,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -389,5 +426,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DateTimePicker dtpRegreso;
         private System.Windows.Forms.DateTimePicker dtpSalida;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button btnReservarYPagar;
+        private System.Windows.Forms.Button btnReservar;
     }
 }

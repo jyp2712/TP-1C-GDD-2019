@@ -136,5 +136,27 @@ namespace FrbaCrucero.Mappers
         {
             throw new NotImplementedException();
         }
+
+        internal static Crucero deDataRowACrucero(System.Windows.Forms.DataGridViewRow selectedRow)
+        {
+            string id = Convert.ToString(selectedRow.Cells["cruc_id"].Value);
+            int estado = Convert.ToInt32(selectedRow.Cells["cruc_estado"].Value);
+            string nombre = Convert.ToString(selectedRow.Cells["cruc_nombre"].Value);
+            string modelo = Convert.ToString(selectedRow.Cells["cruc_modelo"].Value);
+            Marca marca = deDataRowAMarca(selectedRow);
+            //TODO la fecha en null rompe
+            //DateTime fechaAlta = Convert.ToDateTime(ds.Tables[0].Rows[0]["cruc_fecha_alta"]);
+            //TODO
+            DateTime fechaAlta = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]);
+            return new Crucero(id, nombre, modelo, fechaAlta, marca, estado);//TODO
+            throw new NotImplementedException();
+        }
+
+        private static Marca deDataRowAMarca(System.Windows.Forms.DataGridViewRow selectedRow)
+        {
+            string nombre = Convert.ToString(selectedRow.Cells["marc_nombre"].Value);
+            int id = Convert.ToInt32(selectedRow.Cells["marc_id"].Value);
+            return new Marca(id, nombre);
+        }
     }
 }

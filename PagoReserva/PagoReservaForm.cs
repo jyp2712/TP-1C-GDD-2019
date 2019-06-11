@@ -94,6 +94,7 @@ namespace FrbaCrucero.PagoReserva
 
         private void habilitarCruceroYCabinaSiCorresponde()
         {
+            //TODO logica de cabina
             if (txtOrigen.Text.Length > 0 && txtDestino.Text.Length > 0)
                 this.btnCrucero.Enabled = true;
         }
@@ -113,7 +114,13 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnCrucero_Click(object sender, EventArgs e)
         {
-
+            string format = "yyyy-MM-dd HH:mm:ss.fff";
+            string fechaSalida = dtpSalida.Value.Date.ToString(format);
+            string fechaRegreso = dtpRegreso.Value.Date.ToString(format);
+            SeleccionCruceroForm seleccionCrucero = new SeleccionCruceroForm(fechaSalida, fechaRegreso);
+            seleccionCrucero.Show();
+            seleccionCrucero.RefToNextForm = this;
+            this.Hide();
         }
 
         private void onTxtChanged(object sender, EventArgs e)
@@ -121,5 +128,23 @@ namespace FrbaCrucero.PagoReserva
             habilitarCruceroYCabinaSiCorresponde();
         }
 
+
+        internal void llenarInfoCrucero(Crucero crucero)
+        {
+            this.txtMarcaCrucero.Text = crucero.Marca.Nombre;
+            this.txtModeloCrucero.Text = crucero.Modelo;
+            this.txtNombreCrucero.Text = crucero.Nombre;
+            this.btnCabina.Enabled = true;
+        }
+
+        private void btnCabina_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReservar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
