@@ -1,3 +1,0 @@
-- SP alta reserva
-- Referenciar ABM cliente desde reserva
-- Pago reserva
