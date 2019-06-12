@@ -186,5 +186,11 @@ namespace FrbaCrucero.PagoReserva
         {
 
         }
+
+        private void btnReservarYPagar_Click(object sender, EventArgs e)
+        {
+            PagoForm pf = new PagoForm();
+            pf.ShowDialog();
+        }
     }
 }
