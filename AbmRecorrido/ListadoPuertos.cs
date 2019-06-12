@@ -11,15 +11,15 @@ using FrbaCrucero.AbmRol;
 using FrbaCrucero.DB;
 using FrbaCrucero.Dominio;
 
-namespace FrbaCrucero.PagoReserva
+namespace FrbaCrucero.AbmRecorrido
 {
-    public partial class ListadoOrigenDestinoForm : Form
+    public partial class ListadoPuertos : Form
     {
         DataSet ds;
         TextBox txtToModify;
         Boolean isOrigen;
 
-        public ListadoOrigenDestinoForm(ref TextBox txtToModify, Boolean isOrigen)
+        public ListadoPuertos(ref TextBox txtToModify, Boolean isOrigen)
         {
             InitializeComponent();
             inicializarDataGridView();
@@ -96,7 +96,7 @@ namespace FrbaCrucero.PagoReserva
             }
         }
 
-        public PagoReservaForm RefToPrevForm { get; set; }
+        public AltaRecorrido RefToPrevForm { get; set; }
 
         //TODO no anda.
         private void btnLimpiar_Click(object sender, EventArgs e)

@@ -137,6 +137,12 @@
     <Compile Include="AbmRecorrido\BajaRecorridoForm.Designer.cs">
       <DependentUpon>BajaRecorridoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRecorrido\ListadoPuertos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRecorrido\ListadoPuertos.Designer.cs">
+      <DependentUpon>ListadoPuertos.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRecorrido\ModificacionRecorrido.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -337,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\BajaRecorridoForm.resx">
       <DependentUpon>BajaRecorridoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRecorrido\ListadoPuertos.resx">
+      <DependentUpon>ListadoPuertos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRecorrido\ModificacionRecorrido.resx">
       <DependentUpon>ModificacionRecorrido.cs</DependentUpon>

@@ -9,16 +9,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaCrucero.Validaciones;
 using FrbaCrucero.DB;
+using FrbaCrucero.Dominio;
 
 namespace FrbaCrucero.AbmRecorrido
 {
     public partial class AltaRecorrido : Form
     {
+        public Puerto puertoOrigen { get; set; }
+        public Puerto puertoDestino { get; set; }
+        public Ciudad ciudadOrigen { get; set; }
+        public Ciudad ciudadDestino { get; set; }
+
         public AltaRecorrido()
         {
             InitializeComponent();
-            cargarComboPuertos();
-
+            this.textBox1.Enabled = false;
+            this.textBox2.Enabled = false;    
         }
 
         private void AltaRecorrido_Load(object sender, EventArgs e)
@@ -53,35 +59,16 @@ namespace FrbaCrucero.AbmRecorrido
 
         }
 
-        private void cargarComboPuertos()
-        {
-            try
-            {
-                DBConnection dbConnection = DBConnection.getInstance();
-                DataSet ds = dbConnection.executeQuery(QueryProvider.SELECT_CIUDADES_PUERTOS_NOMBRE);
-                this.comboBoxCiudadPuertoOrigen.DisplayMember = comboBoxCiudadPuertoOrigen.Text;
-                this.comboBoxCiudadPuertoDestino.DisplayMember = comboBoxCiudadPuertoOrigen.Text;
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    comboBoxCiudadPuertoOrigen.Items.Add(row["nombre"].ToString());
-                    comboBoxCiudadPuertoDestino.Items.Add(row["nombre"].ToString());
-                }
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-            }
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (Codigo.TextLength < 1 || Precio.TextLength < 1 || string.IsNullOrEmpty(this.comboBoxCiudadPuertoOrigen.Text) || string.IsNullOrEmpty(this.comboBoxCiudadPuertoDestino.Text))
+            if (Codigo.TextLength < 1 || Precio.TextLength < 1 || string.IsNullOrEmpty(this.textBox1.Text) || string.IsNullOrEmpty(this.textBox2.Text))
             {
                 MessageBox.Show("Debe completar todos los campos");
             }
             else
             {
-                if (String.Equals(this.comboBoxCiudadPuertoOrigen.Text, this.comboBoxCiudadPuertoDestino.Text))
+                if (String.Equals(this.textBox1.Text, this.textBox2.Text))
                 {
                     MessageBox.Show("El puerto de origen debe ser diferente al puerto de destino");
                 }
@@ -95,15 +82,15 @@ namespace FrbaCrucero.AbmRecorrido
                     }
                     else
                     {
-                        if (DBAdapter.checkIfExists("recorrido_existente", Codigo.Text, comboBoxCiudadPuertoOrigen.Text, comboBoxCiudadPuertoDestino.Text))
+                        if (DBAdapter.checkIfExists("recorrido_existente", Codigo.Text, textBox1.Text, textBox2.Text))
                         {
                             MessageBox.Show("Ese recorrido ya existe");
                         }
                         else
                         {
 
-                            DataRow origen = DBAdapter.traerDataTable("ciudad_id", comboBoxCiudadPuertoOrigen.Text).Rows[0];
-                            DataRow destino = DBAdapter.traerDataTable("ciudad_id", comboBoxCiudadPuertoDestino.Text).Rows[0];
+                            DataRow origen = DBAdapter.traerDataTable("ciudad_id", textBox1.Text).Rows[0];
+                            DataRow destino = DBAdapter.traerDataTable("ciudad_id", textBox2.Text).Rows[0];
 
                             DBAdapter.insertarDatosEnTabla("recorrido", Codigo.Text, origen["ciud_id"], destino["ciud_id"], Precio.Text);
                         }
@@ -135,6 +122,22 @@ namespace FrbaCrucero.AbmRecorrido
         private void label5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            ListadoPuertos list = new ListadoPuertos(ref this.textBox1, true);
+            list.Show();
+            list.RefToPrevForm = this;
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ListadoPuertos list = new ListadoPuertos(ref this.textBox2, false);
+            list.Show();
+            list.RefToPrevForm = this;
+            this.Hide();
         }
 
  

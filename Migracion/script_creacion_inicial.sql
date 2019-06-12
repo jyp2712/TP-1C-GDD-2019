@@ -525,7 +525,6 @@ BEGIN
 CREATE TABLE [EYE_OF_THE_TRIGGER].[MedioDePago] (
 	[medio_id] [numeric](18,0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	[medio_descripcion] [nvarchar](255) CONSTRAINT UQ_DESC_MEDIO_DE_PAGO UNIQUE,
- 	[medio_cuotas] [numeric](2,0)
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.MedioDePago creada -----'
 END
@@ -541,7 +540,8 @@ IF NOT EXISTS (
 BEGIN
 CREATE TABLE [EYE_OF_THE_TRIGGER].[Pago] (
 	[pago_id] [numeric](18,0) NOT NULL IDENTITY(1,1) PRIMARY KEY,
- 	[pago_medio_id] [numeric](18,0)
+ 	[pago_medio_id] [numeric](18,0),
+	[pago_medio_cuotas] [numeric](2,0)
 	CONSTRAINT FK_PAGO_MEDIO_DE_PAGO FOREIGN KEY ([pago_medio_id]) REFERENCES [EYE_OF_THE_TRIGGER].[MedioDePago] ([medio_id])
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.Pago creada -----'
@@ -1678,10 +1678,10 @@ IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[verificar_reservas_vencidas]', 'P') IS NOT N
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].verificar_reservas_vencidas
 GO
 
-CREATE PROCEDURE [EYE_OF_THE_TRIGGER].verificar_reservas_vencidas AS
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].verificar_reservas_vencidas (@FechaActual as DATETIME) AS
 BEGIN
 UPDATE EYE_OF_THE_TRIGGER.Reserva SET rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva vencida')
-WHERE rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva pendiente') AND (GETDATE() - rese_fecha_creacion) > 3 
+WHERE rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva pendiente') AND (@FechaActual - rese_fecha_creacion) > 3 
 
 END
 GO
@@ -1717,6 +1717,67 @@ END
 
 GO
 PRINT '----- Trigger [EYE_OF_THE_TRIGGER].[liberar_cabina] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[facturar]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].facturar
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].facturar (@Reserva as int, @Viaje as int, @Crucero as varchar(50), @MedioDePago as varchar(255), @Cuotas as int, @FechaActual as DATETIME) AS
+BEGIN
+DECLARE @PrecioRecorrido as float, @PorcentajeAgregado as float, @PrecioServicio as float
+SET @PrecioRecorrido = (SELECT r.reco_precio FROM EYE_OF_THE_TRIGGER.Recorrido r JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id=rv.reco_id AND rv.viaj_id=@Viaje)
+SET @PrecioServicio = (SELECT serv_precio FROM EYE_OF_THE_TRIGGER.Servicio JOIN EYE_OF_THE_TRIGGER.Crucero ON cruc_id=@Crucero AND cruc_servicio = serv_id)
+SET @PorcentajeAgregado = (SELECT porcentaje_agregado FROM EYE_OF_THE_TRIGGER.TipoCabina JOIN EYE_OF_THE_TRIGGER.Cabina c ON c.cabi_tipo_cabina=id JOIN EYE_OF_THE_TRIGGER.CabinasReservadas cr ON c.cabi_id= cr.cabi_id AND cr.rese_id=@Reserva )
+ 
+INSERT INTO EYE_OF_THE_TRIGGER.Pago (pago_medio_id, pago_medio_cuotas)
+VALUES ((SELECT medio_id FROM EYE_OF_THE_TRIGGER.MedioDePago WHERE medio_descripcion = @MedioDePago), @Cuotas)
+
+INSERT INTO EYE_OF_THE_TRIGGER.Factura (fact_viaje_id, fact_fecha, fact_monto_total)
+VALUES (@Viaje, @FechaActual, (@PrecioRecorrido+@PrecioServicio) + (@PrecioRecorrido+@PrecioServicio)*@PorcentajeAgregado)
+
+INSERT INTO EYE_OF_THE_TRIGGER.Compra (comp_reserva_id, comp_pago_id, comp_fact_id)
+VALUES (@Reserva, (select MAX(pago_id) from EYE_OF_THE_TRIGGER.Pago), (select MAX(fact_id) from EYE_OF_THE_TRIGGER.Factura))
+
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[facturar] creada -----'
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[reservar]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].reservar
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reservar (@Cliente as int, @Crucero as varchar(50), @FechaActual as DATETIME, @Viaje as int, @Cabina as int, @Reserva as int, @Pasajeros as int) AS
+BEGIN
+
+INSERT INTO EYE_OF_THE_TRIGGER.Reserva (rese_cliente_id, rese_crucero_id, rese_fecha_creacion, rese_viaje_id, rese_cabina_id, rese_estado_reserva, rese_cantidad_pasajeros)
+VALUES (@Cliente, @Crucero, @FechaActual, @Viaje, @Cabina, (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva pendiente'), @Pasajeros)
+
+INSERT INTO EYE_OF_THE_TRIGGER.CabinasReservadas (rese_id, cabi_id)
+VALUES ((SELECT MAX(rese_id) FROM EYE_OF_THE_TRIGGER.Reserva), @Cabina)
+
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[reservar] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[abonar_reserva]', 'TR') IS NOT NULL 
+DROP TRIGGER [EYE_OF_THE_TRIGGER].liberar_cabina
+GO
+
+CREATE TRIGGER [EYE_OF_THE_TRIGGER].abonar_reserva ON [EYE_OF_THE_TRIGGER].Compra AFTER INSERT AS
+BEGIN
+
+DECLARE @Reserva as int
+SET @Reserva = (select comp_reserva_id from EYE_OF_THE_TRIGGER.Compra where comp_id=(select MAX(c1.comp_id) from EYE_OF_THE_TRIGGER.Compra c1))
+
+UPDATE EYE_OF_THE_TRIGGER.Reserva SET rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva correcta')
+WHERE rese_id = @Reserva
+
+END
+
+GO
+PRINT '----- Trigger [EYE_OF_THE_TRIGGER].[abonar_reserva] creada -----'
 
 
 /*******  Funciones para la APP  *******/

@@ -65,7 +65,7 @@ namespace FrbaCrucero.AbmCrucero
             }
             else
             {
-                if (DBAdapter.checkIfExists("reservas_para_crucero", this.txtCodigo.Text, Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]), Convert.ToDateTime(this.dateTimePickerBaja.Value)))
+                if (DBAdapter.checkIfExists("reservas_para_crucero", this.txtCodigo.Text, Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]), Convert.ToDateTime(this.dateTimePickerBaja.Text)))
                 {
                     DecisionReplanificacion dr = new DecisionReplanificacion(this.txtCodigo.Text, this.comboBoxMotivo.Text, Convert.ToDateTime(this.dateTimePickerBaja.Value));
                     dr.ShowDialog();

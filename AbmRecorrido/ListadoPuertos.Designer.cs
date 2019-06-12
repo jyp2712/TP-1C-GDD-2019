@@ -1,6 +1,6 @@
-﻿namespace FrbaCrucero.PagoReserva
+﻿namespace FrbaCrucero.AbmRecorrido
 {
-    partial class ListadoOrigenDestinoForm
+    partial class ListadoPuertos
     {
         /// <summary>
         /// Required designer variable.
@@ -41,14 +41,14 @@
             // dgv
             // 
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv.Location = new System.Drawing.Point(12, 107);
+            this.dgv.Location = new System.Drawing.Point(22, 107);
             this.dgv.MultiSelect = false;
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
             this.dgv.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.Size = new System.Drawing.Size(408, 256);
-            this.dgv.TabIndex = 3;
+            this.dgv.TabIndex = 5;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
             // groupBox1
@@ -57,13 +57,12 @@
             this.groupBox1.Controls.Add(this.txtNombreCiudad);
             this.groupBox1.Controls.Add(this.btnLimpiar);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(22, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(408, 89);
-            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // btnBuscar
             // 
@@ -73,7 +72,6 @@
             this.btnBuscar.TabIndex = 3;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // txtNombreCiudad
             // 
@@ -81,7 +79,6 @@
             this.txtNombreCiudad.Name = "txtNombreCiudad";
             this.txtNombreCiudad.Size = new System.Drawing.Size(166, 20);
             this.txtNombreCiudad.TabIndex = 1;
-            this.txtNombreCiudad.TextChanged += new System.EventHandler(this.txtNombreCiudad_TextChanged);
             // 
             // btnLimpiar
             // 
@@ -91,7 +88,6 @@
             this.btnLimpiar.TabIndex = 2;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // label1
             // 
@@ -101,17 +97,16 @@
             this.label1.Size = new System.Drawing.Size(97, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre de ciudad:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // ListadoOrigenDestinoForm
+            // ListadoPuertos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(432, 425);
+            this.ClientSize = new System.Drawing.Size(452, 379);
             this.Controls.Add(this.dgv);
             this.Controls.Add(this.groupBox1);
-            this.Name = "ListadoOrigenDestinoForm";
-            this.Text = "ListadoOrigenDestinoForm";
+            this.Name = "ListadoPuertos";
+            this.Text = "ListadoPuertos";
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

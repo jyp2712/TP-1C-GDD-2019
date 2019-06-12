@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Security.Cryptography;  
+using System.Security.Cryptography;
 
 namespace FrbaCrucero.DB
 {
@@ -20,11 +20,12 @@ namespace FrbaCrucero.DB
             return "SELECT DISTINCT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Reserva] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Viaje] ON rese_viaje_id = viaj_id WHERE (viaj_fecha_inicio BETWEEN convert(datetime, '" + FechaActual + "') AND convert(datetime, '" + fechaReactivacion + "')) AND viaj_crucero_id ='" + crucero + "'";
         }
 
-        public static string SELECT_RECORRIDOS_POR_ID(int id){
-            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_id="+id;
+        public static string SELECT_RECORRIDOS_POR_ID(int id)
+        {
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_id=" + id;
         }
 
-        public static string DELETE_ROLE(int id) 
+        public static string DELETE_ROLE(int id)
         {
             return "UPDATE [GD1C2019].[EYE_OF_THE_TRIGGER].[Rol] SET rol_estado=0 WHERE rol_id=" + id;
         }
@@ -43,6 +44,11 @@ namespace FrbaCrucero.DB
             return "UPDATE [EYE_OF_THE_TRIGGER].[Rol] SET [rol_nombre] = '" + rol_nombre + "',[rol_estado] = 1 WHERE [rol_id] = " + rol_id;
         }
 
+        public static string UPDATE_RESERVA(int reserva_id)
+        {
+            return "UPDATE EYE_OF_THE_TRIGGER.Reserva SET rese_estado_reserva = (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva modificada') WHERE rese_id =" + reserva_id;
+        }
+
         public static string SELECT_ROL_LIKE(string nombreRol)
         {
             return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol] WHERE rol_nombre LIKE '%" + nombreRol + "%'";
@@ -57,7 +63,7 @@ namespace FrbaCrucero.DB
         {
             return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_codigo LIKE '%" + nombreRecorrido + "%'";
         }
-        
+
         public static string SELECT_CRUCEROS_TEXTUAL(string nombreCrucero)
         {
             return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Crucero] WHERE cruc_nombre =" + nombreCrucero;
@@ -70,7 +76,8 @@ namespace FrbaCrucero.DB
 
         public static string SELECT_ALL_ROLES = "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol]";
 
-        public static string SELECT_ROLES_CON_FUNCIONALIDADES(string rol_id) { 
+        public static string SELECT_ROLES_CON_FUNCIONALIDADES(string rol_id)
+        {
             return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Rol] JOIN [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad] on [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad].[rol_id] = [EYE_OF_THE_TRIGGER].[Rol].[rol_id] JOIN [EYE_OF_THE_TRIGGER].[Funcionalidad] on[EYE_OF_THE_TRIGGER].[Funcionalidad].[func_id] = [EYE_OF_THE_TRIGGER].[Rol_Funcionalidad].[func_id]WHERE [EYE_OF_THE_TRIGGER].[Rol].[rol_id] =" + rol_id;
         }
 
@@ -101,17 +108,17 @@ namespace FrbaCrucero.DB
 
         public static string SELECT_CIUDADES_Y_PUERTO_LIKE(string nombre)
         {
-            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = puer_id WHERE puer_estado = 1 AND (ciud_nombre LIKE '%"+ nombre +"%' OR puer_nombre LIKE '%" + nombre + "%')";
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = puer_id WHERE puer_estado = 1 AND (ciud_nombre LIKE '%" + nombre + "%' OR puer_nombre LIKE '%" + nombre + "%')";
         }
 
-        public static string SELECT_CRUCERO_MARCA_SERVICIO_MODELO(string marca, string servicio, string modelo, string fechaSalida, string fechaRegreso, int puertoIdOrigen, int puertoIdDestino) 
+        public static string SELECT_CRUCERO_MARCA_SERVICIO_MODELO(string marca, string servicio, string modelo, string fechaSalida, string fechaRegreso, int puertoIdOrigen, int puertoIdDestino)
         {
             string baseQuery = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Crucero] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Marca] on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio] on serv_id = cruc_servicio JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Viaje] on cruc_id = viaj_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].RecorridoViaje on RecorridoViaje.viaj_id = Viaje.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Recorrido on Recorrido.reco_id = RecorridoViaje.reco_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Puerto p1 on p1.puer_id = Recorrido.reco_origen_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Puerto p2 on p2.puer_id = Recorrido.reco_destino_id WHERE cruc_estado=1 AND Convert(date, viaj_fecha_fin) = Convert(date, '" + fechaRegreso + "') AND Convert(date, viaj_fecha_inicio) = Convert(date, '" + fechaSalida + "') AND p1.puer_id =" + puertoIdOrigen + " AND p2.puer_id = " + puertoIdDestino + " ";
             if (marca.Length > 0)
                 baseQuery = baseQuery + "AND marc_nombre LIKE '%" + marca + "%'";
-            if(servicio.Length > 0)
+            if (servicio.Length > 0)
                 baseQuery = baseQuery + "AND serv_descripcion = '" + servicio + "' AND serv_estado = 1";
-            if(modelo.Length > 0)
+            if (modelo.Length > 0)
                 baseQuery = baseQuery + "AND cruc_modelo LIKE '%" + modelo + "%'";
 
             return baseQuery;

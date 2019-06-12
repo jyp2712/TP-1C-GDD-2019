@@ -162,7 +162,7 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnReservar_Click(object sender, EventArgs e)
         {
-
+            confirmarReserva();
         }
 
         private void btnFechaLlegada_Click(object sender, EventArgs e)
@@ -189,8 +189,14 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnReservarYPagar_Click(object sender, EventArgs e)
         {
-            PagoForm pf = new PagoForm();
+            confirmarReserva();
+            PagoForm pf = new PagoForm(this.reserva.Id, this.reserva.Viaje.Id, this.reserva.Viaje.Crucero.Id);
             pf.ShowDialog();
+        }
+
+        private void confirmarReserva()
+        {
+            //persistir reserva
         }
     }
 }
