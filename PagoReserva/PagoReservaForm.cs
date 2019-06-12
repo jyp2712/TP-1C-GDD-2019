@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaCrucero.Dominio;
 using FrbaCrucero.DB;
+using FrbaCrucero.AbmCliente;
 
 namespace FrbaCrucero.PagoReserva
 {
@@ -19,13 +20,15 @@ namespace FrbaCrucero.PagoReserva
         public Ciudad ciudadDestino {get; set;}
         public Puerto puertoOrigen {get; set;}
         public Puerto puertoDestino { get; set; }
+        public string viajeId { get; set; }
+        public Cliente Cliente { get; set; }
 
         private void cargarTipoCabina()
         {
             try
             {
                 DBConnection dbConnection = DBConnection.getInstance();
-                string query = QueryProvider.SELECT_TIPO_CABINAS_DISPONIBLES(this.crucero.Id);
+                string query = QueryProvider.SELECT_TIPO_CABINAS_DISPONIBLES(this.crucero.Id, this.viajeId);
                 DataSet dsServicio = dbConnection.executeQuery(query);
                 this.comboTipoCabina.DisplayMember = comboTipoCabina.Text;
                 foreach (DataRow row in dsServicio.Tables[0].Rows)
@@ -57,6 +60,7 @@ namespace FrbaCrucero.PagoReserva
             this.txtCabina.Enabled = false;
             this.comboTipoCabina.Enabled = false;
             this.btnCrucero.Enabled = false;
+            this.txtPiso.Enabled = false;
         }
 
         public PagoReservaForm(Reserva reserva)
@@ -162,7 +166,7 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnReservar_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnFechaLlegada_Click(object sender, EventArgs e)
@@ -185,6 +189,21 @@ namespace FrbaCrucero.PagoReserva
         private void groupBox3_Enter(object sender, EventArgs e)
         {
 
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ClienteHome clienteForm = new ClienteHome();
+            var result = clienteForm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                int cliente_id = clienteForm.ClienteId;            //values preserved after close
+                this.btnReservar.Enabled = true;
+                string query = QueryProvider.SELECT_CLIENTE_COMPLETO(cliente_id);
+                DataSet clienteDs = DBConnection.getInstance().executeQuery(query);
+                this.Cliente = new Cliente(clienteDs);
+            }
         }
     }
 }

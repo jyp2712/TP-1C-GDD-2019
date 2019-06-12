@@ -25,6 +25,19 @@ namespace FrbaCrucero
             Dpto = dpto;
         }
 
+        public Domicilio(DataSet ds)
+        {
+            this.Id = Convert.ToInt32(ds.Tables[0].Rows[0]["domi_id"]);
+            this.Pais = Convert.ToString(ds.Tables[0].Rows[0]["domi_pais"]);
+            this.Ciudad = Convert.ToString(ds.Tables[0].Rows[0]["domi_ciudad"]);
+            this.Pais = Convert.ToString(ds.Tables[0].Rows[0]["domi_pais"]);
+            this.Calle = Convert.ToString(ds.Tables[0].Rows[0]["domi_calle"]);
+            this.Nro = Convert.ToInt32(ds.Tables[0].Rows[0]["domi_nro_calle"]);
+            this.Piso = Convert.ToInt32(ds.Tables[0].Rows[0]["domi_piso"]);
+            this.Nro = Convert.ToInt32(ds.Tables[0].Rows[0]["domi_dpto"]);
+
+        }
+
         public string Pais { get; set; }
         public string Ciudad { get; set; }
         public string Calle { get; set; }
