@@ -269,6 +269,12 @@
     <Compile Include="PagoReserva\ListadoOrigenDestinoForm.Designer.cs">
       <DependentUpon>ListadoOrigenDestinoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PagoReserva\PagoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PagoReserva\PagoForm.Designer.cs">
+      <DependentUpon>PagoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PagoReserva\PagoReservaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -379,6 +385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PagoReserva\ListadoOrigenDestinoForm.resx">
       <DependentUpon>ListadoOrigenDestinoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PagoReserva\PagoForm.resx">
+      <DependentUpon>PagoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PagoReserva\PagoReservaForm.resx">
       <DependentUpon>PagoReservaForm.cs</DependentUpon>

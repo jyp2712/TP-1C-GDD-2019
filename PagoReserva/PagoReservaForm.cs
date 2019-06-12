@@ -191,7 +191,6 @@ namespace FrbaCrucero.PagoReserva
 
         }
 
-
         private void button1_Click(object sender, EventArgs e)
         {
             ClienteHome clienteForm = new ClienteHome();
@@ -204,6 +203,13 @@ namespace FrbaCrucero.PagoReserva
                 DataSet clienteDs = DBConnection.getInstance().executeQuery(query);
                 this.Cliente = new Cliente(clienteDs);
             }
+
+        }
+
+        private void btnReservarYPagar_Click(object sender, EventArgs e)
+        {
+            PagoForm pf = new PagoForm();
+            pf.ShowDialog();
         }
     }
 }

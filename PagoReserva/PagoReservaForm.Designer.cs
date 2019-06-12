@@ -48,25 +48,34 @@
             this.txtMarcaCrucero = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pasajesUpDown = new System.Windows.Forms.NumericUpDown();
             this.dtpRegreso = new System.Windows.Forms.DateTimePicker();
             this.dtpSalida = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtPiso = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboTipoCabina = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnReservarYPagar = new System.Windows.Forms.Button();
             this.btnReservar = new System.Windows.Forms.Button();
+
             this.pasajesUpDown = new System.Windows.Forms.NumericUpDown();
             this.comboTipoCabina = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtPiso = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
+
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pasajesUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+
             ((System.ComponentModel.ISupportInitialize)(this.pasajesUpDown)).BeginInit();
             this.groupBox5.SuspendLayout();
+
             this.SuspendLayout();
             // 
             // label2
@@ -263,6 +272,18 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Viaje";
             // 
+            // pasajesUpDown
+            // 
+            this.pasajesUpDown.Location = new System.Drawing.Point(116, 120);
+            this.pasajesUpDown.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.pasajesUpDown.Name = "pasajesUpDown";
+            this.pasajesUpDown.Size = new System.Drawing.Size(120, 20);
+            this.pasajesUpDown.TabIndex = 22;
+            // 
             // dtpRegreso
             // 
             this.dtpRegreso.Location = new System.Drawing.Point(116, 93);
@@ -302,6 +323,31 @@
             this.groupBox3.Text = "Cabina";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
+            // txtPiso
+            // 
+            this.txtPiso.Location = new System.Drawing.Point(66, 65);
+            this.txtPiso.Name = "txtPiso";
+            this.txtPiso.Size = new System.Drawing.Size(100, 20);
+            this.txtPiso.TabIndex = 27;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 68);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(27, 13);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Piso";
+            // 
+            // comboTipoCabina
+            // 
+            this.comboTipoCabina.FormattingEnabled = true;
+            this.comboTipoCabina.Location = new System.Drawing.Point(66, 39);
+            this.comboTipoCabina.Name = "comboTipoCabina";
+            this.comboTipoCabina.Size = new System.Drawing.Size(100, 21);
+            this.comboTipoCabina.TabIndex = 25;
+            this.comboTipoCabina.SelectedIndexChanged += new System.EventHandler(this.comboTipoCabina_SelectedIndexChanged);
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.btnReservarYPagar);
@@ -321,6 +367,7 @@
             this.btnReservarYPagar.TabIndex = 1;
             this.btnReservarYPagar.Text = "Confirmar Reserva y Pagar";
             this.btnReservarYPagar.UseVisualStyleBackColor = true;
+            this.btnReservarYPagar.Click += new System.EventHandler(this.btnReservarYPagar_Click);
             // 
             // btnReservar
             // 
@@ -407,6 +454,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pasajesUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);

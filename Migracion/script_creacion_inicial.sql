@@ -1610,7 +1610,7 @@ GO
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_reemplazar_crucero(@Crucero as varchar(50), @Reserva as int, @Viaje as int, @FechaInicio as DATETIME, @FechaFin as DATETIME) AS
 
 DECLARE @CruceroNuevo as varchar(50)
-SET @CruceroNuevo = (SELECT TOP 1 c1.cruc_id FROM EYE_OF_THE_TRIGGER.Crucero c1 JOIN EYE_OF_THE_TRIGGER.Crucero c2 ON c1.cruc_id != c2.cruc_id AND c1.cruc_servicio = c2.cruc_servicio AND c1.cruc_modelo = c2.cruc_modelo AND c1.cruc_marca = c2.cruc_marca AND c1.cruc_cant_cabinas >= c2.cruc_cant_cabinas
+SET @CruceroNuevo = (SELECT TOP 1 c1.cruc_id FROM EYE_OF_THE_TRIGGER.Crucero c1 JOIN EYE_OF_THE_TRIGGER.Crucero c2 ON c1.cruc_id != c2.cruc_id AND c1.cruc_servicio = c2.cruc_servicio AND c1.cruc_modelo = c2.cruc_modelo AND c1.cruc_marca = c2.cruc_marca
 WHERE c1.cruc_estado = 1 AND c2.cruc_id = @Crucero AND c1.cruc_id NOT IN(SELECT c3.cruc_id FROM EYE_OF_THE_TRIGGER.Crucero c3 JOIN EYE_OF_THE_TRIGGER.Viaje v ON v.viaj_crucero_id = c3.cruc_id
 																		WHERE (v.viaj_fecha_inicio NOT BETWEEN @FechaInicio AND @FechaFin) AND (v.viaj_fecha_fin_estimada NOT BETWEEN @FechaInicio AND @FechaFin)))
 
