@@ -153,7 +153,7 @@ namespace FrbaCrucero.AbmCrucero
 
             else
             {
-                DBAdapter.actualizarDatosEnTabla("crucero", this.id, this.txtNombre.Text, this.txtModelo.Text, Convert.ToInt32(this.comboMarcas.Text), Convert.ToInt32(this.comboServicio.Text));
+                DBAdapter.actualizarDatosEnTabla("crucero", this.txtCodigo.Text, this.txtNombre.Text, this.txtModelo.Text, this.comboServicio.Text, this.comboMarcas.Text);
                 MessageBox.Show("Crucero " + id + " modificado");
                 this.cargarDatos();
             }

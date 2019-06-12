@@ -1577,14 +1577,17 @@ IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_crucero]', 'P') IS NOT NULL
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_crucero
 GO
 
-CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_crucero(@Codigo as varchar(50), @FechaAlta as DATETIME, @Nombre as varchar(255),
-@Modelo as varchar(50), @Servicio as int, @Marca as int, @Cabinas as int) AS
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_crucero(@Codigo as varchar(50), @Nombre as varchar(255),
+@Modelo as varchar(255), @Servicio as varchar(255), @Marca as varchar(255)) AS
 
-UPDATE [EYE_OF_THE_TRIGGER].Crucero SET cruc_id = @Codigo, cruc_nombre = @Nombre, cruc_modelo = @Modelo, cruc_servicio = @Servicio, cruc_marca = @Marca 
+UPDATE [EYE_OF_THE_TRIGGER].Crucero SET cruc_nombre = @Nombre, cruc_modelo = @Modelo, 
+cruc_servicio = (SELECT [serv_id] FROM [EYE_OF_THE_TRIGGER].Servicio WHERE [serv_descripcion] = @Servicio), 
+cruc_marca = (SELECT [marc_id] FROM [EYE_OF_THE_TRIGGER].Marca WHERE [marc_nombre] = @Marca) 
 WHERE cruc_id = @Codigo  
-RETURN 1
+RETURN 0
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[actualizar_crucero] creada -----'
+
 
 
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_reemplazar_crucero]', 'P') IS NOT NULL 
