@@ -124,9 +124,9 @@ namespace FrbaCrucero.DB
             return baseQuery;
         }
 
-        internal static string SELECT_TIPO_CABINAS_DISPONIBLES(string idCrucero)
+        internal static string SELECT_TIPO_CABINAS_DISPONIBLES(string idCrucero, string viajeId)
         {
-            return "SELECT DISTINCT(descripcion) FROM [EYE_OF_THE_TRIGGER].[Cabina] JOIN [EYE_OF_THE_TRIGGER].TipoCabina on cabi_tipo_cabina = id WHERE cabi_cruc_id = '" + idCrucero + "' and cabi_id not in (SELECT cabi_id FROM [EYE_OF_THE_TRIGGER].CabinasReservadas)";
+            return "SELECT DISTINCT(descripcion) FROM [EYE_OF_THE_TRIGGER].[Cabina] JOIN [EYE_OF_THE_TRIGGER].TipoCabina on cabi_tipo_cabina = id JOIN [EYE_OF_THE_TRIGGER].Viaje on cabi_cruc_id = viaj_crucero_id WHERE cabi_cruc_id = '" + idCrucero + "' and cabi_id not in (SELECT cabi_id FROM [EYE_OF_THE_TRIGGER].CabinasReservadas) and viaj_id = " + viajeId;
         }
 
 
@@ -134,6 +134,11 @@ namespace FrbaCrucero.DB
         internal static string SELECT_CABINAS(string idCrucero, string descripcion)
         {
             return "SELECT TOP 1 * FROM [EYE_OF_THE_TRIGGER].[Cabina] JOIN [EYE_OF_THE_TRIGGER].TipoCabina on cabi_tipo_cabina = id WHERE cabi_cruc_id = '" + idCrucero + "' and cabi_id not in (SELECT cabi_id FROM [EYE_OF_THE_TRIGGER].CabinasReservadas) and descripcion = '" + descripcion + "'";
+        }
+
+        internal static string SELECT_CLIENTE_COMPLETO(int clieId)
+        {
+            return "SELECT * FROM  [GD1C2019].[EYE_OF_THE_TRIGGER].[Cliente] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[TipoDocumento] on clie_tipo_doc = TipoDocumento.id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Domicilio] on clie_domicilio_id = domi_id WHERE clie_id = " + clieId;
         }
     }
 }

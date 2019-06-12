@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaCrucero.DB;
 using FrbaCrucero.Validaciones;
+using FrbaCrucero.Dominio;
 
 namespace FrbaCrucero.AbmCliente
 {
@@ -253,6 +254,13 @@ namespace FrbaCrucero.AbmCliente
             }
 
             MessageBox.Show("Datos cargados correctamente");
+
+            this.documento = Convert.ToInt32(this.Documento.Text);
+            ds = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Cliente] WHERE clie_doc=" + this.documento);
+            int clie_id = Convert.ToInt32(ds.Tables[0].Rows[0]["clie_id"]);
+            this.ClienteId = clie_id;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void actualizarCliente(DataRow row)
@@ -324,5 +332,7 @@ namespace FrbaCrucero.AbmCliente
             this.email.BackColor = Color.White;
 
         }
+
+        public int ClienteId { get; set; }
     }
 }

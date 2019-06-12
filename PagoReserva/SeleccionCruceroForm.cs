@@ -115,7 +115,8 @@ namespace FrbaCrucero.PagoReserva
                 DataGridViewRow selectedRow = dgv.Rows[e.RowIndex];
 
                 Crucero crucero = Mappers.GeneralMapper.deDataRowACrucero(selectedRow);
-
+                
+                this.RefToNextForm.viajeId = Convert.ToString(selectedRow.Cells["viaj_id"].Value);
                 this.RefToNextForm.llenarInfoCrucero(crucero);
                 this.RefToNextForm.Show();
                 this.Hide();
