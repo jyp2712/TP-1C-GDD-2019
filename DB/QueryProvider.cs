@@ -15,9 +15,9 @@ namespace FrbaCrucero.DB
         public static string SELECT_MARCAS = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Marca]";
         public static string SELECT_CRUCEROS = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Crucero]";
 
-        public static string SELECT_RESERVAS_REPLANIFICACION(string crucero, String FechaActual, String fechaReactivacion)
+        public static string SELECT_VIAJES_REPLANIFICACION(string crucero, String FechaActual, String fechaReactivacion)
         {
-            return "SELECT DISTINCT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Reserva] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Viaje] ON rese_viaje_id = viaj_id WHERE (viaj_fecha_inicio BETWEEN convert(datetime, '" + FechaActual + "') AND convert(datetime, '" + fechaReactivacion + "')) AND viaj_crucero_id ='" + crucero + "'";
+            return "SELECT DISTINCT viaj_id FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Viaje] WHERE (viaj_fecha_inicio BETWEEN convert(datetime, '" + FechaActual + "') AND convert(datetime, '" + fechaReactivacion + "')) AND viaj_crucero_id ='" + crucero + "'";
         }
 
         public static string SELECT_RECORRIDOS_POR_ID(int id)

@@ -65,7 +65,7 @@ namespace FrbaCrucero.AbmCrucero
             }
             else
             {
-                if (DBAdapter.checkIfExists("viajes_para_crucero", this.txtCodigo.Text, Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]), Convert.ToDateTime(this.dateTimePickerBaja.Text)))
+                if (DBConnection.getInstance().executeQuery(QueryProvider.SELECT_VIAJES_REPLANIFICACION(this.txtCodigo.Text, Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).ToString(), Convert.ToDateTime(this.dateTimePickerBaja.Text).ToString())).Tables[0].Rows.Count > 0)
                 {
                     DecisionReplanificacion dr = new DecisionReplanificacion(this.txtCodigo.Text, this.comboBoxMotivo.Text, Convert.ToDateTime(this.dateTimePickerBaja.Value));
                     dr.ShowDialog();

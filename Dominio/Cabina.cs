@@ -7,7 +7,6 @@ namespace FrbaCrucero.Dominio
 {
     public class Cabina : Entidad
     {
-        private System.Data.DataSet ds;
 
         public Cabina(int id, int numero, int piso, TipoCabina tipo, Crucero crucero)
         {

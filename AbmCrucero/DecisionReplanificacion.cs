@@ -31,20 +31,21 @@ namespace FrbaCrucero.AbmCrucero
         private void button1_Click(object sender, EventArgs e)
         {
             DBConnection dbConnection = DBConnection.getInstance();
-            DataSet ds = dbConnection.executeQuery(QueryProvider.SELECT_RESERVAS_REPLANIFICACION(crucero, DateTime.Parse(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).ToShortDateString(), fechaReactivacion.ToShortDateString()));
+            DataSet ds = dbConnection.executeQuery(QueryProvider.SELECT_VIAJES_REPLANIFICACION(this.crucero, Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).ToString(), this.fechaReactivacion.ToString()));
             foreach (DataRow row in ds.Tables[0].Rows)
             {
-                DBAdapter.ejecutarProcedure("baja_reserva_por_crucero", Convert.ToInt32(row["rese_id"]), Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]));
+                DBAdapter.ejecutarProcedure("baja_viaje_por_crucero", row["viaj_id"], Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]));
             }
+
+            MessageBox.Show("Viajes y Reservas canceladas");
+            this.reemplazoOk = true;
             this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             DBConnection dbConnection = DBConnection.getInstance();
-            Console.WriteLine(QueryProvider.SELECT_RESERVAS_REPLANIFICACION(crucero, DateTime.Parse(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).ToShortDateString(), fechaReactivacion.ToShortDateString()));
-
-            DataSet ds = dbConnection.executeQuery(QueryProvider.SELECT_RESERVAS_REPLANIFICACION(crucero, DateTime.Parse(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).ToShortDateString(), fechaReactivacion.ToShortDateString()));
+            DataSet ds = dbConnection.executeQuery(QueryProvider.SELECT_VIAJES_REPLANIFICACION(this.crucero, Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).ToString(), this.fechaReactivacion.ToString()));
 
             if (string.Equals("Fuera de Servicio", this.motivo))
             {
@@ -52,7 +53,7 @@ namespace FrbaCrucero.AbmCrucero
                 cdc.ShowDialog();
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    DBAdapter.ejecutarProcedure("correr_fecha_reserva", Convert.ToInt32(row["rese_id"]), this.crucero, cdc.dias, Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]));
+                    DBAdapter.ejecutarProcedure("correr_fecha_reserva", Convert.ToInt32(row["viaj_id"]), cdc.dias);
                 }
                 MessageBox.Show("Viajes replanificados");
                 this.reemplazoOk = true;
@@ -62,13 +63,13 @@ namespace FrbaCrucero.AbmCrucero
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        DBAdapter.actualizarDatosEnTabla("reemplazar_crucero", this.crucero, Convert.ToInt32(row["rese_id"]), Convert.ToInt32(row["viaj_id"]), Convert.ToDateTime(row["viaj_fecha_inicio"]), Convert.ToDateTime(row["viaj_fecha_fin_estimada"]));
+                        DBAdapter.actualizarDatosEnTabla("reemplazar_crucero", this.crucero, Convert.ToInt32(row["viaj_id"]));
                     }
                     MessageBox.Show("Viajes replanificados");
                     this.reemplazoOk = true;
                 }
                 catch { 
-                    MessageBox.Show("No se pueden reemplazar todas las reservas. Debera dar de alta un crucero nuevo");
+                    MessageBox.Show("No se pueden reemplazar los viajes. Debera dar de alta un crucero nuevo");
 
                     CruceroAlta car = new CruceroAlta(this.crucero);
                     car.ShowDialog();
@@ -79,7 +80,7 @@ namespace FrbaCrucero.AbmCrucero
 
                         foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            DBAdapter.ejecutarProcedure("reemplazar_crucero_reserva", row["rese_id"], cruceroNuevo, row["viaj_id"], this.crucero);
+                            DBAdapter.ejecutarProcedure("reemplazar_crucero_reserva", cruceroNuevo, row["viaj_id"], this.crucero);
                         }
                         MessageBox.Show("Viajes replanificados");
                         this.reemplazoOk = true;
