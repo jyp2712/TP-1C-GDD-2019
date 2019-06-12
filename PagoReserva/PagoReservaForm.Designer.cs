@@ -60,10 +60,6 @@
             this.btnReservarYPagar = new System.Windows.Forms.Button();
             this.btnReservar = new System.Windows.Forms.Button();
 
-            this.pasajesUpDown = new System.Windows.Forms.NumericUpDown();
-            this.comboTipoCabina = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtPiso = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
 
