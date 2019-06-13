@@ -87,7 +87,7 @@ namespace FrbaCrucero.DB
         */
         public static string SELECT_RESERVA(string idReserva)
         {
-            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Reserva JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Cliente on rese_cliente_id = clie_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Crucero on cruc_id = rese_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].TipoDocumento on clie_tipo_doc = TipoDocumento.id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Domicilio on clie_domicilio_id = domi_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Marca on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Viaje on rese_viaje_id = viaj_id WHERE rese_id='" + idReserva + "' AND rese_estado_reserva = 3";
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Reserva JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Cliente on rese_cliente_id = clie_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Crucero on cruc_id = rese_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Servicio on cruc_servicio=serv_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].TipoDocumento on clie_tipo_doc = TipoDocumento.id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Domicilio on clie_domicilio_id = domi_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Marca on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Viaje v on rese_viaje_id = v.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].RecorridoViaje rv on rv.viaj_id = v.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Recorrido r on r.reco_id = rv.reco_id WHERE rese_id='" + idReserva + "' AND rese_estado_reserva = 3";
         }
 
 
@@ -98,10 +98,10 @@ namespace FrbaCrucero.DB
 
         }
 
-        internal static string SELECT_CABINA()
+        internal static string SELECT_CABINA(int cabinaId)
         {
             //throw new NotImplementedException();
-            return "";
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Cabina JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].TipoCabina ON cabi_tipo_cabina = id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Crucero ON cruc_id=cabi_cruc_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Marca ON marc_id=cruc_marca WHERE cabi_id=" + cabinaId;
         }
 
         public static string SELECT_CIUDADES_Y_PUERTO = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Ciudad JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Puerto] on ciud_puerto_id = puer_id WHERE puer_estado = 1";

@@ -79,7 +79,7 @@ namespace FrbaCrucero.Mappers
         public static Cabina deDataSetACabina(int cabinaId)
         
         {
-            DataSet ds = DBConnection.getInstance().executeQuery(QueryProvider.SELECT_CABINA());
+            DataSet ds = DBConnection.getInstance().executeQuery(QueryProvider.SELECT_CABINA(cabinaId));
             if (ds.Tables[0].Rows.Count == 0) 
             {
                 return null;
@@ -102,9 +102,9 @@ namespace FrbaCrucero.Mappers
 
         public static TipoServicio deDataSetATipoServicio(DataSet ds)
         {
-            //return new TipoServicio(id, desc, precio, estado);
+            return new TipoServicio(Convert.ToInt32(ds.Tables[0].Rows[0]["serv_id"]), Convert.ToString(ds.Tables[0].Rows[0]["serv_descripcion"]), Convert.ToDouble(ds.Tables[0].Rows[0]["serv_precio"]), Convert.ToInt32(ds.Tables[0].Rows[0]["serv_estado"]));
             //TODO
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public static Reserva deDataSetAReserva(DataSet ds)
@@ -119,14 +119,13 @@ namespace FrbaCrucero.Mappers
             int cabinaId = Convert.ToInt32(ds.Tables[0].Rows[0]["rese_cabina_id"]);
             Cabina cabina = deDataSetACabina(cabinaId);
             TipoServicio servicio = deDataSetATipoServicio(ds);
-            EstadoReserva estadoReserva = deDataSetAEstadoReserva(ds);
             int pasajeros = Convert.ToInt32(ds.Tables[0].Rows[0]["rese_cantidad_pasajeros"]);
             DataSet dsOrigen = DBConnection.getInstance().executeQuery(QueryProvider.SELECT_PUERTO_POR_CIUDAD(Convert.ToString(ds.Tables[0].Rows[0]["reco_origen_id"])));
             DataSet dsDestino = DBConnection.getInstance().executeQuery(QueryProvider.SELECT_PUERTO_POR_CIUDAD(Convert.ToString(ds.Tables[0].Rows[0]["reco_destino_id"])));
             Puerto origen = new Puerto(dsOrigen);
             Puerto destino = new Puerto(dsDestino);
 
-            return new Reserva(id, cliente, crucero, fechaCreacion, viaje, cabina, servicio, estadoReserva, pasajeros, origen, destino);
+            return new Reserva(id, cliente, crucero, fechaCreacion, viaje, cabina, servicio, new EstadoReserva(3, "Reserva pendiente"), pasajeros, origen, destino);
 
         }
 
