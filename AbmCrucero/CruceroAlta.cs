@@ -175,7 +175,7 @@ namespace FrbaCrucero.AbmCrucero
 
         private void txtCodigo_TextChanged(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrWhiteSpace(this.txtCodigo.Text)) this.txtCodigo.Clear();
         }
 
         private void Limpiar_Click(object sender, EventArgs e)
@@ -190,6 +190,17 @@ namespace FrbaCrucero.AbmCrucero
 
         private void comboMarcas_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(this.txtNombre.Text)) this.txtNombre.Clear();
+        }
+
+        private void txtModelo_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(this.txtModelo.Text)) this.txtModelo.Clear();
 
         }
     }

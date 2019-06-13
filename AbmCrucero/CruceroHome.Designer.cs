@@ -39,7 +39,7 @@
             this.button3.Location = new System.Drawing.Point(92, 217);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(132, 60);
-            this.button3.TabIndex = 5;
+            this.button3.TabIndex = 2;
             this.button3.Text = "Modificacion";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -49,7 +49,7 @@
             this.Baja.Location = new System.Drawing.Point(94, 132);
             this.Baja.Name = "Baja";
             this.Baja.Size = new System.Drawing.Size(132, 60);
-            this.Baja.TabIndex = 4;
+            this.Baja.TabIndex = 1;
             this.Baja.Text = "Baja";
             this.Baja.UseVisualStyleBackColor = true;
             this.Baja.Click += new System.EventHandler(this.Baja_Click);
@@ -59,7 +59,7 @@
             this.Alta.Location = new System.Drawing.Point(92, 52);
             this.Alta.Name = "Alta";
             this.Alta.Size = new System.Drawing.Size(132, 60);
-            this.Alta.TabIndex = 3;
+            this.Alta.TabIndex = 0;
             this.Alta.Text = "Alta";
             this.Alta.UseVisualStyleBackColor = true;
             this.Alta.Click += new System.EventHandler(this.Alta_Click);

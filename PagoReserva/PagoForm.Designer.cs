@@ -50,6 +50,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(177, 51);
             this.comboBox1.Name = "comboBox1";
@@ -71,7 +72,7 @@
             this.button1.Location = new System.Drawing.Point(289, 323);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
+            this.button1.TabIndex = 8;
             this.button1.Text = "Confirmar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -91,7 +92,7 @@
             0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDown1.TabIndex = 3;
+            this.numericUpDown1.TabIndex = 6;
             this.numericUpDown1.Value = new decimal(new int[] {
             1,
             0,
@@ -121,14 +122,14 @@
             this.Tarjeta.Location = new System.Drawing.Point(177, 125);
             this.Tarjeta.Name = "Tarjeta";
             this.Tarjeta.Size = new System.Drawing.Size(147, 20);
-            this.Tarjeta.TabIndex = 6;
+            this.Tarjeta.TabIndex = 2;
             // 
             // Nombre
             // 
             this.Nombre.Location = new System.Drawing.Point(177, 165);
             this.Nombre.Name = "Nombre";
             this.Nombre.Size = new System.Drawing.Size(147, 20);
-            this.Nombre.TabIndex = 8;
+            this.Nombre.TabIndex = 3;
             // 
             // label4
             // 
@@ -144,7 +145,7 @@
             this.Codigo.Location = new System.Drawing.Point(177, 203);
             this.Codigo.Name = "Codigo";
             this.Codigo.Size = new System.Drawing.Size(147, 20);
-            this.Codigo.TabIndex = 10;
+            this.Codigo.TabIndex = 4;
             // 
             // label5
             // 
@@ -171,7 +172,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(177, 241);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(69, 20);
-            this.dateTimePicker1.TabIndex = 12;
+            this.dateTimePicker1.TabIndex = 5;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // label7
@@ -198,18 +199,19 @@
             // 
             // comboBox2
             // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(177, 88);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(147, 21);
-            this.comboBox2.TabIndex = 38;
+            this.comboBox2.TabIndex = 1;
             // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(29, 324);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 40;
+            this.button2.TabIndex = 7;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);

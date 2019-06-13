@@ -47,7 +47,7 @@
             this.btnIngresarCliente.Location = new System.Drawing.Point(53, 44);
             this.btnIngresarCliente.Name = "btnIngresarCliente";
             this.btnIngresarCliente.Size = new System.Drawing.Size(182, 58);
-            this.btnIngresarCliente.TabIndex = 2;
+            this.btnIngresarCliente.TabIndex = 0;
             this.btnIngresarCliente.Text = "Ingresar como cliente";
             this.btnIngresarCliente.UseVisualStyleBackColor = true;
             this.btnIngresarCliente.Click += new System.EventHandler(this.btnIngresarCliente_Click);
@@ -60,7 +60,7 @@
             this.Controls.Add(this.btnIngresarCliente);
             this.Controls.Add(this.btnIngresarAdministrador);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "FrbaCrucero";
             this.ResumeLayout(false);
 
         }

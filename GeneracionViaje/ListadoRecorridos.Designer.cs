@@ -52,7 +52,7 @@
             this.dataGridViewRecorridos.Name = "dataGridViewRecorridos";
             this.dataGridViewRecorridos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewRecorridos.Size = new System.Drawing.Size(590, 275);
-            this.dataGridViewRecorridos.TabIndex = 5;
+            this.dataGridViewRecorridos.TabIndex = 0;
             this.dataGridViewRecorridos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRecorridos_CellContentClick);
             // 
             // groupBox1
@@ -75,7 +75,7 @@
             this.textNombre2.Location = new System.Drawing.Point(60, 53);
             this.textNombre2.Name = "textNombre2";
             this.textNombre2.Size = new System.Drawing.Size(150, 20);
-            this.textNombre2.TabIndex = 5;
+            this.textNombre2.TabIndex = 1;
             // 
             // Filtro2
             // 
@@ -111,7 +111,7 @@
             this.txtNombre.Location = new System.Drawing.Point(60, 17);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(150, 20);
-            this.txtNombre.TabIndex = 1;
+            this.txtNombre.TabIndex = 0;
             // 
             // Filtro1
             // 

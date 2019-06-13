@@ -96,7 +96,7 @@
             this.Guardar.Location = new System.Drawing.Point(236, 306);
             this.Guardar.Name = "Guardar";
             this.Guardar.Size = new System.Drawing.Size(75, 23);
-            this.Guardar.TabIndex = 7;
+            this.Guardar.TabIndex = 8;
             this.Guardar.Text = "Guardar";
             this.Guardar.UseVisualStyleBackColor = true;
             this.Guardar.Click += new System.EventHandler(this.Guardar_Click);
@@ -106,31 +106,35 @@
             this.txtNombre.Location = new System.Drawing.Point(152, 92);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(159, 20);
-            this.txtNombre.TabIndex = 9;
+            this.txtNombre.TabIndex = 1;
+            this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
             // txtModelo
             // 
             this.txtModelo.Location = new System.Drawing.Point(152, 128);
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(159, 20);
-            this.txtModelo.TabIndex = 10;
+            this.txtModelo.TabIndex = 2;
+            this.txtModelo.TextChanged += new System.EventHandler(this.txtModelo_TextChanged);
             // 
             // comboMarcas
             // 
+            this.comboMarcas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMarcas.FormattingEnabled = true;
             this.comboMarcas.Location = new System.Drawing.Point(152, 165);
             this.comboMarcas.Name = "comboMarcas";
             this.comboMarcas.Size = new System.Drawing.Size(159, 21);
-            this.comboMarcas.TabIndex = 12;
+            this.comboMarcas.TabIndex = 3;
             this.comboMarcas.SelectedIndexChanged += new System.EventHandler(this.comboMarcas_SelectedIndexChanged);
             // 
             // comboServicio
             // 
+            this.comboServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboServicio.FormattingEnabled = true;
             this.comboServicio.Location = new System.Drawing.Point(152, 204);
             this.comboServicio.Name = "comboServicio";
             this.comboServicio.Size = new System.Drawing.Size(159, 21);
-            this.comboServicio.TabIndex = 13;
+            this.comboServicio.TabIndex = 4;
             this.comboServicio.SelectedIndexChanged += new System.EventHandler(this.comboServicio_SelectedIndexChanged);
             // 
             // txtCabinas
@@ -139,7 +143,7 @@
             this.txtCabinas.Location = new System.Drawing.Point(152, 243);
             this.txtCabinas.Name = "txtCabinas";
             this.txtCabinas.Size = new System.Drawing.Size(65, 20);
-            this.txtCabinas.TabIndex = 14;
+            this.txtCabinas.TabIndex = 5;
             // 
             // label1
             // 
@@ -159,7 +163,7 @@
             this.txtCodigo.Location = new System.Drawing.Point(152, 58);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(159, 20);
-            this.txtCodigo.TabIndex = 23;
+            this.txtCodigo.TabIndex = 0;
             this.txtCodigo.TextChanged += new System.EventHandler(this.txtCodigo_TextChanged);
             // 
             // label8
@@ -176,7 +180,7 @@
             this.Seleccionar.Location = new System.Drawing.Point(236, 241);
             this.Seleccionar.Name = "Seleccionar";
             this.Seleccionar.Size = new System.Drawing.Size(75, 23);
-            this.Seleccionar.TabIndex = 24;
+            this.Seleccionar.TabIndex = 6;
             this.Seleccionar.Text = "Seleccionar";
             this.Seleccionar.UseVisualStyleBackColor = true;
             this.Seleccionar.Click += new System.EventHandler(this.Seleccionar_Click);
@@ -186,7 +190,7 @@
             this.Limpiar.Location = new System.Drawing.Point(31, 306);
             this.Limpiar.Name = "Limpiar";
             this.Limpiar.Size = new System.Drawing.Size(75, 23);
-            this.Limpiar.TabIndex = 25;
+            this.Limpiar.TabIndex = 7;
             this.Limpiar.Text = "Limpiar";
             this.Limpiar.UseVisualStyleBackColor = true;
             this.Limpiar.Click += new System.EventHandler(this.Limpiar_Click);

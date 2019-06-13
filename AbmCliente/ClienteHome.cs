@@ -30,6 +30,33 @@ namespace FrbaCrucero.AbmCliente
 
         }
 
+        public ClienteHome(int id)
+        {
+            InitializeComponent();
+            this.Documento.Text = id.ToString();
+            Action<Control.ControlCollection> func = null;
+            func = (controls) =>
+            {
+                foreach (Control control in controls)
+                {
+                    if (control is TextBox) (control as TextBox).Enabled = false;
+                }
+            };
+
+            func(Controls);
+            this.comboBoxTipoDoc.Enabled = false;
+            this.Calle.Enabled = false;
+            this.Nro.Enabled = false;
+            this.Piso.Enabled = false;
+            this.Dpto.Enabled = false;
+            this.Ciudad.Enabled = false;
+            this.Pais.Enabled = false;
+            this.Telefono.Enabled = false;
+            this.dateTimePicker1.Enabled = false;
+            this.button3.Visible = false;
+            this.Agregar.Visible = false;
+        }
+
         private void cargarTiposDocumentos()
         {
             DataSet dsDoc;
@@ -240,7 +267,7 @@ namespace FrbaCrucero.AbmCliente
                 {
 
                     DataSet dsDoc;
-                    dsDoc = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[TipoDocumento] WHERE descripcion='" + this.comboBoxTipoDoc.Text+"'");
+                    dsDoc = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[TipoDocumento] WHERE descripcion='" + this.comboBoxTipoDoc.Text + "'");
                     //dsDom = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Domicilio] WHERE domi_calle=" + this.Calle.Text + " AND domi_nro_calle=" + Convert.ToInt32(this.Nro.Text)+
                     //    " AND domi_piso=" + this.Piso.Text + " AND domi_dpto=" + this.Dpto.Text + " AND domi_ciudad=" + this.Ciudad.Text + " AND domi_pais=" + this.Pais.Text);
 
@@ -266,11 +293,11 @@ namespace FrbaCrucero.AbmCliente
         private void actualizarCliente(DataRow row)
         {
             DataSet dsDoc;
-            dsDoc = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[TipoDocumento] WHERE descripcion='" + this.comboBoxTipoDoc.Text+"'");
+            dsDoc = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[TipoDocumento] WHERE descripcion='" + this.comboBoxTipoDoc.Text + "'");
 
             DBAdapter.actualizarDatosEnTabla("cliente", Convert.ToInt32(row["clie_id"]), this.Nombre.Text, this.Apellido.Text,
                 Convert.ToInt32(dsDoc.Tables[0].Rows[0]["id"]), Convert.ToInt32(this.Documento.Text),
-                this.Calle.Text, Convert.ToInt32(this.Nro.Text), this.Piso.Text, this.Dpto.Text, this.Ciudad.Text, 
+                this.Calle.Text, Convert.ToInt32(this.Nro.Text), this.Piso.Text, this.Dpto.Text, this.Ciudad.Text,
                 this.Pais.Text, this.Telefono.Text, this.email.Text, Convert.ToDateTime(this.dateTimePicker1.Text));
         }
 
@@ -289,7 +316,6 @@ namespace FrbaCrucero.AbmCliente
         private void Apellido_TextChanged(object sender, EventArgs e)
         {
             this.Apellido.BackColor = Color.White;
-
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)

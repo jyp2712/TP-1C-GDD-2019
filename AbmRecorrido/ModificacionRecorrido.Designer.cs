@@ -30,12 +30,12 @@
         {
             this.dataGridViewRecorridos = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textNombre2 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textNombre2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecorridos)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +52,7 @@
             this.dataGridViewRecorridos.Name = "dataGridViewRecorridos";
             this.dataGridViewRecorridos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewRecorridos.Size = new System.Drawing.Size(590, 191);
-            this.dataGridViewRecorridos.TabIndex = 5;
+            this.dataGridViewRecorridos.TabIndex = 0;
             this.dataGridViewRecorridos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRecorridos_CellContentClick);
             // 
             // groupBox1
@@ -69,6 +69,22 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
+            // 
+            // textNombre2
+            // 
+            this.textNombre2.Location = new System.Drawing.Point(60, 46);
+            this.textNombre2.Name = "textNombre2";
+            this.textNombre2.Size = new System.Drawing.Size(150, 20);
+            this.textNombre2.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 49);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Filtro2";
             // 
             // btnBuscar
             // 
@@ -95,7 +111,7 @@
             this.txtNombre.Location = new System.Drawing.Point(60, 17);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(150, 20);
-            this.txtNombre.TabIndex = 1;
+            this.txtNombre.TabIndex = 0;
             // 
             // label1
             // 
@@ -105,22 +121,6 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Filtro1";
-            // 
-            // textNombre2
-            // 
-            this.textNombre2.Location = new System.Drawing.Point(60, 46);
-            this.textNombre2.Name = "textNombre2";
-            this.textNombre2.Size = new System.Drawing.Size(150, 20);
-            this.textNombre2.TabIndex = 5;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 49);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Filtro2";
             // 
             // ModificacionRecorrido
             // 

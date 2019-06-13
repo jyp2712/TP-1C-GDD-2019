@@ -55,7 +55,7 @@
             this.Cancelar.Location = new System.Drawing.Point(22, 360);
             this.Cancelar.Name = "Cancelar";
             this.Cancelar.Size = new System.Drawing.Size(75, 23);
-            this.Cancelar.TabIndex = 41;
+            this.Cancelar.TabIndex = 9;
             this.Cancelar.Text = "Cancelar";
             this.Cancelar.UseVisualStyleBackColor = true;
             this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
@@ -65,7 +65,7 @@
             this.Seleccionar.Location = new System.Drawing.Point(239, 237);
             this.Seleccionar.Name = "Seleccionar";
             this.Seleccionar.Size = new System.Drawing.Size(75, 23);
-            this.Seleccionar.TabIndex = 40;
+            this.Seleccionar.TabIndex = 6;
             this.Seleccionar.Text = "Seleccionar";
             this.Seleccionar.UseVisualStyleBackColor = true;
             // 
@@ -74,7 +74,7 @@
             this.txtCodigo.Location = new System.Drawing.Point(155, 54);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(159, 20);
-            this.txtCodigo.TabIndex = 39;
+            this.txtCodigo.TabIndex = 0;
             // 
             // label8
             // 
@@ -104,44 +104,47 @@
             this.txtCabinas.Location = new System.Drawing.Point(155, 239);
             this.txtCabinas.Name = "txtCabinas";
             this.txtCabinas.Size = new System.Drawing.Size(65, 20);
-            this.txtCabinas.TabIndex = 36;
+            this.txtCabinas.TabIndex = 5;
             // 
             // comboServicio
             // 
+            this.comboServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboServicio.FormattingEnabled = true;
             this.comboServicio.Location = new System.Drawing.Point(155, 200);
             this.comboServicio.Name = "comboServicio";
             this.comboServicio.Size = new System.Drawing.Size(159, 21);
-            this.comboServicio.TabIndex = 35;
+            this.comboServicio.TabIndex = 4;
+            this.comboServicio.SelectedIndexChanged += new System.EventHandler(this.comboServicio_SelectedIndexChanged);
             // 
             // comboMarcas
             // 
+            this.comboMarcas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMarcas.FormattingEnabled = true;
             this.comboMarcas.Location = new System.Drawing.Point(155, 161);
             this.comboMarcas.Name = "comboMarcas";
             this.comboMarcas.Size = new System.Drawing.Size(159, 21);
-            this.comboMarcas.TabIndex = 34;
+            this.comboMarcas.TabIndex = 3;
             // 
             // txtModelo
             // 
             this.txtModelo.Location = new System.Drawing.Point(155, 124);
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(159, 20);
-            this.txtModelo.TabIndex = 33;
+            this.txtModelo.TabIndex = 2;
             // 
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(155, 88);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(159, 20);
-            this.txtNombre.TabIndex = 32;
+            this.txtNombre.TabIndex = 1;
             // 
             // Eliminar
             // 
             this.Eliminar.Location = new System.Drawing.Point(250, 360);
             this.Eliminar.Name = "Eliminar";
             this.Eliminar.Size = new System.Drawing.Size(75, 23);
-            this.Eliminar.TabIndex = 31;
+            this.Eliminar.TabIndex = 10;
             this.Eliminar.Text = "Eliminar";
             this.Eliminar.UseVisualStyleBackColor = true;
             this.Eliminar.Click += new System.EventHandler(this.Eliminar_Click);
@@ -193,11 +196,12 @@
             // 
             // comboBoxMotivo
             // 
+            this.comboBoxMotivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMotivo.FormattingEnabled = true;
             this.comboBoxMotivo.Location = new System.Drawing.Point(155, 275);
             this.comboBoxMotivo.Name = "comboBoxMotivo";
             this.comboBoxMotivo.Size = new System.Drawing.Size(159, 21);
-            this.comboBoxMotivo.TabIndex = 43;
+            this.comboBoxMotivo.TabIndex = 7;
             this.comboBoxMotivo.SelectedIndexChanged += new System.EventHandler(this.comboBoxMotivo_SelectedIndexChanged);
             // 
             // Motivo
@@ -217,7 +221,7 @@
             this.dateTimePickerBaja.MinDate = new System.DateTime(2019, 6, 9, 0, 0, 0, 0);
             this.dateTimePickerBaja.Name = "dateTimePickerBaja";
             this.dateTimePickerBaja.Size = new System.Drawing.Size(159, 20);
-            this.dateTimePickerBaja.TabIndex = 44;
+            this.dateTimePickerBaja.TabIndex = 8;
             this.dateTimePickerBaja.Value = new System.DateTime(2019, 6, 9, 0, 0, 0, 0);
             this.dateTimePickerBaja.ValueChanged += new System.EventHandler(this.dateTimePickerBaja_ValueChanged);
             // 

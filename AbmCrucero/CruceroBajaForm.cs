@@ -109,5 +109,10 @@ namespace FrbaCrucero.AbmCrucero
                 this.dateTimePickerBaja.Enabled = true;
             }
         }
+
+        private void comboServicio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

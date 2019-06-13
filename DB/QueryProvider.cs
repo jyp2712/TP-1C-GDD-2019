@@ -59,6 +59,11 @@ namespace FrbaCrucero.DB
             return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_codigo =" + nombreRecorrido;
         }
 
+        public static string SELECT_RECORRIDOS_MAX_ID(string nombreRecorrido)
+        {
+            return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_id = (SELECT MAX(reco_id) FROM [EYE_OF_THE_TRIGGER].[Recorrido]) AND reco_codigo =" + nombreRecorrido;
+        }
+
         public static string SELECT_RECORRIDOS_LIKE(string nombreRecorrido)
         {
             return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_codigo LIKE '%" + nombreRecorrido + "%'";
@@ -113,7 +118,7 @@ namespace FrbaCrucero.DB
 
         public static string SELECT_CRUCERO_MARCA_SERVICIO_MODELO(string marca, string servicio, string modelo, string fechaSalida, string fechaRegreso, int puertoIdOrigen, int puertoIdDestino)
         {
-            string baseQuery = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Crucero] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Marca] on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio] on serv_id = cruc_servicio JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Viaje] on cruc_id = viaj_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].RecorridoViaje on RecorridoViaje.viaj_id = Viaje.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Recorrido on Recorrido.reco_id = RecorridoViaje.reco_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Puerto p1 on p1.puer_id = Recorrido.reco_origen_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Puerto p2 on p2.puer_id = Recorrido.reco_destino_id WHERE viaj_estado=1 AND cruc_estado=1 AND Convert(datetime, viaj_fecha_fin_estimada) = Convert(datetime, '" + fechaRegreso + "', 121) AND Convert(datetime, viaj_fecha_inicio, 121) = Convert(datetime, '" + fechaSalida + "', 121) AND p1.puer_id =" + puertoIdOrigen + " AND p2.puer_id = " + puertoIdDestino + " ";
+            string baseQuery = "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Crucero] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Marca] on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Servicio] on serv_id = cruc_servicio JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].[Viaje] on cruc_id = viaj_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].RecorridoViaje on RecorridoViaje.viaj_id = Viaje.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Recorrido on Recorrido.reco_id = RecorridoViaje.reco_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Puerto p1 on p1.puer_id = Recorrido.reco_origen_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Puerto p2 on p2.puer_id = Recorrido.reco_destino_id WHERE viaj_estado=1 AND cruc_estado=1 AND Convert(datetime, viaj_fecha_inicio) <= Convert(datetime, '" + fechaRegreso + "', 121) AND Convert(datetime, viaj_fecha_inicio, 121) >= Convert(datetime, '" + fechaSalida + "', 121) AND p1.puer_id =" + puertoIdOrigen + " AND p2.puer_id = " + puertoIdDestino + " ";
             if (marca.Length > 0)
                 baseQuery = baseQuery + "AND marc_nombre LIKE '%" + marca + "%'";
             if (servicio.Length > 0)

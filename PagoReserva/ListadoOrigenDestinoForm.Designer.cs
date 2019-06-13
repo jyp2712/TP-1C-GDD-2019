@@ -48,7 +48,7 @@
             this.dgv.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.Size = new System.Drawing.Size(408, 256);
-            this.dgv.TabIndex = 3;
+            this.dgv.TabIndex = 0;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
             // groupBox1
@@ -70,7 +70,7 @@
             this.btnBuscar.Location = new System.Drawing.Point(327, 49);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 3;
+            this.btnBuscar.TabIndex = 2;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -80,7 +80,7 @@
             this.txtNombreCiudad.Location = new System.Drawing.Point(111, 17);
             this.txtNombreCiudad.Name = "txtNombreCiudad";
             this.txtNombreCiudad.Size = new System.Drawing.Size(166, 20);
-            this.txtNombreCiudad.TabIndex = 1;
+            this.txtNombreCiudad.TabIndex = 0;
             this.txtNombreCiudad.TextChanged += new System.EventHandler(this.txtNombreCiudad_TextChanged);
             // 
             // btnLimpiar
@@ -88,7 +88,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(6, 49);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 2;
+            this.btnLimpiar.TabIndex = 1;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);

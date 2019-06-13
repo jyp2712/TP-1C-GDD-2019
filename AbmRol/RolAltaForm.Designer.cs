@@ -52,7 +52,7 @@
             this.txtNombre.Location = new System.Drawing.Point(136, 20);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(214, 20);
-            this.txtNombre.TabIndex = 1;
+            this.txtNombre.TabIndex = 0;
             this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
             // lblFuncionalidades
@@ -67,11 +67,12 @@
             // 
             // comboFuncionalidades
             // 
+            this.comboFuncionalidades.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboFuncionalidades.FormattingEnabled = true;
             this.comboFuncionalidades.Location = new System.Drawing.Point(136, 61);
             this.comboFuncionalidades.Name = "comboFuncionalidades";
             this.comboFuncionalidades.Size = new System.Drawing.Size(152, 21);
-            this.comboFuncionalidades.TabIndex = 3;
+            this.comboFuncionalidades.TabIndex = 1;
             this.comboFuncionalidades.SelectedIndexChanged += new System.EventHandler(this.comboFuncionalidades_SelectedIndexChanged);
             // 
             // btnAgregar
@@ -79,7 +80,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(294, 61);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(56, 23);
-            this.btnAgregar.TabIndex = 6;
+            this.btnAgregar.TabIndex = 2;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -89,7 +90,7 @@
             this.btnCrear.Location = new System.Drawing.Point(260, 203);
             this.btnCrear.Name = "btnCrear";
             this.btnCrear.Size = new System.Drawing.Size(90, 23);
-            this.btnCrear.TabIndex = 8;
+            this.btnCrear.TabIndex = 5;
             this.btnCrear.Text = "Guardar";
             this.btnCrear.UseVisualStyleBackColor = true;
             this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
@@ -100,7 +101,7 @@
             this.listViewFuncionalidadesSeleccionadas.Location = new System.Drawing.Point(38, 90);
             this.listViewFuncionalidadesSeleccionadas.Name = "listViewFuncionalidadesSeleccionadas";
             this.listViewFuncionalidadesSeleccionadas.Size = new System.Drawing.Size(312, 97);
-            this.listViewFuncionalidadesSeleccionadas.TabIndex = 9;
+            this.listViewFuncionalidadesSeleccionadas.TabIndex = 3;
             this.listViewFuncionalidadesSeleccionadas.UseCompatibleStateImageBehavior = false;
             // 
             // button1
@@ -108,7 +109,7 @@
             this.button1.Location = new System.Drawing.Point(38, 203);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(95, 23);
-            this.button1.TabIndex = 10;
+            this.button1.TabIndex = 4;
             this.button1.Text = "Quitar seleccion";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);

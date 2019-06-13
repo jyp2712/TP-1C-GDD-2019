@@ -50,7 +50,7 @@
             this.Limpiar.Location = new System.Drawing.Point(61, 304);
             this.Limpiar.Name = "Limpiar";
             this.Limpiar.Size = new System.Drawing.Size(75, 23);
-            this.Limpiar.TabIndex = 41;
+            this.Limpiar.TabIndex = 6;
             this.Limpiar.Text = "Cancelar";
             this.Limpiar.UseVisualStyleBackColor = true;
             this.Limpiar.Click += new System.EventHandler(this.Limpiar_Click);
@@ -60,7 +60,7 @@
             this.txtCodigo.Location = new System.Drawing.Point(182, 56);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(159, 20);
-            this.txtCodigo.TabIndex = 39;
+            this.txtCodigo.TabIndex = 0;
             // 
             // label8
             // 
@@ -90,37 +90,41 @@
             this.txtCabinas.Location = new System.Drawing.Point(182, 241);
             this.txtCabinas.Name = "txtCabinas";
             this.txtCabinas.Size = new System.Drawing.Size(159, 20);
-            this.txtCabinas.TabIndex = 36;
+            this.txtCabinas.TabIndex = 5;
             // 
             // comboServicio
             // 
+            this.comboServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboServicio.FormattingEnabled = true;
             this.comboServicio.Location = new System.Drawing.Point(182, 202);
             this.comboServicio.Name = "comboServicio";
             this.comboServicio.Size = new System.Drawing.Size(159, 21);
-            this.comboServicio.TabIndex = 35;
+            this.comboServicio.TabIndex = 4;
             // 
             // comboMarcas
             // 
+            this.comboMarcas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMarcas.FormattingEnabled = true;
             this.comboMarcas.Location = new System.Drawing.Point(182, 163);
             this.comboMarcas.Name = "comboMarcas";
             this.comboMarcas.Size = new System.Drawing.Size(159, 21);
-            this.comboMarcas.TabIndex = 34;
+            this.comboMarcas.TabIndex = 3;
             // 
             // txtModelo
             // 
             this.txtModelo.Location = new System.Drawing.Point(182, 126);
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(159, 20);
-            this.txtModelo.TabIndex = 33;
+            this.txtModelo.TabIndex = 2;
+            this.txtModelo.TextChanged += new System.EventHandler(this.txtModelo_TextChanged);
             // 
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(182, 90);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(159, 20);
-            this.txtNombre.TabIndex = 32;
+            this.txtNombre.TabIndex = 1;
+            this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
             // label7
             // 
@@ -172,7 +176,7 @@
             this.Modificar.Location = new System.Drawing.Point(252, 304);
             this.Modificar.Name = "Modificar";
             this.Modificar.Size = new System.Drawing.Size(75, 23);
-            this.Modificar.TabIndex = 42;
+            this.Modificar.TabIndex = 7;
             this.Modificar.Text = "Modificar";
             this.Modificar.UseVisualStyleBackColor = true;
             this.Modificar.Click += new System.EventHandler(this.Modificar_Click);

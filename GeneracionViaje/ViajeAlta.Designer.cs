@@ -63,7 +63,7 @@
             this.Agregar.Location = new System.Drawing.Point(281, 285);
             this.Agregar.Name = "Agregar";
             this.Agregar.Size = new System.Drawing.Size(75, 23);
-            this.Agregar.TabIndex = 19;
+            this.Agregar.TabIndex = 8;
             this.Agregar.Text = "Agregar";
             this.Agregar.UseVisualStyleBackColor = true;
             this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
@@ -74,7 +74,7 @@
             this.Crucero.Location = new System.Drawing.Point(182, 221);
             this.Crucero.Name = "Crucero";
             this.Crucero.Size = new System.Drawing.Size(98, 20);
-            this.Crucero.TabIndex = 17;
+            this.Crucero.TabIndex = 5;
             this.Crucero.TextChanged += new System.EventHandler(this.Crucero_TextChanged);
             // 
             // Codigo
@@ -83,7 +83,7 @@
             this.Codigo.Location = new System.Drawing.Point(182, 87);
             this.Codigo.Name = "Codigo";
             this.Codigo.Size = new System.Drawing.Size(98, 20);
-            this.Codigo.TabIndex = 11;
+            this.Codigo.TabIndex = 1;
             this.Codigo.TextChanged += new System.EventHandler(this.Codigo_TextChanged);
             // 
             // label4
@@ -130,7 +130,7 @@
             this.dateTimePicker1.MaxDate = new System.DateTime(2020, 12, 31, 0, 0, 0, 0);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(143, 20);
-            this.dateTimePicker1.TabIndex = 21;
+            this.dateTimePicker1.TabIndex = 3;
             this.dateTimePicker1.Value = new System.DateTime(2019, 6, 6, 12, 45, 33, 0);
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
@@ -139,7 +139,7 @@
             this.button1.Location = new System.Drawing.Point(299, 85);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 23);
-            this.button1.TabIndex = 23;
+            this.button1.TabIndex = 2;
             this.button1.Text = "Seleccionar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -149,7 +149,7 @@
             this.button2.Location = new System.Drawing.Point(299, 219);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(83, 23);
-            this.button2.TabIndex = 24;
+            this.button2.TabIndex = 6;
             this.button2.Text = "Seleccionar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -163,7 +163,7 @@
             this.dateTimePicker2.MinDate = new System.DateTime(2019, 6, 6, 0, 0, 0, 0);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(143, 20);
-            this.dateTimePicker2.TabIndex = 25;
+            this.dateTimePicker2.TabIndex = 4;
             this.dateTimePicker2.Value = new System.DateTime(2019, 6, 6, 14, 20, 5, 0);
             // 
             // Viaje
@@ -171,7 +171,7 @@
             this.Viaje.Location = new System.Drawing.Point(182, 47);
             this.Viaje.Name = "Viaje";
             this.Viaje.Size = new System.Drawing.Size(98, 20);
-            this.Viaje.TabIndex = 26;
+            this.Viaje.TabIndex = 0;
             this.Viaje.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label6
@@ -188,7 +188,7 @@
             this.button3.Location = new System.Drawing.Point(63, 285);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 28;
+            this.button3.TabIndex = 7;
             this.button3.Text = "Limpiar";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);

@@ -65,7 +65,7 @@ namespace FrbaCrucero.menuBarra
 
         private void verificarReservasVencidas()
         {
-            DBAdapter.ejecutarProcedure("verificar_reservas_vencidas", Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]));
+            DBAdapter.ejecutarProcedure("verificar_reservas_vencidas", Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).ToString());
         }
 
         private void toolStripTextBox2_Click(object sender, EventArgs e)

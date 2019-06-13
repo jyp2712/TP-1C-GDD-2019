@@ -160,6 +160,17 @@ namespace FrbaCrucero.AbmCrucero
 
         }
 
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(this.txtNombre.Text)) this.txtNombre.Clear();
+        }
+
+        private void txtModelo_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(this.txtModelo.Text)) this.txtModelo.Clear();
+
+        }
+
         
     }
 }

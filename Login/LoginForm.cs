@@ -84,6 +84,18 @@ namespace FrbaCrucero.Login
                 }
             }
         }
+
+        private void txtUser_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(this.txtUser.Text)) this.txtUser.Clear();
+
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(this.txtPassword.Text)) this.txtPassword.Clear();
+
+        }
     }
 }
 

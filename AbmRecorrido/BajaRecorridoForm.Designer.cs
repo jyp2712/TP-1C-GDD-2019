@@ -43,19 +43,21 @@
             // 
             // comboBoxCiudadPuertoDestino
             // 
+            this.comboBoxCiudadPuertoDestino.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCiudadPuertoDestino.FormattingEnabled = true;
             this.comboBoxCiudadPuertoDestino.Location = new System.Drawing.Point(162, 158);
             this.comboBoxCiudadPuertoDestino.Name = "comboBoxCiudadPuertoDestino";
             this.comboBoxCiudadPuertoDestino.Size = new System.Drawing.Size(146, 21);
-            this.comboBoxCiudadPuertoDestino.TabIndex = 15;
+            this.comboBoxCiudadPuertoDestino.TabIndex = 2;
             // 
             // comboBoxCiudadPuertoOrigen
             // 
+            this.comboBoxCiudadPuertoOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCiudadPuertoOrigen.FormattingEnabled = true;
             this.comboBoxCiudadPuertoOrigen.Location = new System.Drawing.Point(162, 110);
             this.comboBoxCiudadPuertoOrigen.Name = "comboBoxCiudadPuertoOrigen";
             this.comboBoxCiudadPuertoOrigen.Size = new System.Drawing.Size(146, 21);
-            this.comboBoxCiudadPuertoOrigen.TabIndex = 13;
+            this.comboBoxCiudadPuertoOrigen.TabIndex = 1;
             // 
             // label5
             // 
@@ -75,7 +77,7 @@
             this.Agregar.Location = new System.Drawing.Point(250, 256);
             this.Agregar.Name = "Agregar";
             this.Agregar.Size = new System.Drawing.Size(75, 23);
-            this.Agregar.TabIndex = 19;
+            this.Agregar.TabIndex = 5;
             this.Agregar.Text = "Eliminar";
             this.Agregar.UseVisualStyleBackColor = true;
             this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
@@ -85,14 +87,14 @@
             this.Precio.Location = new System.Drawing.Point(162, 206);
             this.Precio.Name = "Precio";
             this.Precio.Size = new System.Drawing.Size(146, 20);
-            this.Precio.TabIndex = 17;
+            this.Precio.TabIndex = 3;
             // 
             // Codigo
             // 
             this.Codigo.Location = new System.Drawing.Point(162, 66);
             this.Codigo.Name = "Codigo";
             this.Codigo.Size = new System.Drawing.Size(146, 20);
-            this.Codigo.TabIndex = 11;
+            this.Codigo.TabIndex = 0;
             this.Codigo.TextChanged += new System.EventHandler(this.Codigo_TextChanged);
             // 
             // label4
@@ -136,7 +138,7 @@
             this.button1.Location = new System.Drawing.Point(43, 256);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 21;
+            this.button1.TabIndex = 4;
             this.button1.Text = "Cancelar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);

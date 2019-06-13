@@ -95,7 +95,7 @@
             0});
             this.estandar0.Name = "estandar0";
             this.estandar0.Size = new System.Drawing.Size(61, 20);
-            this.estandar0.TabIndex = 3;
+            this.estandar0.TabIndex = 0;
             this.estandar0.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // label4
@@ -139,7 +139,7 @@
             this.button1.Location = new System.Drawing.Point(209, 305);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 17;
+            this.button1.TabIndex = 10;
             this.button1.Text = "Confirmar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -154,7 +154,7 @@
             0});
             this.estandar1.Name = "estandar1";
             this.estandar1.Size = new System.Drawing.Size(61, 20);
-            this.estandar1.TabIndex = 19;
+            this.estandar1.TabIndex = 1;
             // 
             // exterior1
             // 
@@ -166,7 +166,7 @@
             0});
             this.exterior1.Name = "exterior1";
             this.exterior1.Size = new System.Drawing.Size(61, 20);
-            this.exterior1.TabIndex = 22;
+            this.exterior1.TabIndex = 3;
             // 
             // exterior0
             // 
@@ -178,7 +178,7 @@
             0});
             this.exterior0.Name = "exterior0";
             this.exterior0.Size = new System.Drawing.Size(61, 20);
-            this.exterior0.TabIndex = 21;
+            this.exterior0.TabIndex = 2;
             // 
             // balcon1
             // 
@@ -190,7 +190,7 @@
             0});
             this.balcon1.Name = "balcon1";
             this.balcon1.Size = new System.Drawing.Size(61, 20);
-            this.balcon1.TabIndex = 28;
+            this.balcon1.TabIndex = 7;
             // 
             // balcon0
             // 
@@ -202,7 +202,7 @@
             0});
             this.balcon0.Name = "balcon0";
             this.balcon0.Size = new System.Drawing.Size(61, 20);
-            this.balcon0.TabIndex = 27;
+            this.balcon0.TabIndex = 6;
             // 
             // suite1
             // 
@@ -214,7 +214,7 @@
             0});
             this.suite1.Name = "suite1";
             this.suite1.Size = new System.Drawing.Size(61, 20);
-            this.suite1.TabIndex = 25;
+            this.suite1.TabIndex = 5;
             // 
             // suite0
             // 
@@ -226,7 +226,7 @@
             0});
             this.suite0.Name = "suite0";
             this.suite0.Size = new System.Drawing.Size(61, 20);
-            this.suite0.TabIndex = 24;
+            this.suite0.TabIndex = 4;
             // 
             // ejecutivo1
             // 
@@ -238,7 +238,7 @@
             0});
             this.ejecutivo1.Name = "ejecutivo1";
             this.ejecutivo1.Size = new System.Drawing.Size(61, 20);
-            this.ejecutivo1.TabIndex = 31;
+            this.ejecutivo1.TabIndex = 9;
             // 
             // ejecutivo0
             // 
@@ -250,7 +250,7 @@
             0});
             this.ejecutivo0.Name = "ejecutivo0";
             this.ejecutivo0.Size = new System.Drawing.Size(61, 20);
-            this.ejecutivo0.TabIndex = 30;
+            this.ejecutivo0.TabIndex = 8;
             // 
             // AltaCabina
             // 

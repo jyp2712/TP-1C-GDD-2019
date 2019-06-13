@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboServicio = new System.Windows.Forms.ComboBox();
+            this.Seleccionar = new System.Windows.Forms.Button();
+            this.Marca = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.CodigoContiene = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -36,11 +41,6 @@
             this.Codigo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewCruceros = new System.Windows.Forms.DataGridView();
-            this.comboServicio = new System.Windows.Forms.ComboBox();
-            this.Seleccionar = new System.Windows.Forms.Button();
-            this.Marca = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCruceros)).BeginInit();
             this.SuspendLayout();
@@ -65,12 +65,57 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
             // 
+            // comboServicio
+            // 
+            this.comboServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboServicio.FormattingEnabled = true;
+            this.comboServicio.Location = new System.Drawing.Point(420, 16);
+            this.comboServicio.Name = "comboServicio";
+            this.comboServicio.Size = new System.Drawing.Size(150, 21);
+            this.comboServicio.TabIndex = 2;
+            // 
+            // Seleccionar
+            // 
+            this.Seleccionar.Location = new System.Drawing.Point(495, 43);
+            this.Seleccionar.Name = "Seleccionar";
+            this.Seleccionar.Size = new System.Drawing.Size(75, 23);
+            this.Seleccionar.TabIndex = 4;
+            this.Seleccionar.Text = "Seleccionar";
+            this.Seleccionar.UseVisualStyleBackColor = true;
+            this.Seleccionar.Click += new System.EventHandler(this.Seleccionar_Click);
+            // 
+            // Marca
+            // 
+            this.Marca.Enabled = false;
+            this.Marca.Location = new System.Drawing.Point(420, 45);
+            this.Marca.Name = "Marca";
+            this.Marca.Size = new System.Drawing.Size(53, 20);
+            this.Marca.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(367, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Marca";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(367, 19);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(45, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Servicio";
+            // 
             // CodigoContiene
             // 
             this.CodigoContiene.Location = new System.Drawing.Point(97, 46);
             this.CodigoContiene.Name = "CodigoContiene";
             this.CodigoContiene.Size = new System.Drawing.Size(113, 20);
-            this.CodigoContiene.TabIndex = 5;
+            this.CodigoContiene.TabIndex = 1;
             // 
             // label2
             // 
@@ -86,7 +131,7 @@
             this.btnBuscar.Location = new System.Drawing.Point(509, 77);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 3;
+            this.btnBuscar.TabIndex = 6;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -96,7 +141,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(10, 77);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 2;
+            this.btnLimpiar.TabIndex = 5;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -106,7 +151,7 @@
             this.Codigo.Location = new System.Drawing.Point(60, 17);
             this.Codigo.Name = "Codigo";
             this.Codigo.Size = new System.Drawing.Size(150, 20);
-            this.Codigo.TabIndex = 1;
+            this.Codigo.TabIndex = 0;
             // 
             // label1
             // 
@@ -129,52 +174,8 @@
             this.dataGridViewCruceros.Name = "dataGridViewCruceros";
             this.dataGridViewCruceros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewCruceros.Size = new System.Drawing.Size(590, 191);
-            this.dataGridViewCruceros.TabIndex = 7;
+            this.dataGridViewCruceros.TabIndex = 0;
             this.dataGridViewCruceros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCruceros_CellContentClick);
-            // 
-            // comboServicio
-            // 
-            this.comboServicio.FormattingEnabled = true;
-            this.comboServicio.Location = new System.Drawing.Point(420, 16);
-            this.comboServicio.Name = "comboServicio";
-            this.comboServicio.Size = new System.Drawing.Size(150, 21);
-            this.comboServicio.TabIndex = 16;
-            // 
-            // Seleccionar
-            // 
-            this.Seleccionar.Location = new System.Drawing.Point(495, 43);
-            this.Seleccionar.Name = "Seleccionar";
-            this.Seleccionar.Size = new System.Drawing.Size(75, 23);
-            this.Seleccionar.TabIndex = 15;
-            this.Seleccionar.Text = "Seleccionar";
-            this.Seleccionar.UseVisualStyleBackColor = true;
-            this.Seleccionar.Click += new System.EventHandler(this.Seleccionar_Click);
-            // 
-            // Marca
-            // 
-            this.Marca.Enabled = false;
-            this.Marca.Location = new System.Drawing.Point(420, 45);
-            this.Marca.Name = "Marca";
-            this.Marca.Size = new System.Drawing.Size(53, 20);
-            this.Marca.TabIndex = 14;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(367, 48);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 13);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Marca";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(367, 19);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Servicio";
             // 
             // CruceroModificacion
             // 

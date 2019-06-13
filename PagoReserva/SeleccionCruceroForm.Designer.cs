@@ -61,11 +61,12 @@
             // 
             // comboMarcas
             // 
+            this.comboMarcas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMarcas.FormattingEnabled = true;
             this.comboMarcas.Location = new System.Drawing.Point(49, 45);
             this.comboMarcas.Name = "comboMarcas";
             this.comboMarcas.Size = new System.Drawing.Size(145, 21);
-            this.comboMarcas.TabIndex = 19;
+            this.comboMarcas.TabIndex = 1;
             // 
             // label1
             // 
@@ -81,15 +82,16 @@
             this.txtModelo.Location = new System.Drawing.Point(49, 16);
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(145, 20);
-            this.txtModelo.TabIndex = 17;
+            this.txtModelo.TabIndex = 0;
             // 
             // comboServicio
             // 
+            this.comboServicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboServicio.FormattingEnabled = true;
             this.comboServicio.Location = new System.Drawing.Point(420, 16);
             this.comboServicio.Name = "comboServicio";
             this.comboServicio.Size = new System.Drawing.Size(150, 21);
-            this.comboServicio.TabIndex = 16;
+            this.comboServicio.TabIndex = 2;
             // 
             // label3
             // 
@@ -114,7 +116,7 @@
             this.btnBuscar.Location = new System.Drawing.Point(495, 77);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 3;
+            this.btnBuscar.TabIndex = 4;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -124,7 +126,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(10, 77);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 2;
+            this.btnLimpiar.TabIndex = 3;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             // 
@@ -140,7 +142,7 @@
             this.dgv.Name = "dgv";
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.Size = new System.Drawing.Size(590, 191);
-            this.dgv.TabIndex = 9;
+            this.dgv.TabIndex = 0;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
             // SeleccionCruceroForm

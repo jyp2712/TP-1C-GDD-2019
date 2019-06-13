@@ -16,10 +16,10 @@ namespace FrbaCrucero.PagoReserva
     public partial class PagoReservaForm : Form
     {
         public int id { get; set; }
-        public Reserva reserva {get; set;}
+        public Reserva reserva { get; set; }
         public Ciudad ciudadOrigen { get; set; }
-        public Ciudad ciudadDestino {get; set;}
-        public Puerto puertoOrigen {get; set;}
+        public Ciudad ciudadDestino { get; set; }
+        public Puerto puertoOrigen { get; set; }
         public Puerto puertoDestino { get; set; }
         public string viajeId { get; set; }
         public string cabinaId { get; set; }
@@ -46,10 +46,16 @@ namespace FrbaCrucero.PagoReserva
 
         public PagoReservaForm()
         {
+            this.reserva = null;
+            this.Cliente = null;
+
             InitializeComponent();
             this.dtpSalida.Value = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddDays(1);
             this.dtpRegreso.Value = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddDays(1);
             desactivarTodosLosControlesComunes();
+            this.dtpSalida.MinDate = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddDays(1);
+            this.dtpRegreso.MinDate = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddDays(1);
+
         }
 
         private void desactivarTodosLosControlesComunes()
@@ -89,13 +95,13 @@ namespace FrbaCrucero.PagoReserva
             this.btnOrigen.Enabled = false;
             this.btnDestino.Enabled = false;
             this.btnCrucero.Enabled = false;
-            this.button1.Enabled = false;
-            this.btnReservar.Enabled = false;
+            this.btnReservar.Visible = false;
             this.cabinaId = Convert.ToString(reserva.Cabina.Id);
             this.Cliente = reserva.Cliente;
             this.crucero = reserva.Crucero;
             this.reserva = reserva;
-            
+            this.btnReservarYPagar.Text = "Abonar reserva";
+            this.button1.Text = "Datos del cliente";
         }
 
         private void PagoReservaForm_Load(object sender, EventArgs e)
@@ -135,12 +141,12 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnFechaSalida_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnDestino_Click(object sender, EventArgs e)
         {
-            ListadoOrigenDestinoForm listadoDestino = new ListadoOrigenDestinoForm(ref this.txtDestino,false);
+            ListadoOrigenDestinoForm listadoDestino = new ListadoOrigenDestinoForm(ref this.txtDestino, false);
             listadoDestino.Show();
             listadoDestino.RefToPrevForm = this;
             this.Hide();
@@ -180,7 +186,22 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnReservar_Click(object sender, EventArgs e)
         {
-            confirmarReserva();
+
+            if (string.IsNullOrEmpty(this.txtOrigen.Text) || string.IsNullOrEmpty(this.txtDestino.Text) || string.IsNullOrEmpty(this.txtModeloCrucero.Text)
+                || string.IsNullOrEmpty(this.txtCabina.Text) || this.Cliente == null)
+            {
+                MessageBox.Show("Debe completar todos los datos para reservar");
+            }
+            else
+            {
+                DBAdapter.ejecutarProcedure("reservar", this.Cliente.Id, this.crucero.Id,
+        Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]),
+        Convert.ToInt32(viajeId), this.cabinaId, Convert.ToInt32(this.pasajesUpDown.Value));
+                DataSet ds = DBConnection.getInstance().executeQuery("SELECT MAX(rese_id) id FROM EYE_OF_THE_TRIGGER.Reserva");
+                this.id = Convert.ToInt32(ds.Tables[0].Rows[0]["id"]);
+                MessageBox.Show("Reserva efectuada. Nº de reserva: " + this.id);
+                this.Close();
+            }
 
         }
 
@@ -209,41 +230,64 @@ namespace FrbaCrucero.PagoReserva
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ClienteHome clienteForm = new ClienteHome();
-            var result = clienteForm.ShowDialog();
-            if (result == DialogResult.OK)
+            if (reserva == null)
             {
-                int cliente_id = clienteForm.ClienteId;            //values preserved after close
-                this.btnReservar.Enabled = true;
-                string query = QueryProvider.SELECT_CLIENTE_COMPLETO(cliente_id);
-                DataSet clienteDs = DBConnection.getInstance().executeQuery(query);
-                this.Cliente = new Cliente(clienteDs);
+                ClienteHome clienteForm = new ClienteHome();
+                var result = clienteForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    int cliente_id = clienteForm.ClienteId;            //values preserved after close
+                    this.btnReservar.Enabled = true;
+                    string query = QueryProvider.SELECT_CLIENTE_COMPLETO(cliente_id);
+                    DataSet clienteDs = DBConnection.getInstance().executeQuery(query);
+                    this.Cliente = new Cliente(clienteDs);
+                }
+            }
+            else
+            {
+                ClienteHome clienteForm = new ClienteHome(reserva.Cliente.Doc);
+                clienteForm.Show();
             }
 
         }
 
         private void btnReservarYPagar_Click(object sender, EventArgs e)
         {
-            confirmarReserva();
-
+            if (string.IsNullOrEmpty(this.txtOrigen.Text) || string.IsNullOrEmpty(this.txtDestino.Text) || string.IsNullOrEmpty(this.txtModeloCrucero.Text)
+                || string.IsNullOrEmpty(this.txtCabina.Text) || this.Cliente == null)
+            {
+                MessageBox.Show("Debe completar todos los datos para reservar");
+            }
+            else
+            {
+                if (DBConnection.getInstance().executeQuery(QueryProvider.SELECT_RESERVA(Convert.ToString(this.reserva.Id))).Tables[0].Rows.Count == 0)
+                {
+                    confirmarReserva();
+                }
+                else
+                {
+                    PagoForm pf = new PagoForm(this.reserva.Id, this.reserva.Viaje.Id, this.crucero.Id);
+                    pf.ShowDialog();
+                }
+            }
         }
 
         private void confirmarReserva()
         {
-            if (DBConnection.getInstance().executeQuery(QueryProvider.SELECT_RESERVA(Convert.ToString(this.reserva.Id))).Tables[0].Rows.Count == 0)
-            {
-                DBAdapter.ejecutarProcedure("reservar", this.Cliente.Id, this.crucero.Id,
-                    Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]),
-                    Convert.ToInt32(viajeId), this.cabinaId, Convert.ToInt32(this.pasajesUpDown.Value));
-                DataSet ds = DBConnection.getInstance().executeQuery("SELECT MAX(rese_id) id FROM EYE_OF_THE_TRIGGER.Reserva");
-                this.id = Convert.ToInt32(ds.Tables[0].Rows[0]["id"]);
-                MessageBox.Show("Reserva efectuada. Nº de reserva: " + this.id);
-            }
-            else {
-                PagoForm pf = new PagoForm(this.reserva.Id, this.reserva.Viaje.Id, this.crucero.Id);
-                pf.ShowDialog();
-            }
+
+            DBAdapter.ejecutarProcedure("reservar", this.Cliente.Id, this.crucero.Id,
+                Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]),
+                Convert.ToInt32(viajeId), this.cabinaId, Convert.ToInt32(this.pasajesUpDown.Value));
+            DataSet ds = DBConnection.getInstance().executeQuery("SELECT MAX(rese_id) id FROM EYE_OF_THE_TRIGGER.Reserva");
+            this.id = Convert.ToInt32(ds.Tables[0].Rows[0]["id"]);
+            MessageBox.Show("Reserva efectuada. Nº de reserva: " + this.id);
+
             this.Close();
+        }
+
+        private void dtpSalida_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

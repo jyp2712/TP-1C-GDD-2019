@@ -31,6 +31,7 @@ namespace FrbaCrucero.AbmRecorrido
 
         private void Codigo_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(this.Codigo.Text)) this.Codigo.Clear();
 
         }
 
@@ -56,6 +57,12 @@ namespace FrbaCrucero.AbmRecorrido
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Precio_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(this.Precio.Text)) this.Precio.Clear();
+
         }
     }
 }

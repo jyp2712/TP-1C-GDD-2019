@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrbaCrucero", "FrbaCrucero.csproj", "{11BD0A38-F064-4794-9845-D4C99E7D45E9}"
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrbaCruceros", "FrbaCruceros.csproj", "{11BD0A38-F064-4794-9845-D4C99E7D45E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

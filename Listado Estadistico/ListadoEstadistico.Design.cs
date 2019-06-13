@@ -58,11 +58,12 @@
             this._anio.Location = new System.Drawing.Point(55, 13);
             this._anio.Name = "_anio";
             this._anio.Size = new System.Drawing.Size(100, 20);
-            this._anio.TabIndex = 2;
+            this._anio.TabIndex = 0;
             this._anio.TextChanged += new System.EventHandler(this._anio_TextChanged);
             // 
             // _semestre
             // 
+            this._semestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._semestre.FormattingEnabled = true;
             this._semestre.Items.AddRange(new object[] {
             "1 - Enero - Junio",
@@ -70,7 +71,7 @@
             this._semestre.Location = new System.Drawing.Point(68, 48);
             this._semestre.Name = "_semestre";
             this._semestre.Size = new System.Drawing.Size(119, 21);
-            this._semestre.TabIndex = 3;
+            this._semestre.TabIndex = 1;
             this._semestre.SelectedIndexChanged += new System.EventHandler(this._semestre_SelectedIndexChanged);
             // 
             // _seleccionar
@@ -79,7 +80,7 @@
             this._seleccionar.Location = new System.Drawing.Point(210, 33);
             this._seleccionar.Name = "_seleccionar";
             this._seleccionar.Size = new System.Drawing.Size(101, 36);
-            this._seleccionar.TabIndex = 4;
+            this._seleccionar.TabIndex = 2;
             this._seleccionar.Text = "Confirmar";
             this._seleccionar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this._seleccionar.UseVisualStyleBackColor = true;

@@ -95,7 +95,7 @@
             this.Precio.Location = new System.Drawing.Point(159, 189);
             this.Precio.Name = "Precio";
             this.Precio.Size = new System.Drawing.Size(173, 20);
-            this.Precio.TabIndex = 3;
+            this.Precio.TabIndex = 5;
             this.Precio.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // Agregar
@@ -103,7 +103,7 @@
             this.Agregar.Location = new System.Drawing.Point(247, 239);
             this.Agregar.Name = "Agregar";
             this.Agregar.Size = new System.Drawing.Size(75, 23);
-            this.Agregar.TabIndex = 4;
+            this.Agregar.TabIndex = 6;
             this.Agregar.Text = "Agregar";
             this.Agregar.UseVisualStyleBackColor = true;
             this.Agregar.Click += new System.EventHandler(this.button1_Click);
@@ -127,21 +127,21 @@
             this.textBox1.Location = new System.Drawing.Point(159, 93);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(92, 20);
-            this.textBox1.TabIndex = 11;
+            this.textBox1.TabIndex = 1;
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(159, 141);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(92, 20);
-            this.textBox2.TabIndex = 12;
+            this.textBox2.TabIndex = 3;
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(257, 91);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 13;
+            this.button1.TabIndex = 2;
             this.button1.Text = "Seleccionar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
@@ -151,7 +151,7 @@
             this.button2.Location = new System.Drawing.Point(257, 139);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 14;
+            this.button2.TabIndex = 4;
             this.button2.Text = "Seleccionar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);

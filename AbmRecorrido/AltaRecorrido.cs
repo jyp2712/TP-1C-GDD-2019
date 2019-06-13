@@ -24,7 +24,7 @@ namespace FrbaCrucero.AbmRecorrido
         {
             InitializeComponent();
             this.textBox1.Enabled = false;
-            this.textBox2.Enabled = false;    
+            this.textBox2.Enabled = false;
         }
 
         private void AltaRecorrido_Load(object sender, EventArgs e)
@@ -34,6 +34,8 @@ namespace FrbaCrucero.AbmRecorrido
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(this.textBox1.Text)) this.textBox1.Clear();
+
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -48,6 +50,8 @@ namespace FrbaCrucero.AbmRecorrido
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(this.Precio.Text)) this.Precio.Clear();
+
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -82,9 +86,15 @@ namespace FrbaCrucero.AbmRecorrido
                     }
                     else
                     {
-                        if (DBAdapter.checkIfExists("recorrido_existente", Codigo.Text, textBox1.Text, textBox2.Text))
+                        DataSet dsrecorrido = DBConnection.getInstance().executeQuery(QueryProvider.SELECT_RECORRIDOS_MAX_ID(this.Codigo.Text));
+                        if (dsrecorrido.Tables[0].Rows.Count > 0)
                         {
-                            MessageBox.Show("Ese recorrido ya existe");
+                            DataSet ds = DBConnection.getInstance().executeQuery(QueryProvider.SELECT_PUERTO_POR_CIUDAD(Convert.ToString(dsrecorrido.Tables[0].Rows[0]["reco_destino_id"])));
+
+                            if (this.textBox1.Text != Convert.ToString(ds.Tables[0].Rows[0]["puer_nombre"]))
+                            {
+                                MessageBox.Show("El recorrido existe y debe partir de " + Convert.ToString(ds.Tables[0].Rows[0]["puer_nombre"]));
+                            }
                         }
                         else
                         {
@@ -93,6 +103,7 @@ namespace FrbaCrucero.AbmRecorrido
                             DataRow destino = DBAdapter.traerDataTable("ciudad_id", textBox2.Text).Rows[0];
 
                             DBAdapter.insertarDatosEnTabla("recorrido", Codigo.Text, origen["ciud_id"], destino["ciud_id"], Precio.Text);
+                            MessageBox.Show("El recorrido fue dado de alta");
                         }
                     }
                 }
@@ -140,6 +151,6 @@ namespace FrbaCrucero.AbmRecorrido
             this.Hide();
         }
 
- 
+
     }
 }

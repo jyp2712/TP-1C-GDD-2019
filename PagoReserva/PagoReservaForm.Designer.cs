@@ -138,7 +138,7 @@
             this.btnOrigen.Location = new System.Drawing.Point(322, 10);
             this.btnOrigen.Name = "btnOrigen";
             this.btnOrigen.Size = new System.Drawing.Size(75, 23);
-            this.btnOrigen.TabIndex = 9;
+            this.btnOrigen.TabIndex = 0;
             this.btnOrigen.Text = "Seleccionar";
             this.btnOrigen.UseVisualStyleBackColor = true;
             this.btnOrigen.Click += new System.EventHandler(this.btnOrigen_Click);
@@ -179,7 +179,7 @@
             this.btnDestino.Location = new System.Drawing.Point(322, 37);
             this.btnDestino.Name = "btnDestino";
             this.btnDestino.Size = new System.Drawing.Size(75, 23);
-            this.btnDestino.TabIndex = 17;
+            this.btnDestino.TabIndex = 1;
             this.btnDestino.Text = "Seleccionar";
             this.btnDestino.UseVisualStyleBackColor = true;
             this.btnDestino.Click += new System.EventHandler(this.btnDestino_Click);
@@ -189,7 +189,7 @@
             this.btnCrucero.Location = new System.Drawing.Point(116, 91);
             this.btnCrucero.Name = "btnCrucero";
             this.btnCrucero.Size = new System.Drawing.Size(100, 23);
-            this.btnCrucero.TabIndex = 20;
+            this.btnCrucero.TabIndex = 0;
             this.btnCrucero.Text = "Seleccionar";
             this.btnCrucero.UseVisualStyleBackColor = true;
             this.btnCrucero.Click += new System.EventHandler(this.btnCrucero_Click);
@@ -278,7 +278,7 @@
             0});
             this.pasajesUpDown.Name = "pasajesUpDown";
             this.pasajesUpDown.Size = new System.Drawing.Size(120, 20);
-            this.pasajesUpDown.TabIndex = 22;
+            this.pasajesUpDown.TabIndex = 4;
             this.pasajesUpDown.Value = new decimal(new int[] {
             1,
             0,
@@ -290,14 +290,15 @@
             this.dtpRegreso.Location = new System.Drawing.Point(116, 93);
             this.dtpRegreso.Name = "dtpRegreso";
             this.dtpRegreso.Size = new System.Drawing.Size(200, 20);
-            this.dtpRegreso.TabIndex = 21;
+            this.dtpRegreso.TabIndex = 3;
             // 
             // dtpSalida
             // 
             this.dtpSalida.Location = new System.Drawing.Point(116, 67);
             this.dtpSalida.Name = "dtpSalida";
             this.dtpSalida.Size = new System.Drawing.Size(200, 20);
-            this.dtpSalida.TabIndex = 20;
+            this.dtpSalida.TabIndex = 2;
+            this.dtpSalida.ValueChanged += new System.EventHandler(this.dtpSalida_ValueChanged);
             // 
             // label9
             // 
@@ -342,12 +343,13 @@
             // 
             // comboTipoCabina
             // 
+            this.comboTipoCabina.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboTipoCabina.Enabled = false;
             this.comboTipoCabina.FormattingEnabled = true;
             this.comboTipoCabina.Location = new System.Drawing.Point(66, 39);
             this.comboTipoCabina.Name = "comboTipoCabina";
             this.comboTipoCabina.Size = new System.Drawing.Size(100, 21);
-            this.comboTipoCabina.TabIndex = 25;
+            this.comboTipoCabina.TabIndex = 0;
             this.comboTipoCabina.SelectedIndexChanged += new System.EventHandler(this.comboTipoCabina_SelectedIndexChanged);
             // 
             // groupBox4
