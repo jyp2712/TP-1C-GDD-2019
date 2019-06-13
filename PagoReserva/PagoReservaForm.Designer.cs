@@ -59,19 +59,14 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnReservarYPagar = new System.Windows.Forms.Button();
             this.btnReservar = new System.Windows.Forms.Button();
-
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pasajesUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-
-            ((System.ComponentModel.ISupportInitialize)(this.pasajesUpDown)).BeginInit();
             this.groupBox5.SuspendLayout();
-
             this.SuspendLayout();
             // 
             // label2
@@ -276,9 +271,19 @@
             0,
             0,
             0});
+            this.pasajesUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.pasajesUpDown.Name = "pasajesUpDown";
             this.pasajesUpDown.Size = new System.Drawing.Size(120, 20);
             this.pasajesUpDown.TabIndex = 22;
+            this.pasajesUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // dtpRegreso
             // 
@@ -337,6 +342,7 @@
             // 
             // comboTipoCabina
             // 
+            this.comboTipoCabina.Enabled = false;
             this.comboTipoCabina.FormattingEnabled = true;
             this.comboTipoCabina.Location = new System.Drawing.Point(66, 39);
             this.comboTipoCabina.Name = "comboTipoCabina";
@@ -374,44 +380,6 @@
             this.btnReservar.Text = "Reservar (Pago diferido)";
             this.btnReservar.UseVisualStyleBackColor = true;
             this.btnReservar.Click += new System.EventHandler(this.btnReservar_Click);
-            // 
-            // pasajesUpDown
-            // 
-            this.pasajesUpDown.Location = new System.Drawing.Point(116, 120);
-            this.pasajesUpDown.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.pasajesUpDown.Name = "pasajesUpDown";
-            this.pasajesUpDown.Size = new System.Drawing.Size(120, 20);
-            this.pasajesUpDown.TabIndex = 22;
-            // 
-            // comboTipoCabina
-            // 
-            this.comboTipoCabina.Enabled = false;
-            this.comboTipoCabina.FormattingEnabled = true;
-            this.comboTipoCabina.Location = new System.Drawing.Point(66, 39);
-            this.comboTipoCabina.Name = "comboTipoCabina";
-            this.comboTipoCabina.Size = new System.Drawing.Size(100, 21);
-            this.comboTipoCabina.TabIndex = 25;
-            this.comboTipoCabina.SelectedIndexChanged += new System.EventHandler(this.comboTipoCabina_SelectedIndexChanged);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 68);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(27, 13);
-            this.label11.TabIndex = 26;
-            this.label11.Text = "Piso";
-            // 
-            // txtPiso
-            // 
-            this.txtPiso.Location = new System.Drawing.Point(66, 65);
-            this.txtPiso.Name = "txtPiso";
-            this.txtPiso.Size = new System.Drawing.Size(100, 20);
-            this.txtPiso.TabIndex = 27;
             // 
             // groupBox5
             // 
@@ -454,7 +422,6 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pasajesUpDown)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
 

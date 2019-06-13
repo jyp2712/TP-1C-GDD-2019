@@ -15,12 +15,14 @@ namespace FrbaCrucero.PagoReserva
 {
     public partial class PagoReservaForm : Form
     {
+        public int id { get; set; }
         public Reserva reserva {get; set;}
         public Ciudad ciudadOrigen { get; set; }
         public Ciudad ciudadDestino {get; set;}
         public Puerto puertoOrigen {get; set;}
         public Puerto puertoDestino { get; set; }
         public string viajeId { get; set; }
+        public string cabinaId { get; set; }
         public Cliente Cliente { get; set; }
 
         private void cargarTipoCabina()
@@ -182,6 +184,7 @@ namespace FrbaCrucero.PagoReserva
             DBConnection dbConnection = DBConnection.getInstance();
             string query = QueryProvider.SELECT_CABINAS(this.crucero.Id, this.comboTipoCabina.Text);
             DataTable dt = dbConnection.executeQuery(query).Tables[0];
+            this.cabinaId = Convert.ToString(dt.Rows[0]["cabi_id"]);
             this.txtCabina.Text = Convert.ToString(dt.Rows[0]["cabi_numero"]);
             this.txtPiso.Text = Convert.ToString(dt.Rows[0]["cabi_piso"]);
 
@@ -210,13 +213,17 @@ namespace FrbaCrucero.PagoReserva
         private void btnReservarYPagar_Click(object sender, EventArgs e)
         {
             confirmarReserva();
-            PagoForm pf = new PagoForm(this.reserva.Id, this.reserva.Viaje.Id, this.reserva.Viaje.Crucero.Id);
+            PagoForm pf = new PagoForm(this.id, Convert.ToInt32(viajeId), this.crucero.Id);
             pf.ShowDialog();
         }
 
         private void confirmarReserva()
         {
-            //persistir reserva
+            DBAdapter.ejecutarProcedure("reservar", this.Cliente.Id, this.crucero.Id,
+                Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]),
+                Convert.ToInt32(viajeId), this.cabinaId, Convert.ToInt32(this.pasajesUpDown.Value));
+            DataSet ds = DBConnection.getInstance().executeQuery("SELECT MAX(rese_id) id FROM EYE_OF_THE_TRIGGER.Reserva");
+            this.id = Convert.ToInt32(ds.Tables[0].Rows[0]["id"]);
         }
     }
 }

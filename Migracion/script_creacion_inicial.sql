@@ -1713,7 +1713,7 @@ GO
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].facturar (@Reserva as int, @Viaje as int, @Crucero as varchar(50), @MedioDePago as varchar(255), @Cuotas as int, @FechaActual as DATETIME) AS
 BEGIN
 DECLARE @PrecioRecorrido as float, @PorcentajeAgregado as float, @PrecioServicio as float
-SET @PrecioRecorrido = (SELECT r.reco_precio FROM EYE_OF_THE_TRIGGER.Recorrido r JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id=rv.reco_id AND rv.viaj_id=@Viaje)
+SET @PrecioRecorrido = (SELECT SUM(r.reco_precio) FROM EYE_OF_THE_TRIGGER.Recorrido r JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id=rv.reco_id AND rv.viaj_id=@Viaje)
 SET @PrecioServicio = (SELECT serv_precio FROM EYE_OF_THE_TRIGGER.Servicio JOIN EYE_OF_THE_TRIGGER.Crucero ON cruc_id=@Crucero AND cruc_servicio = serv_id)
 SET @PorcentajeAgregado = (SELECT porcentaje_agregado FROM EYE_OF_THE_TRIGGER.TipoCabina JOIN EYE_OF_THE_TRIGGER.Cabina c ON c.cabi_tipo_cabina=id JOIN EYE_OF_THE_TRIGGER.CabinasReservadas cr ON c.cabi_id= cr.cabi_id AND cr.rese_id=@Reserva )
  
@@ -1730,15 +1730,16 @@ END
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[facturar] creada -----'
 
+
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[reservar]', 'P') IS NOT NULL 
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].reservar
 GO
 
-CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reservar (@Cliente as int, @Crucero as varchar(50), @FechaActual as DATETIME, @Viaje as int, @Cabina as int, @Reserva as int, @Pasajeros as int) AS
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].reservar (@Cliente as int, @Crucero as varchar(50), @FechaActual as DATETIME, @Viaje as int, @Cabina as int, @Pasajeros as int) AS
 BEGIN
 
-INSERT INTO EYE_OF_THE_TRIGGER.Reserva (rese_cliente_id, rese_crucero_id, rese_fecha_creacion, rese_viaje_id, rese_cabina_id, rese_estado_reserva, rese_cantidad_pasajeros)
-VALUES (@Cliente, @Crucero, @FechaActual, @Viaje, @Cabina, (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva pendiente'), @Pasajeros)
+INSERT INTO EYE_OF_THE_TRIGGER.Reserva (rese_id, rese_cliente_id, rese_crucero_id, rese_fecha_creacion, rese_viaje_id, rese_cabina_id, rese_estado_reserva, rese_cantidad_pasajeros)
+VALUES ((SELECT MAX(rese_id)+1 FROM EYE_OF_THE_TRIGGER.Reserva), @Cliente, @Crucero, @FechaActual, @Viaje, @Cabina, (SELECT id FROM EYE_OF_THE_TRIGGER.EstadoReserva WHERE descripcion='Reserva pendiente'), @Pasajeros)
 
 INSERT INTO EYE_OF_THE_TRIGGER.CabinasReservadas (rese_id, cabi_id)
 VALUES ((SELECT MAX(rese_id) FROM EYE_OF_THE_TRIGGER.Reserva), @Cabina)
