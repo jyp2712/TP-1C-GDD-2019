@@ -103,7 +103,7 @@ namespace FrbaCrucero.PagoReserva
         {
             txtNombreCiudad.Clear();
             ds.Clear();
-            cargarEstadoInicial();
+            inicializarDataGridView();
             dgv.Refresh();
         }
 

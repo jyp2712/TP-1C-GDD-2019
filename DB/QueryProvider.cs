@@ -95,6 +95,11 @@ namespace FrbaCrucero.DB
             return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Reserva JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Cliente on rese_cliente_id = clie_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Crucero on cruc_id = rese_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Servicio on cruc_servicio=serv_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].TipoDocumento on clie_tipo_doc = TipoDocumento.id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Domicilio on clie_domicilio_id = domi_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Marca on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Viaje v on rese_viaje_id = v.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].RecorridoViaje rv on rv.viaj_id = v.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Recorrido r on r.reco_id = rv.reco_id WHERE rese_id='" + idReserva + "' AND rese_estado_reserva = 3";
         }
 
+        public static string SELECT_RESERVA_v2(Int32 idReserva)
+        {
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Reserva JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Cliente on rese_cliente_id = clie_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Crucero on cruc_id = rese_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Servicio on cruc_servicio=serv_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].TipoDocumento on clie_tipo_doc = TipoDocumento.id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Domicilio on clie_domicilio_id = domi_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Marca on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Viaje v on rese_viaje_id = v.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].RecorridoViaje rv on rv.viaj_id = v.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Recorrido r on r.reco_id = rv.reco_id WHERE rese_id='" + idReserva + "'";
+        }
+
 
         public static string SELECT_PUERTO_POR_CIUDAD(string ciudadId)
         {

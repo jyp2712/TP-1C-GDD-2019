@@ -31,6 +31,7 @@ namespace FrbaCrucero.PagoReserva
 
         private void btnIngresarAlPago_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
 
                 string rese_id = this.txtIdReserva.Text;
                 //DataSet ds = DBConnection.getInstance().executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Reserva] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Cliente on rese_cliente_id = clie_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Crucero on cruc_id = rese_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].TipoDocumento on clie_tipo_doc = TipoDocumento.id   JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Domicilio on clie_domicilio_id = domi_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Marca on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Viaje on rese_viaje_id = viaj_id WHERE rese_id='" + rese_id + "'");
@@ -68,7 +69,48 @@ namespace FrbaCrucero.PagoReserva
 
 
                 }
+=======
+            Int32 rese_id = Convert.ToInt32(this.txtIdReserva.Text);
+            //DataSet ds = DBConnection.getInstance().executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Reserva] JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Cliente on rese_cliente_id = clie_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Crucero on cruc_id = rese_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].TipoDocumento on clie_tipo_doc = TipoDocumento.id   JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Domicilio on clie_domicilio_id = domi_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Marca on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Viaje on rese_viaje_id = viaj_id WHERE rese_id='" + rese_id + "'");
+            DataSet ds = DBConnection.getInstance().executeQuery(QueryProvider.SELECT_RESERVA_v2(rese_id));
+            
+             if (ds.Tables[0].Rows.Count==0 || ds==null)
 
+             {
+                 MessageBox.Show("La reserva solicitada no existe.");
+             }
+             else 
+             {
+
+                 switch (Convert.ToInt32(ds.Tables[0].Rows[0]["rese_estado_reserva"]))
+                 {
+                     case 4:
+                         MessageBox.Show("Reserva cancelada por baja de crucero");
+                         break;
+                     case 1:
+                         MessageBox.Show("Reserva Correcta");
+                         break;
+                     case 5:
+                         MessageBox.Show("Reserva Vencida");
+                         break;
+                     case 3:
+                         Reserva reserva = new Reserva(ds);
+                         reserva = Mappers.GeneralMapper.deDataSetAReserva(ds);
+                         PagoReservaForm formReserva = new PagoReservaForm(reserva);
+                         formReserva.Show();
+                         this.Hide();
+                         break;
+                     case 2:
+                         MessageBox.Show("Reserva Modificada");
+                         break;
+                 }
+
+>>>>>>> 7694d9279184dc4dabcdc92bdc114c5fc642f126
+
+             }
+             
         }
+
     }
 }
+            
