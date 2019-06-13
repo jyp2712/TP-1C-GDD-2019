@@ -34,7 +34,7 @@ namespace FrbaCrucero.AbmRecorrido
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.textBox1.Text)) this.textBox1.Clear();
+            if (string.IsNullOrWhiteSpace(this.Codigo.Text)) this.Codigo.Clear();
 
         }
 

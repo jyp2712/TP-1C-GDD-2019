@@ -93,7 +93,7 @@ namespace FrbaCrucero.GeneracionViaje
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.Codigo.Text)) this.Codigo.Clear();
+            if (string.IsNullOrWhiteSpace(this.Viaje.Text)) this.Viaje.Clear();
 
         }
 

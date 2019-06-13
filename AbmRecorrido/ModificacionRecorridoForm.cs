@@ -48,10 +48,16 @@ namespace FrbaCrucero.AbmRecorrido
 
         private void Modificar_Click(object sender, EventArgs e)
         {
-            DBAdapter.actualizarDatosEnTabla("recorrido", id, Convert.ToInt32(Codigo.Text), Convert.ToInt32(comboBoxCiudadPuertoOrigen.Text), Convert.ToInt32(comboBoxCiudadPuertoDestino.Text),
-                Convert.ToDouble(Precio.Text));
-            MessageBox.Show("Recorrido " + id + " modificado");
-        
+            if (!string.IsNullOrWhiteSpace(this.Codigo.Text) && !string.IsNullOrWhiteSpace(this.Precio.Text))
+            {
+
+                DBAdapter.actualizarDatosEnTabla("recorrido", id, Convert.ToInt32(Codigo.Text), Convert.ToInt32(comboBoxCiudadPuertoOrigen.Text), Convert.ToInt32(comboBoxCiudadPuertoDestino.Text),
+                    Convert.ToDouble(Precio.Text));
+                MessageBox.Show("Recorrido " + id + " modificado");
+            }
+            else {
+                MessageBox.Show("Debe completar todos los campos");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

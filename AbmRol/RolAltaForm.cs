@@ -108,19 +108,26 @@ namespace FrbaCrucero.AbmRol
         //TODO. Cuando se borra una funcionalidad, por algun motivo no te deja volver a agregarla
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            DataRowView oDataRowView = comboFuncionalidades.SelectedItem as DataRowView;
-            var selectedID = Convert.ToString(oDataRowView.Row["func_id"]);
-            string[] row = { selectedID, comboFuncionalidades.Text };
-            var listViewItem = new ListViewItem(row);
+            if (!String.IsNullOrWhiteSpace(this.txtNombre.Text))
+            {
+                DataRowView oDataRowView = comboFuncionalidades.SelectedItem as DataRowView;
+                var selectedID = Convert.ToString(oDataRowView.Row["func_id"]);
+                string[] row = { selectedID, comboFuncionalidades.Text };
+                var listViewItem = new ListViewItem(row);
 
-            if (!IsInCollection(listViewItem))
-            {           
-                listViewFuncionalidadesSeleccionadas.Items.Add(listViewItem);
+                if (!IsInCollection(listViewItem))
+                {
+                    listViewFuncionalidadesSeleccionadas.Items.Add(listViewItem);
+                }
+                else
+                {
+                    MessageBox.Show("La funcionalidad ya fue seleccionada anteriormente !");
+                }
             }
             else
             {
-                MessageBox.Show("La funcionalidad ya fue seleccionada anteriormente !");
-            }  
+                MessageBox.Show("La funcionalidad debe tener un nombre");
+            }
 
         }
 

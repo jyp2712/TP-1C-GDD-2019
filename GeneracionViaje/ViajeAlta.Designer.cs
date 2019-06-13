@@ -60,7 +60,7 @@
             // 
             // Agregar
             // 
-            this.Agregar.Location = new System.Drawing.Point(281, 285);
+            this.Agregar.Location = new System.Drawing.Point(261, 287);
             this.Agregar.Name = "Agregar";
             this.Agregar.Size = new System.Drawing.Size(75, 23);
             this.Agregar.TabIndex = 8;
@@ -71,25 +71,25 @@
             // Crucero
             // 
             this.Crucero.Enabled = false;
-            this.Crucero.Location = new System.Drawing.Point(182, 221);
+            this.Crucero.Location = new System.Drawing.Point(162, 223);
             this.Crucero.Name = "Crucero";
-            this.Crucero.Size = new System.Drawing.Size(98, 20);
+            this.Crucero.Size = new System.Drawing.Size(115, 20);
             this.Crucero.TabIndex = 5;
             this.Crucero.TextChanged += new System.EventHandler(this.Crucero_TextChanged);
             // 
             // Codigo
             // 
             this.Codigo.Enabled = false;
-            this.Codigo.Location = new System.Drawing.Point(182, 87);
+            this.Codigo.Location = new System.Drawing.Point(162, 89);
             this.Codigo.Name = "Codigo";
-            this.Codigo.Size = new System.Drawing.Size(98, 20);
+            this.Codigo.Size = new System.Drawing.Size(115, 20);
             this.Codigo.TabIndex = 1;
             this.Codigo.TextChanged += new System.EventHandler(this.Codigo_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(60, 224);
+            this.label4.Location = new System.Drawing.Point(40, 226);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 18;
@@ -98,7 +98,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(60, 178);
+            this.label3.Location = new System.Drawing.Point(40, 180);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(69, 13);
             this.label3.TabIndex = 16;
@@ -107,7 +107,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(60, 134);
+            this.label2.Location = new System.Drawing.Point(40, 136);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 13);
             this.label2.TabIndex = 14;
@@ -116,7 +116,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(60, 90);
+            this.label1.Location = new System.Drawing.Point(40, 92);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 13);
             this.label1.TabIndex = 12;
@@ -126,7 +126,7 @@
             // 
             this.dateTimePicker1.CustomFormat = "dd/MM/yyyy hh:mm:ss";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(182, 126);
+            this.dateTimePicker1.Location = new System.Drawing.Point(162, 128);
             this.dateTimePicker1.MaxDate = new System.DateTime(2020, 12, 31, 0, 0, 0, 0);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(143, 20);
@@ -136,7 +136,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(299, 85);
+            this.button1.Location = new System.Drawing.Point(290, 87);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 23);
             this.button1.TabIndex = 2;
@@ -146,7 +146,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(299, 219);
+            this.button2.Location = new System.Drawing.Point(290, 220);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(83, 23);
             this.button2.TabIndex = 6;
@@ -158,7 +158,7 @@
             // 
             this.dateTimePicker2.CustomFormat = "dd/MM/yyyy hh:mm:ss";
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(182, 172);
+            this.dateTimePicker2.Location = new System.Drawing.Point(162, 174);
             this.dateTimePicker2.MaxDate = new System.DateTime(2020, 12, 31, 0, 0, 0, 0);
             this.dateTimePicker2.MinDate = new System.DateTime(2019, 6, 6, 0, 0, 0, 0);
             this.dateTimePicker2.Name = "dateTimePicker2";
@@ -168,16 +168,16 @@
             // 
             // Viaje
             // 
-            this.Viaje.Location = new System.Drawing.Point(182, 47);
+            this.Viaje.Location = new System.Drawing.Point(162, 49);
             this.Viaje.Name = "Viaje";
-            this.Viaje.Size = new System.Drawing.Size(98, 20);
+            this.Viaje.Size = new System.Drawing.Size(115, 20);
             this.Viaje.TabIndex = 0;
             this.Viaje.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(60, 50);
+            this.label6.Location = new System.Drawing.Point(40, 52);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 13);
             this.label6.TabIndex = 27;
@@ -185,7 +185,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(63, 285);
+            this.button3.Location = new System.Drawing.Point(43, 287);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 7;
@@ -197,7 +197,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(405, 333);
+            this.ClientSize = new System.Drawing.Size(387, 334);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.Viaje);
             this.Controls.Add(this.label6);
