@@ -1786,6 +1786,20 @@ GO
 PRINT '----- Trigger [EYE_OF_THE_TRIGGER].[cabinas_reservadas] creada -----'
 
 
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[contarReservas]', 'P') IS NOT NULL 
+DROP PROCEDURE [EYE_OF_THE_TRIGGER].contarReservas
+GO
+
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].contarReservas (@idReserva as [numeric](18,0)) AS
+BEGIN
+SELECT COUNT(*) FROM EYE_OF_THE_TRIGGER.Reserva WHERE rese_id=@idReserva;
+
+END
+GO
+PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[contarReservas] creada -----'
+
+
 /*******  Funciones para la APP  *******/
 
 
