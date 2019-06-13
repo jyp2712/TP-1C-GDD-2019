@@ -111,9 +111,8 @@ namespace FrbaCrucero.PagoReserva
             {
                 DBAdapter.ejecutarProcedure("facturar", this.reserva, this.viaje, this.crucero, this.comboBox1.Text,
                     Convert.ToInt32(this.numericUpDown1.Value), Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]));
-                ds = dbConnection.executeQuery("SELECT MAX(comp_id) FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Compra]");
-                MessageBox.Show("Compra efectuada. Nº de voucher: "+ ds.Tables[0].Rows[0]["comp_id"].ToString());
-
+                ds = dbConnection.executeQuery("SELECT MAX(comp_id) comp_id FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Compra]");
+                MessageBox.Show("Compra efectuada. Nº de voucher: " + ds.Tables[0].Rows[0]["comp_id"].ToString());
                 this.Close();
             }
             else
@@ -137,7 +136,7 @@ namespace FrbaCrucero.PagoReserva
                         {
                             DBAdapter.ejecutarProcedure("facturar", this.reserva, this.viaje, this.crucero, this.comboBox1.Text,
                                 Convert.ToInt32(this.numericUpDown1.Value), Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]));
-                            ds = dbConnection.executeQuery("SELECT MAX(comp_id) FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Compra]");
+                            ds = dbConnection.executeQuery("SELECT MAX(comp_id) comp_id FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Compra]");
                             MessageBox.Show("Compra efectuada. Nº de voucher: " + ds.Tables[0].Rows[0]["comp_id"].ToString());
                             this.Close();
                         }

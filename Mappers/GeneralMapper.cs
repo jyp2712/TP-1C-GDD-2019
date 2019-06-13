@@ -72,9 +72,8 @@ namespace FrbaCrucero.Mappers
             int id = Convert.ToInt32(ds.Tables[0].Rows[0]["viaj_id"]);
             int codigo = Convert.ToInt32(ds.Tables[0].Rows[0]["viaj_codigo"]);
             DateTime fechaInicio = Convert.ToDateTime(ds.Tables[0].Rows[0]["viaj_fecha_inicio"]);
-            DateTime fechaFin = Convert.ToDateTime(ds.Tables[0].Rows[0]["viaj_fecha_fin"]);
             DateTime fechaFinEstimada = Convert.ToDateTime(ds.Tables[0].Rows[0]["viaj_fecha_fin_estimada"]);
-            return new Viaje(id, codigo, fechaInicio, fechaFin, fechaFinEstimada, crucero);
+            return new Viaje(id, codigo, fechaInicio, fechaFinEstimada, fechaFinEstimada, crucero);
         }
 
         public static Cabina deDataSetACabina(int cabinaId)

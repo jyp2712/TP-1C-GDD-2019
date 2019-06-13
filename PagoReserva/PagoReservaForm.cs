@@ -215,6 +215,7 @@ namespace FrbaCrucero.PagoReserva
             confirmarReserva();
             PagoForm pf = new PagoForm(this.id, Convert.ToInt32(viajeId), this.crucero.Id);
             pf.ShowDialog();
+            this.Close();
         }
 
         private void confirmarReserva()
@@ -224,6 +225,8 @@ namespace FrbaCrucero.PagoReserva
                 Convert.ToInt32(viajeId), this.cabinaId, Convert.ToInt32(this.pasajesUpDown.Value));
             DataSet ds = DBConnection.getInstance().executeQuery("SELECT MAX(rese_id) id FROM EYE_OF_THE_TRIGGER.Reserva");
             this.id = Convert.ToInt32(ds.Tables[0].Rows[0]["id"]);
+            MessageBox.Show("Reserva efectuada. Nº de reserva: " + this.id);
+            this.Close();
         }
     }
 }
