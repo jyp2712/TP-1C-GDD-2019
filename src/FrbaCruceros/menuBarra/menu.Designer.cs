@@ -137,7 +137,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Enabled = false;
-            this.pictureBox1.Image = global::FrbaCrucero.Properties.Resources.Captura;
+            this.pictureBox1.Image = global::WindowsFormsApplication1.Properties.Resources.Captura;
             this.pictureBox1.Location = new System.Drawing.Point(28, 45);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(470, 205);
