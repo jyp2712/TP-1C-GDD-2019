@@ -273,14 +273,14 @@ namespace FrbaCrucero.AbmCliente
 
                     DBAdapter.insertarDatosEnTabla("cliente", this.Nombre.Text, this.Apellido.Text,
                         Convert.ToInt32(dsDoc.Tables[0].Rows[0]["id"]), Convert.ToInt32(this.Documento.Text),
-                        this.Calle.Text, Convert.ToInt32(this.Nro.Text), Convert.ToInt32(this.Piso.Text), this.Dpto.Text,
+                        this.Calle.Text, Convert.ToInt32(this.Nro.Text), this.Piso.Text, this.Dpto.Text,
                         this.Ciudad.Text, this.Pais.Text, Convert.ToInt32(this.Telefono.Text), this.email.Text,
                         Convert.ToDateTime(this.dateTimePicker1.Text));
+                    MessageBox.Show("Cliente dado de alta");
 
                 }
             }
 
-            MessageBox.Show("Datos cargados correctamente");
 
             this.documento = Convert.ToInt32(this.Documento.Text);
             ds = dbConnection.executeQuery("SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].[Cliente] WHERE clie_doc=" + this.documento);
@@ -299,6 +299,7 @@ namespace FrbaCrucero.AbmCliente
                 Convert.ToInt32(dsDoc.Tables[0].Rows[0]["id"]), Convert.ToInt32(this.Documento.Text),
                 this.Calle.Text, Convert.ToInt32(this.Nro.Text), this.Piso.Text, this.Dpto.Text, this.Ciudad.Text,
                 this.Pais.Text, this.Telefono.Text, this.email.Text, Convert.ToDateTime(this.dateTimePicker1.Text));
+            MessageBox.Show("Datos cargados correctamente");
         }
 
         private void validarMail(string email)

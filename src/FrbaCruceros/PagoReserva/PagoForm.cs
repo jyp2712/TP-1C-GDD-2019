@@ -141,12 +141,13 @@ namespace FrbaCrucero.PagoReserva
                             this.Close();
                         }
                     }
-                    catch { }
+                    catch {
+                    }
                 }
 
             }
 
-
+            this.Close();
 
         }
 

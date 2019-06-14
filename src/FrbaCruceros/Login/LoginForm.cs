@@ -42,6 +42,7 @@ namespace FrbaCrucero.Login
             }
             else
             {
+                MessageBox.Show("Datos incorrectos");
                 this.clearTxtFields();
             }
         }

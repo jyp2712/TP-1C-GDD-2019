@@ -93,7 +93,12 @@ namespace FrbaCrucero.DB
         */
         public static string SELECT_RESERVA(string idReserva)
         {
-            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Reserva JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Cliente on rese_cliente_id = clie_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Crucero on cruc_id = rese_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Servicio on cruc_servicio=serv_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].TipoDocumento on clie_tipo_doc = TipoDocumento.id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Domicilio on clie_domicilio_id = domi_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Marca on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Viaje v on rese_viaje_id = v.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].RecorridoViaje rv on rv.viaj_id = v.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Recorrido r on r.reco_id = rv.reco_id WHERE rese_id='" + idReserva + "' AND rese_estado_reserva = 3";
+            return "SELECT * FROM [GD1C2019].[EYE_OF_THE_TRIGGER].Reserva JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Cliente on rese_cliente_id = clie_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Crucero on cruc_id = rese_crucero_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Servicio on cruc_servicio=serv_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].TipoDocumento on clie_tipo_doc = TipoDocumento.id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Domicilio on clie_domicilio_id = domi_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Marca on marc_id = cruc_marca JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Viaje v on rese_viaje_id = v.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].RecorridoViaje rv on rv.viaj_id = v.viaj_id JOIN [GD1C2019].[EYE_OF_THE_TRIGGER].Recorrido r on r.reco_id = rv.reco_id WHERE rese_id='" + idReserva + "' AND (rese_estado_reserva = 3 OR rese_estado_reserva = 2)";
+        }
+
+        public static string SELECT_RESERVA_CLIENTE(string idCliente, String fechaInicio, String fechaFin)
+        {
+            return "select DISTINCT rese_id from [EYE_OF_THE_TRIGGER].Reserva JOIN [EYE_OF_THE_TRIGGER].Viaje ON rese_viaje_id = rese_viaje_id WHERE rese_cliente_id =" + idCliente + " AND (viaj_fecha_inicio BETWEEN convert(datetime,'" + fechaInicio + "', 121) AND convert(datetime,'" + fechaFin + "', 121) OR viaj_fecha_fin_estimada BETWEEN convert(datetime,'" + fechaInicio + "', 121) AND convert(datetime,'" + fechaFin + "', 121)) AND (rese_estado_reserva != 4 OR rese_estado_reserva != 5)";
         }
 
         public static string SELECT_RESERVA_v2(Int32 idReserva)

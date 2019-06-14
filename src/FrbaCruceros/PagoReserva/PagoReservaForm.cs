@@ -194,13 +194,20 @@ namespace FrbaCrucero.PagoReserva
             }
             else
             {
-                DBAdapter.ejecutarProcedure("reservar", this.Cliente.Id, this.crucero.Id,
-        Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]),
-        Convert.ToInt32(viajeId), this.cabinaId, Convert.ToInt32(this.pasajesUpDown.Value));
-                DataSet ds = DBConnection.getInstance().executeQuery("SELECT MAX(rese_id) id FROM EYE_OF_THE_TRIGGER.Reserva");
-                this.id = Convert.ToInt32(ds.Tables[0].Rows[0]["id"]);
-                MessageBox.Show("Reserva efectuada. Nº de reserva: " + this.id);
-                this.Close();
+                if (DBConnection.getInstance().executeQuery(QueryProvider.SELECT_RESERVA_CLIENTE(Convert.ToString(this.Cliente.Id), dtpSalida.Value.Date.ToString("yyyy-MM-dd HH:mm:ss.fff"), dtpRegreso.Value.Date.ToString("yyyy-MM-dd HH:mm:ss.fff"))).Tables[0].Rows.Count > 0)
+                {
+                    MessageBox.Show("El cliente ya tiene una reserva para esa fecha");
+                }
+                else
+                {
+                    DBAdapter.ejecutarProcedure("reservar", this.Cliente.Id, this.crucero.Id,
+            Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]),
+            Convert.ToInt32(viajeId), this.cabinaId, Convert.ToInt32(this.pasajesUpDown.Value));
+                    DataSet ds = DBConnection.getInstance().executeQuery("SELECT MAX(rese_id) id FROM EYE_OF_THE_TRIGGER.Reserva");
+                    this.id = Convert.ToInt32(ds.Tables[0].Rows[0]["id"]);
+                    MessageBox.Show("Reserva efectuada. Nº de reserva: " + this.id);
+                    this.Close();
+                }
             }
 
         }
@@ -260,14 +267,21 @@ namespace FrbaCrucero.PagoReserva
             }
             else
             {
-                if (DBConnection.getInstance().executeQuery(QueryProvider.SELECT_RESERVA(Convert.ToString(this.reserva.Id))).Tables[0].Rows.Count == 0)
+                if (DBConnection.getInstance().executeQuery(QueryProvider.SELECT_RESERVA_CLIENTE(Convert.ToString(this.Cliente.Id), dtpSalida.Value.Date.ToString("yyyy-MM-dd HH:mm:ss.fff"), dtpRegreso.Value.Date.ToString("yyyy-MM-dd HH:mm:ss.fff"))).Tables[0].Rows.Count > 0)
                 {
-                    confirmarReserva();
+                    MessageBox.Show("El cliente ya tiene una reserva para esa fecha");
                 }
                 else
                 {
-                    PagoForm pf = new PagoForm(this.reserva.Id, this.reserva.Viaje.Id, this.crucero.Id);
-                    pf.ShowDialog();
+                    if (DBConnection.getInstance().executeQuery(QueryProvider.SELECT_RESERVA(Convert.ToString(this.reserva.Id))).Tables[0].Rows.Count == 0)
+                    {
+                        confirmarReserva();
+                    }
+                    else
+                    {
+                        PagoForm pf = new PagoForm(this.reserva.Id, this.reserva.Viaje.Id, this.crucero.Id);
+                        pf.ShowDialog();
+                    }
                 }
             }
         }

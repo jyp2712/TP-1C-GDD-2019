@@ -114,7 +114,7 @@ CREATE TABLE [EYE_OF_THE_TRIGGER].[Domicilio] (
 	[domi_ciudad] [nvarchar](255),
 	[domi_calle] [nvarchar](255),
 	[domi_nro_calle] [numeric](18,0),
-	[domi_piso] [numeric](18,0),
+	[domi_piso] [nvarchar](50),
 	[domi_dpto] [nvarchar](50),
 )
 PRINT '----- Tabla EYE_OF_THE_TRIGGER.Domicilio creada -----'
@@ -142,7 +142,7 @@ IF NOT EXISTS (
 	SELECT 1 
 	FROM INFORMATION_SCHEMA.TABLES 
 	WHERE TABLE_TYPE = 'BASE TABLE' 
-    	AND TABLE_NAME = 'Cliente' 
+    AND TABLE_NAME = 'Cliente' 
 	AND TABLE_SCHEMA = 'EYE_OF_THE_TRIGGER'
 )
 BEGIN
@@ -1063,6 +1063,8 @@ INSERT INTO EYE_OF_THE_TRIGGER.MedioDePago (medio_descripcion) VALUES ('Efectivo
 
 
 /*******  SP para la APP  *******/
+
+
 PRINT''
 IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[buscarRolNombre]', 'P') IS NOT NULL 
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].buscarRolNombre
@@ -1302,10 +1304,15 @@ IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[actualizar_recorrido]', 'P') IS NOT NULL
 DROP PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_recorrido
 GO
 
-CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_recorrido(@id as bigint, @Codigo as bigint, @PuertoDesde as bigint, @PuertoHasta as bigint,
+CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_recorrido(@id as bigint, @Codigo as bigint, @PuertoDesde as varchar(50), @PuertoHasta as varchar(50),
 @Precio as float) AS
 
-UPDATE [EYE_OF_THE_TRIGGER].Recorrido SET reco_codigo = @Codigo, reco_origen_id = @PuertoDesde, reco_destino_id = @PuertoHasta, reco_precio = @Precio, reco_estado = 1
+DECLARE  @puertoInicio as int, @puertoFin as int
+
+SET @puertoInicio = (SELECT ciud_id FROM [EYE_OF_THE_TRIGGER].Ciudad JOIN [EYE_OF_THE_TRIGGER].Puerto ON ciud_puerto_id = puer_id WHERE puer_nombre=@PuertoDesde)
+SET @puertoFin = (SELECT ciud_id FROM [EYE_OF_THE_TRIGGER].Ciudad JOIN [EYE_OF_THE_TRIGGER].Puerto ON ciud_puerto_id = puer_id WHERE puer_nombre=@PuertoHasta)
+
+UPDATE [EYE_OF_THE_TRIGGER].Recorrido SET reco_codigo = @Codigo, reco_origen_id = @puertoInicio, reco_destino_id = @puertoFin, reco_precio = @Precio, reco_estado = 1
 WHERE reco_id = @id  
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[actualizar_recorrido] creada -----'
@@ -1367,7 +1374,7 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].insertar_cliente
 (@Nombre as varchar(255), @Apellido as varchar(255), @TipoDocumento as int, @Documento as int,
-@Calle as varchar(255), @Numero as int, @Piso as int, @Dpto as varchar(255),
+@Calle as varchar(255), @Numero as int, @Piso as varchar(255), @Dpto as varchar(255),
 @Ciudad as varchar(255), @Pais as varchar(255), @Telefono as int, @Email as varchar(255), @FechaNac as DATETIME) AS
 
 BEGIN
@@ -1384,7 +1391,7 @@ BEGIN
 
 	INSERT INTO EYE_OF_THE_TRIGGER.Cliente (clie_nombre, clie_apellido, clie_tipo_doc, clie_doc, clie_domicilio_id, clie_tel, clie_mail, clie_fecha_nac)
 	VALUES (@Nombre, @Apellido, @TipoDocumento, @Documento, @IdDom, @Telefono, @Email, @FechaNac)
-	RETURN 1
+	RETURN 0
 END
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[insertar_cliente] creada -----'
@@ -1396,7 +1403,7 @@ GO
 
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].actualizar_cliente
 (@IdCliente as int, @Nombre as varchar(255), @Apellido as varchar(255), @TipoDocumento as int, @Documento as int,
-@Calle as varchar(255), @Numero as int, @Piso as int, @Dpto as varchar(255),
+@Calle as varchar(255), @Numero as int, @Piso as varchar(255), @Dpto as varchar(255),
 @Ciudad as varchar(255), @Pais as varchar(255), @Telefono as int, @Email as varchar(255), @FechaNac as DATETIME) AS
 
 BEGIN
@@ -1818,6 +1825,36 @@ SELECT COUNT(*) FROM EYE_OF_THE_TRIGGER.Reserva WHERE rese_id=@idReserva;
 END
 GO
 PRINT '----- Procedure [EYE_OF_THE_TRIGGER].[contarReservas] creada -----'
+
+
+IF OBJECT_ID('[EYE_OF_THE_TRIGGER].[recorrido_modificado]', 'TR') IS NOT NULL 
+DROP TRIGGER [EYE_OF_THE_TRIGGER].cabinas_reservadas
+GO
+
+CREATE TRIGGER [EYE_OF_THE_TRIGGER].recorrido_modificado ON [EYE_OF_THE_TRIGGER].Recorrido AFTER UPDATE AS
+BEGIN
+
+DECLARE @Anterior as int, @Posterior as int
+SET @Anterior = (SELECT reco_codigo FROM [EYE_OF_THE_TRIGGER].Recorrido WHERE reco_id = (SELECT r1.reco_id FROM inserted r1)-1)
+SET @Posterior = (SELECT reco_codigo FROM [EYE_OF_THE_TRIGGER].Recorrido WHERE reco_id = (SELECT r1.reco_id FROM inserted r1)+1)
+
+IF @Anterior IS NOT NULL AND (@Anterior = (SELECT r1.reco_codigo FROM inserted r1)) 
+BEGIN
+UPDATE EYE_OF_THE_TRIGGER.Recorrido SET reco_destino_id = (SELECT r1.reco_origen_id FROM inserted r1)
+WHERE reco_id = (SELECT r1.reco_id FROM inserted r1)-1
+END
+
+IF @Posterior IS NOT NULL AND (@Posterior = (SELECT r1.reco_codigo FROM inserted r1)) 
+BEGIN
+UPDATE EYE_OF_THE_TRIGGER.Recorrido SET reco_origen_id = (SELECT r1.reco_destino_id FROM inserted r1)
+WHERE reco_id = (SELECT r1.reco_id FROM inserted r1)+1
+END
+
+END
+
+GO
+PRINT '----- Trigger [EYE_OF_THE_TRIGGER].[recorrido_modificado] creada -----'
+
 
 
 /*******  Funciones para la APP  *******/

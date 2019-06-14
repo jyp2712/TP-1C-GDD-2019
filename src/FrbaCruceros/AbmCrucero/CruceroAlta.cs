@@ -21,6 +21,7 @@ namespace FrbaCrucero.AbmCrucero
         {
             InitializeComponent();
             cargarComboMarcas();
+            cargarServicios();
             cargarDatos(codigo);
         }
 

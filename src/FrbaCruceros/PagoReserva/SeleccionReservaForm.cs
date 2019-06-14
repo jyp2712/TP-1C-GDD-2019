@@ -54,15 +54,11 @@ namespace FrbaCrucero.PagoReserva
                         case 5:
                             MessageBox.Show("Reserva Vencida");
                             break;
-                        case 3:
-                            //Reserva reserva = new Reserva(ds);
+                        default:
                             Reserva reserva = Mappers.GeneralMapper.deDataSetAReserva(ds);
                             PagoReservaForm formReserva = new PagoReservaForm(reserva);
                             formReserva.Show();
                             this.Hide();
-                            break;
-                        case 2:
-                            MessageBox.Show("Reserva Modificada");
                             break;
                     }
 
