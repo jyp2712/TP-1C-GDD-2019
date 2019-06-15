@@ -73,6 +73,7 @@ namespace FrbaCrucero.AbmRecorrido
             dgv.Columns["reco_origen_id"].HeaderText = "Desde";
             dgv.Columns["reco_destino_id"].HeaderText = "Hasta";
             dgv.Columns["reco_precio"].HeaderText = "Precio";
+            dgv.Columns["reco_estado"].Visible = false;
         }
 
         public static void addButtonToDataGridView(DataGridView dgv, string headerText, string buttonText)

@@ -36,6 +36,8 @@ namespace FrbaCrucero.AbmCrucero
                 {
                     comboServicio.Items.Add(row["serv_descripcion"].ToString());
                 }
+                comboServicio.Items.Add("");
+
             }
             catch (Exception exc)
             {
@@ -144,7 +146,7 @@ namespace FrbaCrucero.AbmCrucero
             this.Marca.Clear();
             this.Codigo.Clear();
             this.CodigoContiene.Clear();
-            this.comboServicio.ResetText();
+            this.comboServicio.Text = "";
             initializeDataGridView(dataGridViewCruceros, ref ds);
         }
     }

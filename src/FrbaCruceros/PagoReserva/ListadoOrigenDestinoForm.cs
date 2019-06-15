@@ -25,6 +25,7 @@ namespace FrbaCrucero.PagoReserva
             inicializarDataGridView();
             this.txtToModify = txtToModify;
             this.isOrigen = isOrigen;
+            RolHelper.addButtonToDataGridView(dgv, "Seleccionar", "   *  ");
 
         }
 
@@ -43,7 +44,6 @@ namespace FrbaCrucero.PagoReserva
             dgv.Columns["puer_estado"].Visible = false;
             dgv.Columns["puer_nombre"].HeaderText = "Nombre Puerto";
 
-            RolHelper.addButtonToDataGridView(dgv, "Seleccionar", "   *  ");
 
         }
 

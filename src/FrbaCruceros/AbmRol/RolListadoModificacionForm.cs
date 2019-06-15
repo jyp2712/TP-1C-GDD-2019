@@ -34,7 +34,7 @@ namespace FrbaCrucero.AbmRol
         {
             txtNombreRol.Clear();
             ds.Clear();
-            dgvRoles.Refresh();
+            RolHelper.initializeDataGridView(dgvRoles, ref ds);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -64,7 +64,7 @@ namespace FrbaCrucero.AbmRol
 
         private void txtNombreRol_TextChanged(object sender, EventArgs e)
         {
-            Validaciones.ValidacionesHelper.validarCampoSoloTexto(this.txtNombreRol);
+
         }
     }
 }

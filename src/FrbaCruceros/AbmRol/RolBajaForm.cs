@@ -57,7 +57,7 @@ namespace FrbaCrucero.AbmRol
         {
             txtNombre.Clear();
             ds.Clear();
-            dataGridViewRoles.Refresh();
+            RolHelper.initializeDataGridView(dataGridViewRoles, ref ds);
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -89,7 +89,6 @@ namespace FrbaCrucero.AbmRol
 
         private void txtNombre_TextChanged(object sender, EventArgs e)
         {
-            Validaciones.ValidacionesHelper.validarCampoSoloTexto(this.txtNombre);
         }
 
      

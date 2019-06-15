@@ -116,15 +116,15 @@ namespace FrbaCrucero.GeneracionViaje
                 }
 
                 dataGridViewRecorridos.ReadOnly = true;
+                dataGridViewRecorridos.AllowUserToAddRows = false;
+                dataGridViewRecorridos.AllowUserToDeleteRows = false;
                 dataGridViewRecorridos.DataSource = ds.Tables[0];
 
-
-                dataGridViewRecorridos.Columns["reco_id"].HeaderText = "Id";
+                dataGridViewRecorridos.Columns["reco_id"].Visible = false;
                 dataGridViewRecorridos.Columns["reco_codigo"].HeaderText = "Codigo";
                 dataGridViewRecorridos.Columns["reco_origen_id"].HeaderText = "Desde";
                 dataGridViewRecorridos.Columns["reco_destino_id"].HeaderText = "Hasta";
-                dataGridViewRecorridos.Columns["reco_precio"].HeaderText = "Precio";
-                dataGridViewRecorridos.Columns["reco_estado"].HeaderText = "Estado";
+
             }
         }
 

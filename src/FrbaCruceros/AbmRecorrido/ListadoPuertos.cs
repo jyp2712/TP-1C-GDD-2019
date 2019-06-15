@@ -25,6 +25,7 @@ namespace FrbaCrucero.AbmRecorrido
             inicializarDataGridView();
             this.txtToModify = txtToModify;
             this.isOrigen = isOrigen;
+            RolHelper.addButtonToDataGridView(dgv, "Seleccionar", "   *  ");
 
         }
 
@@ -42,8 +43,6 @@ namespace FrbaCrucero.AbmRecorrido
             dgv.Columns["puer_id"].Visible = false;
             dgv.Columns["puer_estado"].Visible = false;
             dgv.Columns["puer_nombre"].HeaderText = "Nombre Puerto";
-
-            RolHelper.addButtonToDataGridView(dgv, "Seleccionar", "   *  ");
 
         }
 
@@ -122,6 +121,21 @@ namespace FrbaCrucero.AbmRecorrido
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnBuscar_Click_1(object sender, EventArgs e)
+        {
+            string query = QueryProvider.SELECT_CIUDADES_Y_PUERTO_LIKE(this.txtNombreCiudad.Text);
+            DataSet ds = DBConnection.getInstance().executeQuery(query);
+            dgv.DataSource = ds.Tables[0];
+        }
+
+        private void btnLimpiar_Click_1(object sender, EventArgs e)
+        {
+            txtNombreCiudad.Clear();
+            ds.Clear();
+            cargarEstadoInicial();
+            dgv.Refresh();
         }
     }
 }

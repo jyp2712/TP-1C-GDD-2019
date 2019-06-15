@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FrbaCrucero.DB;
+using FrbaCrucero.Validaciones;
 using System.Data.SqlClient;
 
 namespace FrbaCrucero.AbmRol
@@ -37,19 +38,19 @@ namespace FrbaCrucero.AbmRol
                 DBConnection dbConnection = DBConnection.getInstance();
                 DataSet ds = dbConnection.executeQuery(QueryProvider.SELECT_ROLES_CON_FUNCIONALIDADES(rol_id));
                 txtNombre.Text = Convert.ToString(ds.Tables[0].Rows[0]["rol_nombre"]);
-                 foreach (DataRow row in ds.Tables[0].Rows)
-                 {
-                     string funcId = Convert.ToString(row["func_id"]);
-                     string funcNombre = Convert.ToString(row["func_nombre"]);
-                     string[] newRow = { funcId, funcNombre };
-                     var listViewItem = new ListViewItem(newRow);
-                     listViewFuncionalidadesSeleccionadas.Items.Add(listViewItem);
-                 }
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    string funcId = Convert.ToString(row["func_id"]);
+                    string funcNombre = Convert.ToString(row["func_nombre"]);
+                    string[] newRow = { funcId, funcNombre };
+                    var listViewItem = new ListViewItem(newRow);
+                    listViewFuncionalidadesSeleccionadas.Items.Add(listViewItem);
+                }
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
-            } 
+            }
         }
 
         private void cargarComboFuncionalidades()
@@ -108,30 +109,22 @@ namespace FrbaCrucero.AbmRol
         //TODO. Cuando se borra una funcionalidad, por algun motivo no te deja volver a agregarla
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(this.txtNombre.Text))
-            {
-                DataRowView oDataRowView = comboFuncionalidades.SelectedItem as DataRowView;
-                var selectedID = Convert.ToString(oDataRowView.Row["func_id"]);
-                string[] row = { selectedID, comboFuncionalidades.Text };
-                var listViewItem = new ListViewItem(row);
+            DataRowView oDataRowView = comboFuncionalidades.SelectedItem as DataRowView;
+            var selectedID = Convert.ToString(oDataRowView.Row["func_id"]);
+            string[] row = { selectedID, comboFuncionalidades.Text };
+            var listViewItem = new ListViewItem(row);
 
-                if (!IsInCollection(listViewItem))
-                {
-                    listViewFuncionalidadesSeleccionadas.Items.Add(listViewItem);
-                }
-                else
-                {
-                    MessageBox.Show("La funcionalidad ya fue seleccionada anteriormente !");
-                }
+            if (!IsInCollection(listViewItem))
+            {
+                listViewFuncionalidadesSeleccionadas.Items.Add(listViewItem);
             }
             else
             {
-                MessageBox.Show("La funcionalidad debe tener un nombre");
+                MessageBox.Show("La funcionalidad ya fue seleccionada anteriormente !");
             }
-
         }
 
-        private void updateRol() 
+        private void updateRol()
         {
             DBConnection dbConnection = DBConnection.getInstance();
             string updateRol = QueryProvider.UPDATE_ROL(this.txtNombre.Text, this.updateRolId);
@@ -184,13 +177,14 @@ namespace FrbaCrucero.AbmRol
             }
         }
 
-        private void cerrarYMostrarFormRoles() 
+        private void cerrarYMostrarFormRoles()
         {
             this.Close();
             this.RefToRolForm.Show();
         }
 
-        private void RolAltaForm_FormClosing(object sender, FormClosingEventArgs e) {
+        private void RolAltaForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
             cerrarYMostrarFormRoles();
         }
 
@@ -201,17 +195,36 @@ namespace FrbaCrucero.AbmRol
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
-            validarCampos();
-            if (isUpdate)
+            if (!String.IsNullOrWhiteSpace(this.txtNombre.Text))
             {
-                updateRol();
-                cerrarYMostrarFormRoles();
+                if (listViewFuncionalidadesSeleccionadas.Items.Count > 0)
+                {
+                try
+                {
+                    if (isUpdate)
+                    {
+                        updateRol();
+                        cerrarYMostrarFormRoles();
+                    }
+                    else
+                    {
+                        crearRol();
+                        cerrarYMostrarFormRoles();
+                    }
+                }
+                catch
+                {
+
+                }}else{
+                    MessageBox.Show("El rol debe tener al menos una funcionalidad");
+                }
             }
             else
             {
-                crearRol();
-                cerrarYMostrarFormRoles();
+                MessageBox.Show("El rol debe tener un nombre");
             }
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -230,7 +243,6 @@ namespace FrbaCrucero.AbmRol
 
         private void txtNombre_TextChanged(object sender, EventArgs e)
         {
-            Validaciones.ValidacionesHelper.validarCampoSoloTexto(this.txtNombre);
         }
 
         private void listViewFuncionalidadesSeleccionadas_SelectedIndexChanged(object sender, EventArgs e)

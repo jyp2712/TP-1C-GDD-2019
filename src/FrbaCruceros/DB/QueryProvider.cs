@@ -57,7 +57,7 @@ namespace FrbaCrucero.DB
 
         public static string SELECT_RECORRIDOS_TEXTUAL(string nombreRecorrido)
         {
-            return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_estado=1 AND reco_codigo =" + nombreRecorrido;
+            return "SELECT reco_id, reco_codigo, reco_origen_id, reco_destino_id, reco_precio FROM [EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_estado=1 AND reco_codigo =" + nombreRecorrido;
         }
 
         public static string SELECT_RECORRIDOS_MAX_ID(string nombreRecorrido)
@@ -67,7 +67,7 @@ namespace FrbaCrucero.DB
 
         public static string SELECT_RECORRIDOS_LIKE(string nombreRecorrido)
         {
-            return "SELECT * FROM [EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_estado=1 AND reco_codigo LIKE '%" + nombreRecorrido + "%'";
+            return "SELECT reco_id, reco_codigo, reco_origen_id, reco_destino_id, reco_precio FROM [EYE_OF_THE_TRIGGER].[Recorrido] WHERE reco_estado=1 AND reco_codigo LIKE '%" + nombreRecorrido + "%'";
         }
 
         public static string SELECT_CRUCEROS_TEXTUAL(string nombreCrucero)
