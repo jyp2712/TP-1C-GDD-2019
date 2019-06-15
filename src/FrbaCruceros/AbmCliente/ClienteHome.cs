@@ -21,11 +21,12 @@ namespace FrbaCrucero.AbmCliente
         private String tipoDocumento { get; set; }
         DBConnection dbConnection = DBConnection.getInstance();
 
-        public ClienteHome()
+        public ClienteHome(string doc)
         {
             this.tipoDocumento = "DNI";
             InitializeComponent();
             cargarTiposDocumentos();
+            this.Documento.Text = doc; 
             this.dateTimePicker1.MaxDate = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings["fechaSistema"]).AddYears(-18);
 
         }

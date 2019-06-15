@@ -237,22 +237,29 @@ namespace FrbaCrucero.PagoReserva
 
         private void button1_Click(object sender, EventArgs e)
         {
+            ClienteHome clienteForm;
             if (reserva == null)
             {
-                ClienteHome clienteForm = new ClienteHome();
-                var result = clienteForm.ShowDialog();
-                if (result == DialogResult.OK)
+                if (Cliente == null)
                 {
-                    int cliente_id = clienteForm.ClienteId;            //values preserved after close
-                    this.btnReservar.Enabled = true;
-                    string query = QueryProvider.SELECT_CLIENTE_COMPLETO(cliente_id);
-                    DataSet clienteDs = DBConnection.getInstance().executeQuery(query);
-                    this.Cliente = new Cliente(clienteDs);
+                    clienteForm = new ClienteHome("");
                 }
+                else
+                { clienteForm = new ClienteHome(Cliente.Doc.ToString()); }
+                    var result = clienteForm.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        int cliente_id = clienteForm.ClienteId;            //values preserved after close
+                        this.btnReservar.Enabled = true;
+                        string query = QueryProvider.SELECT_CLIENTE_COMPLETO(cliente_id);
+                        DataSet clienteDs = DBConnection.getInstance().executeQuery(query);
+                        this.Cliente = new Cliente(clienteDs);
+                    }
+                
             }
             else
             {
-                ClienteHome clienteForm = new ClienteHome(reserva.Cliente.Doc);
+                clienteForm = new ClienteHome(reserva.Cliente.Doc);
                 clienteForm.Show();
             }
 
