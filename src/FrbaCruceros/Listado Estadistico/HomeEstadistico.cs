@@ -32,7 +32,7 @@ namespace FrbaCrucero.Listado_Estadistico
 
             proceduresPorIdFormato.Add(0, "top5_recorridos_mas_pasajes_comprados");
             proceduresPorIdFormato.Add(1, "top5_recorridos_mas_cabinas_libres_viaje_realizado");
-            proceduresPorIdFormato.Add(2, "top5_cruceros_con_mayor_periodo_inahabilitado");
+            proceduresPorIdFormato.Add(2, "top5_cruceros_con_mayor_periodo_inhabilitado");
 
             InitializeComponent();
 
@@ -45,6 +45,7 @@ namespace FrbaCrucero.Listado_Estadistico
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Console.WriteLine(anio);
             resultados = DBAdapter.traerDataTable(procedureAEjecutar, semestre, anio);
             cargarGrilla(dataGridView1, resultados);
         }

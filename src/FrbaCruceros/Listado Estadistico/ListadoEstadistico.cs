@@ -53,12 +53,12 @@ namespace FrbaCrucero.Listado_Estadistico
 
         public override void ValidarErroresConcretos()
         {
-            ValidarVaciosYLongitud(new string[] { "Año", "Trimestre" }, new object[] { _anio.Text, _semestre.SelectedItem });
+            ValidarVaciosYLongitud(new string[] { "Año", "Semestre" }, new object[] { _anio.Text, _semestre.SelectedItem });
             ValidarNumericos(anio);
             try
             {
                 if (Convert.ToInt32(anio) < 2010 || Convert.ToInt32(anio) > 2020)
-                    errorMessage += "El campo año debe tener un valor comrpendido entre 2000 y 2100\n";
+                    errorMessage += "El campo año debe tener un valor comrpendido entre 2010 y 2020\n";
             }
             catch (Exception) { }
 

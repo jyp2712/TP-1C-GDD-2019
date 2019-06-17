@@ -1035,7 +1035,7 @@ PRINT''
 PRINT '----- Insertando Funcionalidades -----'
 INSERT INTO EYE_OF_THE_TRIGGER.Funcionalidad (func_nombre) 
 VALUES ('Administrar Roles'), ('Administrar Usuarios'), ('Administrar Puertos'), ('Administrar Recorridos'), ('Administrar Cruceros'),
-('Administrar Viajes'), ('Listado EstadiDstico'), ('Realizar Compras y/o Reservas')
+('Administrar Viajes'), ('Listado Estadistico'), ('Realizar Compras y/o Reservas')
 
 
 PRINT''
@@ -1226,7 +1226,7 @@ FROM EYE_OF_THE_TRIGGER.Recorrido r
 JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id = rv.reco_id
 JOIN EYE_OF_THE_TRIGGER.Viaje v ON rv.viaj_id = v.viaj_id
 JOIN EYE_OF_THE_TRIGGER.Reserva res ON res.rese_viaje_id = v.viaj_id
-WHERE res.rese_estado_reserva = 1 AND (FLOOR(MONTH(res.rese_fecha_creacion)/2) + 1) = @semestre
+WHERE res.rese_estado_reserva = 1 AND (FLOOR(MONTH(res.rese_fecha_creacion)/7) + 1) = @semestre
 	AND YEAR(res.rese_fecha_creacion) = @anio
 GROUP BY r.reco_codigo
 ORDER BY cant_viajes DESC
@@ -1259,7 +1259,7 @@ FROM EYE_OF_THE_TRIGGER.Recorrido r
 JOIN EYE_OF_THE_TRIGGER.RecorridoViaje rv ON r.reco_id = rv.reco_id
 JOIN EYE_OF_THE_TRIGGER.Viaje v ON rv.viaj_id = v.viaj_id
 JOIN EYE_OF_THE_TRIGGER.Reserva res ON res.rese_viaje_id = v.viaj_id
-WHERE res.rese_estado_reserva = 1 AND (FLOOR(MONTH(res.rese_fecha_creacion)/2) + 1) = @semestre
+WHERE res.rese_estado_reserva = 1 AND (FLOOR(MONTH(res.rese_fecha_creacion)/7) + 1) = @semestre
 	AND YEAR(res.rese_fecha_creacion) = @anio
 GROUP BY r.reco_codigo, res.rese_crucero_id
 ORDER BY cant_cabinas_libres DESC
@@ -1275,10 +1275,10 @@ GO
 CREATE PROCEDURE [EYE_OF_THE_TRIGGER].top5_cruceros_con_mayor_periodo_inhabilitado(@semestre as bigint, @anio as bigint) AS
 
 SELECT DISTINCT TOP 5
-		inhab_crucero_id, inhab_fecha_inicio, inhab_fecha_fin, inhab_motivo, 
+		inhab_crucero_id, inhab_fecha_inicio, inhab_fecha_fin,
 		DATEDIFF(DAY, inhab_fecha_inicio,inhab_fecha_fin) cant_dias_inhabilitado
 FROM EYE_OF_THE_TRIGGER.CruceroInhabilitado
-WHERE (FLOOR(MONTH(inhab_fecha_inicio)/2) + 1) = @semestre
+WHERE inhab_motivo = 'Fuera de Servicio' AND (FLOOR(MONTH(inhab_fecha_inicio)/7) + 1) = @semestre
 	AND YEAR(inhab_fecha_inicio) = @anio
 ORDER BY cant_dias_inhabilitado DESC
 
