@@ -93,18 +93,18 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(8, 68);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 13);
+            this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Fecha de salida:";
+            this.label4.Text = "Salida desde:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(8, 94);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(93, 13);
+            this.label5.Size = new System.Drawing.Size(68, 13);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Fecha de regreso:";
+            this.label5.Text = "Salida hasta:";
             // 
             // label6
             // 

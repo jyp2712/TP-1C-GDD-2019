@@ -45,7 +45,6 @@ namespace FrbaCrucero.Listado_Estadistico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(anio);
             resultados = DBAdapter.traerDataTable(procedureAEjecutar, semestre, anio);
             cargarGrilla(dataGridView1, resultados);
         }
