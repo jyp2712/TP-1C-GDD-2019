@@ -2,5 +2,4 @@ bin/
 obj/
 *.suo
 *.v11
-*.csproj
 FrbaCrucero.v11.suo
